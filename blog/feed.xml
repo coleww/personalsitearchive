@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Blog Name</title>
   <subtitle>Blog subtitle</subtitle>
-  <id>http://blog.url.com/blog</id>
-  <link href="http://blog.url.com/blog"/>
+  <id>http://blog.url.com/</id>
+  <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
   <updated>2015-05-30T12:12:00-07:00</updated>
   <author>
@@ -11,10 +11,10 @@
   </author>
   <entry>
     <title>100% EZ Syntax Highlighting With Middleman</title>
-    <link rel="alternate" href="http://blog.url.com/blog/syntax-highlighting-in-middleman.html"/>
-    <id>http://blog.url.com/blog/syntax-highlighting-in-middleman.html</id>
+    <link rel="alternate" href="http://blog.url.com/syntax-highlighting-in-middleman.html"/>
+    <id>http://blog.url.com/syntax-highlighting-in-middleman.html</id>
     <published>2015-05-30T12:12:00-07:00</published>
-    <updated>2015-05-30T16:04:25-07:00</updated>
+    <updated>2015-05-30T16:41:08-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
