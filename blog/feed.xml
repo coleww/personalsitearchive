@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Blog Name</title>
+  <subtitle>Blog subtitle</subtitle>
+  <id>http://blog.url.com/blog</id>
+  <link href="http://blog.url.com/blog"/>
+  <link href="http://blog.url.com/feed.xml" rel="self"/>
+  <updated>2015-05-30T12:12:00-07:00</updated>
+  <author>
+    <name>Blog Author</name>
+  </author>
+  <entry>
+    <title>100% EZ Syntax Highlighting With Middleman</title>
+    <link rel="alternate" href="http://blog.url.com/blog/syntax-highlighting-in-middleman.html"/>
+    <id>http://blog.url.com/blog/syntax-highlighting-in-middleman.html</id>
+    <published>2015-05-30T12:12:00-07:00</published>
+    <updated>2015-05-30T16:04:25-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;100% EZ Syntax Highlighting With Middleman&lt;/h1&gt;
+
+&lt;h2&gt;A Meta Blog About This Middleman Blog&lt;/h2&gt;
+
+&lt;p&gt;I just got these nifty syntax-highlighted-code-blocks working so I thought to myself &amp;ldquo;why not write a blog about setting up my blog? what could possibly be more fascinating?&amp;rdquo;. The answers to those questions being &amp;ldquo;there is no reason not to&amp;rdquo; and &amp;ldquo;nothing&amp;rdquo; respectively.&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ll be using the &lt;a href="https://github.com/middleman/middleman-syntax"&gt;middleman-syntax gem&lt;/a&gt; in a standard, run-of-the-mill, fresh from the generator, uncustomized Middleman project.&lt;/p&gt;
+
+&lt;h4&gt;Step 1: Add some gems to the &lt;code&gt;/Gemfile&lt;/code&gt; and &lt;code&gt;bundle install&lt;/code&gt;&lt;/h4&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;    &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s2"&gt;"middleman-syntax"&lt;/span&gt;
+    &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s2"&gt;"redcarpet"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;middleman-syntax will work with other markdown parsers, but if you&amp;rsquo;re at all like me you don&amp;rsquo;t really care what is parsing your markdown, so I went with &lt;a href="https://github.com/vmg/redcarpet"&gt;redcarpet&lt;/a&gt; because it&amp;rsquo;s what Github uses and that&amp;rsquo;s usually where I&amp;rsquo;m writing markdown.&lt;/p&gt;
+
+&lt;h4&gt;Step 2: Add these lines to the bottom of &lt;code&gt;/config.rb&lt;/code&gt;&lt;/h4&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;    &lt;span class="n"&gt;activate&lt;/span&gt; &lt;span class="ss"&gt;:syntax&lt;/span&gt;
+    &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="ss"&gt;:markdown_engine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:redcarpet&lt;/span&gt;
+    &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="ss"&gt;:markdown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:fenced_code_blocks&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kp"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:smartypants&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kp"&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;fenced_code_blocks&lt;/code&gt; adds a familiar and pretty background to help set your code blocks apart from the mere plain text that surrounds them. I have absolutely no idea what &lt;code&gt;smartypants&lt;/code&gt; is and the &lt;a href="https://middlemanapp.com/basics/template_engine_options/"&gt;middleman docs&lt;/a&gt; aren&amp;rsquo;t much help in this area, but I left it set to true because why wouldn&amp;rsquo;t you want a pair of smart pants?&lt;/p&gt;
+
+&lt;h4&gt;Step 3: Create a file name &lt;code&gt;highlighting.css.erb&lt;/code&gt; inside &lt;code&gt;/source/stylesheets&lt;/code&gt; and add this line&lt;/h4&gt;
+&lt;pre class="highlight erb"&gt;&lt;code&gt;    &lt;span class="cp"&gt;&amp;lt;%=&lt;/span&gt; &lt;span class="no"&gt;Rouge&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Themes&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:scope&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'.highlight'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="cp"&gt;%&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/jneen/rouge"&gt;Rouge&lt;/a&gt; is the actual library doing the syntax highlighting, and the documentation tells me that you can also try out these themes: &lt;code&gt;ThankfulEyes&lt;/code&gt;, &lt;code&gt;Colorful&lt;/code&gt;, &lt;code&gt;Github&lt;/code&gt;, &lt;code&gt;Base16&lt;/code&gt;, &lt;code&gt;Base16::Solarized&lt;/code&gt;, &lt;code&gt;Base16::Monokai&lt;/code&gt;, &lt;code&gt;Monokai&lt;/code&gt;. I went with Github in the hopes that it would help make developers feel at home reading my blog.&lt;/p&gt;
+
+&lt;h4&gt;Step 4: Reference the generated CSS in the head tag of your &lt;code&gt;/source/layout.erb&lt;/code&gt; file&lt;/h4&gt;
+&lt;pre class="highlight erb"&gt;&lt;code&gt;    &lt;span class="cp"&gt;&amp;lt;%=&lt;/span&gt; &lt;span class="n"&gt;stylesheet_link_tag&lt;/span&gt; &lt;span class="s2"&gt;"highlighting"&lt;/span&gt; &lt;span class="cp"&gt;%&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Middleman, much like Rails, has an asset pipeline which you can probably use to mix this file in with your other styles and export into a single minified, uglified, bonafide, electrified six-car monorail. But I don&amp;rsquo;t really understand CSS stuff (I mean, just &lt;em&gt;look&lt;/em&gt; at this website) so ask someone else about that.&lt;/p&gt;
+
+&lt;h4&gt;Step 5: Write about some code!&lt;/h4&gt;
+
+&lt;p&gt;You now can use code blocks in your markdown and get awesome highlighted syntax! Just use the triple backticks markdown blocks, and put the language name after the first set of backticks, like so:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;    ```ruby
+        puts "YOU ARE A CHAMPION NOW!"
+    ```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A full list of supported languages/syntaxes can be found &lt;a href="https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers"&gt;here&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+</feed>
