@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CCCC</title>
+    <title>CCCC - Eating Glue</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/blog/stylesheets/main.css" rel="stylesheet" type="text/css" />
   </head>
@@ -14,8 +14,7 @@
 </a>    </center>
 
     <div id="main" role="main">
-        <h2><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></h2>
-  <!-- <h1>EATING GLUE</h1>
+      <h1>EATING GLUE</h1>
 
 <h2>Taking Over the Paste Event</h2>
 
@@ -47,55 +46,6 @@
 <p>This approach is also fairly well aligned with the UNIX philosophy, which holds among it&rsquo;s tenets &ldquo;make small things&rdquo; and &ldquo;text in/text out&rdquo;. Only here, input is handled by the paste event and the output is a div. The web page itself does only one thing and nothing else which means it composes well with other modules, like perhaps using <code>cmd+f</code> to find things in the formatted JSON. And if I needed to add an option for controlling the indentation level I could perhaps add it as a query param in the URL.</p>
 
 <p>The JSON formatter is actually just a wrapper around a node module called <a href="https://github.com/JerrySievert/json">json-nice</a>, and there are probably many other small command line tools that could benefit from being turned into tiny web apps. With <a href="https://github.com/substack/browserify-handbook">browserify</a> and <a href="http://maxogden.com/node-packaged-modules.html">npm</a> this becomes really easy.</p>
- -->
-  <h2><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></h2>
-  <!-- <h1>100% EZ Syntax Highlighting With Middleman</h1>
-
-<h2>A Meta Blog About This Middleman Blog</h2>
-
-<p>I just got these nifty syntax-highlighted-code-blocks working so I thought to myself &ldquo;why not write a blog about setting up my blog? what could possibly be more fascinating?&rdquo;. The answers to those questions being &ldquo;there is no reason not to&rdquo; and &ldquo;nothing&rdquo; respectively.</p>
-
-<p>We&rsquo;ll be using the <a href="https://github.com/middleman/middleman-syntax">middleman-syntax gem</a> in a standard, run-of-the-mill, fresh from the generator, uncustomized Middleman project.</p>
-
-<h4>Step 1: Add some gems to the <code>/Gemfile</code> and <code>bundle install</code></h4>
-<pre class="highlight ruby"><code>    <span class="n">gem</span> <span class="s2">"middleman-syntax"</span>
-    <span class="n">gem</span> <span class="s2">"redcarpet"</span>
-</code></pre>
-
-<p>middleman-syntax will work with other markdown parsers, but if you&rsquo;re at all like me you don&rsquo;t really care what is parsing your markdown, so I went with <a href="https://github.com/vmg/redcarpet">redcarpet</a> because it&rsquo;s what Github uses and that&rsquo;s usually where I&rsquo;m writing markdown.</p>
-
-<h4>Step 2: Add these lines to the bottom of <code>/config.rb</code></h4>
-<pre class="highlight ruby"><code>    <span class="n">activate</span> <span class="ss">:syntax</span>
-    <span class="n">set</span> <span class="ss">:markdown_engine</span><span class="p">,</span> <span class="ss">:redcarpet</span>
-    <span class="n">set</span> <span class="ss">:markdown</span><span class="p">,</span> <span class="ss">:fenced_code_blocks</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:smartypants</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-</code></pre>
-
-<p><code>fenced_code_blocks</code> adds a familiar and pretty background to help set your code blocks apart from the mere plain text that surrounds them. I have absolutely no idea what <code>smartypants</code> is and the <a href="https://middlemanapp.com/basics/template_engine_options/">middleman docs</a> aren&rsquo;t much help in this area, but I left it set to true because why wouldn&rsquo;t you want a pair of smart pants?</p>
-
-<h4>Step 3: Create a file name <code>highlighting.css.erb</code> inside <code>/source/stylesheets</code> and add this line</h4>
-<pre class="highlight erb"><code>    <span class="cp">&lt;%=</span> <span class="no">Rouge</span><span class="o">::</span><span class="no">Themes</span><span class="o">::</span><span class="no">Github</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="ss">:scope</span> <span class="o">=&gt;</span> <span class="s1">'.highlight'</span><span class="p">)</span> <span class="cp">%&gt;</span>
-</code></pre>
-
-<p><a href="https://github.com/jneen/rouge">Rouge</a> is the actual library doing the syntax highlighting, and the documentation tells me that you can also try out these themes: <code>ThankfulEyes</code>, <code>Colorful</code>, <code>Github</code>, <code>Base16</code>, <code>Base16::Solarized</code>, <code>Base16::Monokai</code>, <code>Monokai</code>. I went with Github in the hopes that it would help make developers feel at home reading my blog.</p>
-
-<h4>Step 4: Reference the generated CSS in the head tag of your <code>/source/layout.erb</code> file</h4>
-<pre class="highlight erb"><code>    <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span> <span class="s2">"highlighting"</span> <span class="cp">%&gt;</span>
-</code></pre>
-
-<p>Middleman, much like Rails, has an asset pipeline which you can probably use to mix this file in with your other styles and export into a single minified, uglified, bonafide, electrified six-car monorail. But I don&rsquo;t really understand CSS stuff (I mean, just <em>look</em> at this website) so ask someone else about that.</p>
-
-<h4>Step 5: Write about some code!</h4>
-
-<p>You now can use code blocks in your markdown and get awesome highlighted syntax! Just use the triple backticks markdown blocks, and put the language name after the first set of backticks, like so:</p>
-<pre class="highlight plaintext"><code>    ```ruby
-        puts "YOU ARE A CHAMPION NOW!"
-    ```
-</code></pre>
-
-<p>A full list of supported languages/syntaxes can be found <a href="https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers">here</a>.</p>
- -->
-<br /><br /><br /><br /><br /><br /><br /><br /><br />
-
 
     </div>
 
