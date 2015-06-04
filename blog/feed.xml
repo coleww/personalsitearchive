@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/eating-glue-and-paste.html"/>
     <id>http://blog.url.com/blog/eating-glue-and-paste.html</id>
     <published>2015-06-03T16:37:00-07:00</published>
-    <updated>2015-06-04T14:25:49-07:00</updated>
+    <updated>2015-06-04T14:32:49-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -43,9 +43,9 @@
 
 &lt;h4&gt;ok but why&lt;/h4&gt;
 
-&lt;p&gt;I used this trick to build a &lt;a href="http://coleww.github.io/json-formatter/"&gt;JSON formatter&lt;/a&gt; [&lt;a href="https://github.com/coleww/json-formatter"&gt;code&lt;/a&gt;] because I wanted to be able to quickly paste a JSON blob to the page and see it transformed, and an input field or textarea would just get in the way of things.&lt;/p&gt;
+&lt;p&gt;I used this trick to build a &lt;a href="http://coleww.github.io/json-formatter/"&gt;JSON formatter&lt;/a&gt; [&lt;a href="https://github.com/coleww/json-formatter"&gt;code&lt;/a&gt;] because I wanted to quickly paste a JSON blob to the page and see it transformed, and an input field or textarea would just get in the way of things. Most JSON formatters on the web are laden with options and advertisements, but all I really needed was a quick way to inspect API responses.&lt;/p&gt;
 
-&lt;p&gt;This approach is also fairly well aligned with the UNIX philosophy, which holds among it&amp;rsquo;s tenets &amp;ldquo;make small things&amp;rdquo; and &amp;ldquo;text in/text out&amp;rdquo;. Only here, input is handled by the paste event and the output is a div. The web page itself does only one thing and nothing else which means it composes well with other modules, like perhaps using &lt;code&gt;cmd+f&lt;/code&gt; to find things in the formatted JSON. And if I needed to add an option for controlling the indentation level I could perhaps add it as a query param in the URL.&lt;/p&gt;
+&lt;p&gt;This approach is well aligned with the UNIX philosophy, which holds among it&amp;rsquo;s tenets &amp;ldquo;make small things&amp;rdquo; and &amp;ldquo;text in/text out&amp;rdquo;. Only in this instance, input is handled by the paste event and the output is a div. The web page itself does only one thing and nothing else (literally, there isn&amp;rsquo;t even a title or attribution) which means it composes well with other &amp;ldquo;modules&amp;rdquo; in the browser, like for example using &lt;code&gt;cmd+f&lt;/code&gt; to find things in the formatted JSON. And if I needed to add an option for controlling the indentation level or something I could perhaps add it as a query param in the URL.&lt;/p&gt;
 
 &lt;p&gt;The JSON formatter is actually just a wrapper around a node module called &lt;a href="https://github.com/JerrySievert/json"&gt;json-nice&lt;/a&gt;, and there are probably many other small command line tools that could benefit from being turned into tiny web apps. With &lt;a href="https://github.com/substack/browserify-handbook"&gt;browserify&lt;/a&gt; and &lt;a href="http://maxogden.com/node-packaged-modules.html"&gt;npm&lt;/a&gt; this becomes really easy.&lt;/p&gt;
 </content>
