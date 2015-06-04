@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/eating-glue-and-paste.html"/>
     <id>http://blog.url.com/blog/eating-glue-and-paste.html</id>
     <published>2015-06-03T16:37:00-07:00</published>
-    <updated>2015-06-04T14:21:29-07:00</updated>
+    <updated>2015-06-04T14:24:10-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -22,7 +22,7 @@
 
 &lt;h2&gt;Taking Over the Paste Event&lt;/h2&gt;
 
-&lt;p&gt;Over the years browsers have gained more and more access to the underlying operating system level goodness, like your camera and GPS coordinates. This level of intrusivenes used to only be possible for those who made use of awkward Flash hacks, but today this sort of stuff is made available through simple JavaScript APIs to every website you visit. &lt;em&gt;Awesome.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Though they started out as simple document viewers, over the years web browsers have escaped from their sandbox and gained more and more access to operating system level goodness, like your camera and GPS coordinates. This level of intrusivenes used to only be possible for those who made use of awkward Flash hacks, but today this sort of stuff is made available through simple JavaScript APIs to every website you visit. &lt;em&gt;Awesome.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="Ralph likes to hack JavaScript" src="/blog/images/paste.jpg" /&gt;&lt;/p&gt;
 
