@@ -28,19 +28,15 @@
 
 <p>With deng near fifty of these things running, I was not much pleased to hear about the new Heroku pricing plan. Though of course I couldn&rsquo;t get mad cuz it was free servers in the first place. While I could have meticulously gone through all my Heroku apps and updated them to not loop/sleep forever and instead scheduled the scripts to run at various intervals, I figured it was finally time to get close to that cloud server metal and put together a lil droplet for myself in the Digital Ocean.</p>
 
-<p>There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.</p>
+<p>There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.  It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&rsquo;s totally boring.</p>
 
-<ol>
+<ul>
 <li>WHY IS THERE NO NODE.JS HERE?!</li>
-</ol>
+</ul>
 
-<p>Even though I had installed all the nodes and rubies, my cron seemed to just ignore them. I thought that was quite rude.</p>
+<p>Even though I had installed all the nodes and rubies, my cron seemed to just ignore them. I thought that was quite rude. To fix this, you just need to export your path. Enter <code>echo PATH=$PATH</code> and copy paste the output into your crontab.</p>
 
-<p>It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&rsquo;s totally boring.</p>
-
-<p>To fix this, we just need to export our path. First, enter <code>echo PATH=$PATH</code> to export your droplet&rsquo;s path, and then copy paste the output into your crontab.</p>
-
-<p>This was my output:</p>
+<p>This was what I saw:</p>
 <pre class="highlight plaintext"><code>root@1404-64:~# echo PATH=$PATH
 PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/rvm/bin
 </code></pre>
@@ -53,11 +49,11 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr$
 </code></pre>
 
-<ol>
+<ul>
 <li>.././../././relative paths :&lt;</li>
-</ol>
+</ul>
 
-<p>So now I had node, but my require(&rsquo;./module&rsquo;) calls didn&rsquo;t seem to work! Cron apparently is not only PATHless but also pathless. My crons looked something like <code>* * * * * node bots/lolbot/bot.js &gt;&gt; ~/lol.log</code> but in order to correctly set my working path, I just had to <code>cd</code> into it&rsquo;s directory before running it, like so: <code>* * * * * cd bots/lolbot &amp;&amp; node bot.js &gt;&gt; ~/lol.log</code>.</p>
+<p>Now I had node, but my require(&rsquo;./module&rsquo;) calls didn&rsquo;t seem to work! Cron apparently is not only PATHless but also pathless. My crons looked something like <code>* * * * * node bots/lolbot/bot.js &gt;&gt; ~/lol.log</code> but in order to correctly set my working path, I just had to <code>cd</code> into the parent directory before running the script, like so: <code>* * * * * cd bots/lolbot &amp;&amp; node bot.js &gt;&gt; ~/lol.log</code>.</p>
 
 <hr>
 

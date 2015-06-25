@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/do-cron.html"/>
     <id>http://blog.url.com/blog/do-cron.html</id>
     <published>2015-06-22T20:21:00-07:00</published>
-    <updated>2015-06-24T22:32:41-07:00</updated>
+    <updated>2015-06-24T22:36:13-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -32,19 +32,15 @@
 
 &lt;p&gt;With deng near fifty of these things running, I was not much pleased to hear about the new Heroku pricing plan. Though of course I couldn&amp;rsquo;t get mad cuz it was free servers in the first place. While I could have meticulously gone through all my Heroku apps and updated them to not loop/sleep forever and instead scheduled the scripts to run at various intervals, I figured it was finally time to get close to that cloud server metal and put together a lil droplet for myself in the Digital Ocean.&lt;/p&gt;
 
-&lt;p&gt;There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.&lt;/p&gt;
+&lt;p&gt;There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.  It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&amp;rsquo;s totally boring.&lt;/p&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
 &lt;li&gt;WHY IS THERE NO NODE.JS HERE?!&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;Even though I had installed all the nodes and rubies, my cron seemed to just ignore them. I thought that was quite rude.&lt;/p&gt;
+&lt;p&gt;Even though I had installed all the nodes and rubies, my cron seemed to just ignore them. I thought that was quite rude. To fix this, you just need to export your path. Enter &lt;code&gt;echo PATH=$PATH&lt;/code&gt; and copy paste the output into your crontab.&lt;/p&gt;
 
-&lt;p&gt;It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&amp;rsquo;s totally boring.&lt;/p&gt;
-
-&lt;p&gt;To fix this, we just need to export our path. First, enter &lt;code&gt;echo PATH=$PATH&lt;/code&gt; to export your droplet&amp;rsquo;s path, and then copy paste the output into your crontab.&lt;/p&gt;
-
-&lt;p&gt;This was my output:&lt;/p&gt;
+&lt;p&gt;This was what I saw:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;root@1404-64:~# echo PATH=$PATH
 PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/rvm/bin
 &lt;/code&gt;&lt;/pre&gt;
@@ -57,11 +53,11 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr$
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
 &lt;li&gt;.././../././relative paths :&amp;lt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;So now I had node, but my require(&amp;rsquo;./module&amp;rsquo;) calls didn&amp;rsquo;t seem to work! Cron apparently is not only PATHless but also pathless. My crons looked something like &lt;code&gt;* * * * * node bots/lolbot/bot.js &amp;gt;&amp;gt; ~/lol.log&lt;/code&gt; but in order to correctly set my working path, I just had to &lt;code&gt;cd&lt;/code&gt; into it&amp;rsquo;s directory before running it, like so: &lt;code&gt;* * * * * cd bots/lolbot &amp;amp;&amp;amp; node bot.js &amp;gt;&amp;gt; ~/lol.log&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now I had node, but my require(&amp;rsquo;./module&amp;rsquo;) calls didn&amp;rsquo;t seem to work! Cron apparently is not only PATHless but also pathless. My crons looked something like &lt;code&gt;* * * * * node bots/lolbot/bot.js &amp;gt;&amp;gt; ~/lol.log&lt;/code&gt; but in order to correctly set my working path, I just had to &lt;code&gt;cd&lt;/code&gt; into the parent directory before running the script, like so: &lt;code&gt;* * * * * cd bots/lolbot &amp;amp;&amp;amp; node bot.js &amp;gt;&amp;gt; ~/lol.log&lt;/code&gt;.&lt;/p&gt;
 
 &lt;hr&gt;
 
