@@ -15,7 +15,11 @@
 
     <div id="main" role="main">
         <h2><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></h2>
-  <!-- <p>I used to deploy all my bots to Heroku, running in constant loops on those sweet sweet free single dynos.</p>
+  <!-- <h1>automating bots with cron on digital ocean</h1>
+
+<h2>because setInterval is probably not the right thing to do</h2>
+
+<p>I used to deploy all my bots to Heroku, running in constant loops on those sweet sweet free single dynos.</p>
 
 <p>They looked something like this:</p>
 <pre class="highlight ruby"><code>    <span class="kp">loop</span> <span class="k">do</span>
@@ -30,6 +34,8 @@
 <p>With deng near fifty of these things running, I was not much pleased to hear about the new Heroku pricing plan. Though of course I couldn&rsquo;t get mad cuz it was free servers in the first place. While I could have meticulously gone through all my Heroku apps and updated them to not loop/sleep forever and instead scheduled the scripts to run at various intervals, I figured it was finally time to get close to that cloud server metal and put together a lil droplet for myself in the Digital Ocean.</p>
 
 <p>There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.  It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&rsquo;s totally boring.</p>
+
+<p><img alt="corn" src="/blog/images/corn.jpg" /></p>
 
 <ul>
 <li>WHY IS THERE NO NODE.JS HERE?!</li>
