@@ -14,7 +14,57 @@
 </a>    </center>
 
     <div id="main" role="main">
-        <h2><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></h2>
+        <h2><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></h2>
+  <!-- <p>I used to deploy all my bots to Heroku, running in constant loops on those sweet sweet free single dynos.</p>
+
+<p>They looked something like this:</p>
+<pre class="highlight ruby"><code>    <span class="kp">loop</span> <span class="k">do</span>
+        <span class="c1"># do some stuff</span>
+        <span class="no">BOT</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="n">funny_tweet_lol</span><span class="p">)</span>
+        <span class="nb">sleep</span> <span class="mi">10800</span> <span class="o">+</span> <span class="p">(</span><span class="nb">rand</span> <span class="mi">5400</span><span class="p">)</span>
+    <span class="k">end</span>
+</code></pre>
+
+<p>This is&hellip;not optimal for a number of reasons. But since I could create new Heroku apps for free from the command line it was super easy, and, well, why not. I even made a <a href="https://github.com/coleww/twitter_bot_generator">twitter bot generator ruby gem</a> around the concept. Don&rsquo;t judge me.</p>
+
+<p>With deng near fifty of these things running, I was not much pleased to hear about the new Heroku pricing plan. Though of course I couldn&rsquo;t get mad cuz it was free servers in the first place. While I could have meticulously gone through all my Heroku apps and updated them to not loop/sleep forever and instead scheduled the scripts to run at various intervals, I figured it was finally time to get close to that cloud server metal and put together a lil droplet for myself in the Digital Ocean.</p>
+
+<p>There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.</p>
+
+<ol>
+<li>WHY IS THERE NO NODE.JS HERE?!</li>
+</ol>
+
+<p>Even though I had installed all the nodes and rubies, my cron seemed to just ignore them. I thought that was quite rude.</p>
+
+<p>It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&rsquo;s totally boring.</p>
+
+<p>To fix this, we just need to export our path. First, enter <code>echo PATH=$PATH</code> to export your droplet&rsquo;s path, and then copy paste the output into your crontab.</p>
+
+<p>This was my output:</p>
+<pre class="highlight plaintext"><code>root@1404-64:~# echo PATH=$PATH
+PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/rvm/bin
+</code></pre>
+
+<p>And just dump it in the <code>crontab -e</code> before your job listings.</p>
+<pre class="highlight plaintext"><code>#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h  dom mon dow   command
+PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr$
+</code></pre>
+
+<ol>
+<li>.././../././relative paths :&lt;</li>
+</ol>
+
+<p>So now I had node, but my require(&rsquo;./module&rsquo;) calls didn&rsquo;t seem to work! Cron apparently is not only PATHless but also pathless. My crons looked something like <code>* * * * * node bots/lolbot/bot.js &gt;&gt; ~/lol.log</code> but in order to correctly set my working path, I just had to <code>cd</code> into it&rsquo;s directory before running it, like so: <code>* * * * * cd bots/lolbot &amp;&amp; node bot.js &gt;&gt; ~/lol.log</code>.</p>
+
+<hr>
+
+<p>This &ldquo;blog post&rdquo; was <a href="https://twitter.com/colewillsea/lists/my-robots">tested</a> on a 512MB Ram20GB SSD Disk Ubuntu 14.04 x64 Digital Ocean droplet but will probably apply for pretty much any linux-y system anywhere.</p>
+ -->
+  <h2><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></h2>
   <!-- <h1>EATING GLUE</h1>
 
 <h2>Taking Over the Paste Event</h2>
@@ -41,6 +91,14 @@
 <h4>ok but why</h4>
 
 <p>I used this trick to build a <a href="http://coleww.github.io/json-formatter/">JSON formatter</a> [<a href="https://github.com/coleww/json-formatter">code</a>] because I wanted to quickly paste a JSON blob to the page and see it transformed, and an input field or textarea would just get in the way of things. Most JSON formatters on the web are laden with options and advertisements, but all I really needed was a quick way to inspect API responses.</p>
+
+<p>By hacking the paste event, I was able to take something that looked like this:</p>
+
+<p><img alt="before" src="/blog/images/json-og.png" /></p>
+
+<p>And make it work more like this:</p>
+
+<p><img alt="after" src="/blog/images/json-example.gif" /></p>
 
 <p>This approach is well aligned with the UNIX philosophy, which holds among it&rsquo;s tenets &ldquo;make small things&rdquo; and &ldquo;text in/text out&rdquo;. Only in this instance, input is handled by the paste event and the output is a div. The web page itself does only one thing and nothing else (literally, there isn&rsquo;t even a title or attribution) which means it composes well with other &ldquo;modules&rdquo; in the browser, like for example using <code>cmd+f</code> to find things in the formatted JSON. And if I needed to add an option for controlling the indentation level or something I could perhaps add it as a query param in the URL.</p>
 
@@ -105,6 +163,7 @@
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ol>
+          <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
           <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
           <li><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></li>
       </ol>

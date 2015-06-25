@@ -5,16 +5,75 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2015-06-03T16:37:00-07:00</updated>
+  <updated>2015-06-22T20:21:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>automating bots with cron on digital ocean</title>
+    <link rel="alternate" href="http://blog.url.com/blog/do-cron.html"/>
+    <id>http://blog.url.com/blog/do-cron.html</id>
+    <published>2015-06-22T20:21:00-07:00</published>
+    <updated>2015-06-24T22:32:41-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;I used to deploy all my bots to Heroku, running in constant loops on those sweet sweet free single dynos.&lt;/p&gt;
+
+&lt;p&gt;They looked something like this:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;    &lt;span class="kp"&gt;loop&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+        &lt;span class="c1"&gt;# do some stuff&lt;/span&gt;
+        &lt;span class="no"&gt;BOT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;funny_tweet_lol&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="nb"&gt;sleep&lt;/span&gt; &lt;span class="mi"&gt;10800&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;rand&lt;/span&gt; &lt;span class="mi"&gt;5400&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is&amp;hellip;not optimal for a number of reasons. But since I could create new Heroku apps for free from the command line it was super easy, and, well, why not. I even made a &lt;a href="https://github.com/coleww/twitter_bot_generator"&gt;twitter bot generator ruby gem&lt;/a&gt; around the concept. Don&amp;rsquo;t judge me.&lt;/p&gt;
+
+&lt;p&gt;With deng near fifty of these things running, I was not much pleased to hear about the new Heroku pricing plan. Though of course I couldn&amp;rsquo;t get mad cuz it was free servers in the first place. While I could have meticulously gone through all my Heroku apps and updated them to not loop/sleep forever and instead scheduled the scripts to run at various intervals, I figured it was finally time to get close to that cloud server metal and put together a lil droplet for myself in the Digital Ocean.&lt;/p&gt;
+
+&lt;p&gt;There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;WHY IS THERE NO NODE.JS HERE?!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Even though I had installed all the nodes and rubies, my cron seemed to just ignore them. I thought that was quite rude.&lt;/p&gt;
+
+&lt;p&gt;It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&amp;rsquo;s totally boring.&lt;/p&gt;
+
+&lt;p&gt;To fix this, we just need to export our path. First, enter &lt;code&gt;echo PATH=$PATH&lt;/code&gt; to export your droplet&amp;rsquo;s path, and then copy paste the output into your crontab.&lt;/p&gt;
+
+&lt;p&gt;This was my output:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;root@1404-64:~# echo PATH=$PATH
+PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/rvm/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And just dump it in the &lt;code&gt;crontab -e&lt;/code&gt; before your job listings.&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h  dom mon dow   command
+PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;.././../././relative paths :&amp;lt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So now I had node, but my require(&amp;rsquo;./module&amp;rsquo;) calls didn&amp;rsquo;t seem to work! Cron apparently is not only PATHless but also pathless. My crons looked something like &lt;code&gt;* * * * * node bots/lolbot/bot.js &amp;gt;&amp;gt; ~/lol.log&lt;/code&gt; but in order to correctly set my working path, I just had to &lt;code&gt;cd&lt;/code&gt; into it&amp;rsquo;s directory before running it, like so: &lt;code&gt;* * * * * cd bots/lolbot &amp;amp;&amp;amp; node bot.js &amp;gt;&amp;gt; ~/lol.log&lt;/code&gt;.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;This &amp;ldquo;blog post&amp;rdquo; was &lt;a href="https://twitter.com/colewillsea/lists/my-robots"&gt;tested&lt;/a&gt; on a 512MB Ram20GB SSD Disk Ubuntu 14.04 x64 Digital Ocean droplet but will probably apply for pretty much any linux-y system anywhere.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Eating Glue</title>
     <link rel="alternate" href="http://blog.url.com/blog/eating-glue-and-paste.html"/>
     <id>http://blog.url.com/blog/eating-glue-and-paste.html</id>
     <published>2015-06-03T16:37:00-07:00</published>
-    <updated>2015-06-04T14:32:49-07:00</updated>
+    <updated>2015-06-06T11:57:37-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -44,6 +103,14 @@
 &lt;h4&gt;ok but why&lt;/h4&gt;
 
 &lt;p&gt;I used this trick to build a &lt;a href="http://coleww.github.io/json-formatter/"&gt;JSON formatter&lt;/a&gt; [&lt;a href="https://github.com/coleww/json-formatter"&gt;code&lt;/a&gt;] because I wanted to quickly paste a JSON blob to the page and see it transformed, and an input field or textarea would just get in the way of things. Most JSON formatters on the web are laden with options and advertisements, but all I really needed was a quick way to inspect API responses.&lt;/p&gt;
+
+&lt;p&gt;By hacking the paste event, I was able to take something that looked like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="before" src="/blog/images/json-og.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And make it work more like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="after" src="/blog/images/json-example.gif" /&gt;&lt;/p&gt;
 
 &lt;p&gt;This approach is well aligned with the UNIX philosophy, which holds among it&amp;rsquo;s tenets &amp;ldquo;make small things&amp;rdquo; and &amp;ldquo;text in/text out&amp;rdquo;. Only in this instance, input is handled by the paste event and the output is a div. The web page itself does only one thing and nothing else (literally, there isn&amp;rsquo;t even a title or attribution) which means it composes well with other &amp;ldquo;modules&amp;rdquo; in the browser, like for example using &lt;code&gt;cmd+f&lt;/code&gt; to find things in the formatted JSON. And if I needed to add an option for controlling the indentation level or something I could perhaps add it as a query param in the URL.&lt;/p&gt;
 

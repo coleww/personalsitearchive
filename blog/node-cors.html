@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CCCC</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/blog/stylesheets/main.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <center>
+<a href="/">        <img class="header" src="/blog/images/cool.png" />
+</a>    </center>
+
+    <div id="main" role="main">
+      <h1>Enabling CORS in Node.js</h1>
+
+<h2>TASTE THE ROCKIES</h2>
+
+<p>Building a simple API in node. Cool to serve lil bits of data to a thing. Awesome. express/rails/whatever have cors libraries, but sometimes the app is so simple that it&rsquo;s nice to play with that bare metal http server. <em>CLOSENESS TO IT</em></p>
+
+<p>what is the coors:</p>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Origin'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Request-Method'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Methods'</span><span class="p">,</span> <span class="s1">'OPTIONS, GET'</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Headers'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s1">'OPTIONS'</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+      <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">// do stuff</span>
+<span class="p">})</span>
+<span class="nx">server</span><span class="p">().</span><span class="nx">listen</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">8000</span><span class="p">)</span>
+</code></pre>
+
+<p>allow requests from any origin (maybe you just want your websites to use this endpoint)
+&lt;!&ndash; first you allow all req methods, then restrict? &ndash;&gt;
+only allow OPTIONS and GET requests. (open up other METHODS if you support dat?)
+allow headers:</p>
+
+<p>OPTIONS: sometimes, the cors needs to ask yr server if it can cors before it cors&rsquo;s. That&rsquo;s pretty weird, but it&rsquo;s pretty typical for how the HTTP internet tubes work. If you get an OPTIONS request, just 200 ok it immediately.</p>
+
+<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Access<em>control</em>CORS</p>
+
+<p>simple api for serving up folders of JSON
+https://github.com/coleww/corpora-api</p>
+
+    </div>
+
+    <aside>
+      <p><div id="contact">
+        <a href="http://colewillsea.com/">Cole Willsea</a>
+        (<a href="https://github.com/coleww">gh</a>)
+        (<a href="https://twitter.com/colewillsea">twtr</a>)
+      </div></p>
+      <h2>RECENT BLAGZ</h2>
+      <ol>
+          <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
+          <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
+          <li><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></li>
+      </ol>
+
+    </aside>
+  </body>
+</html>
