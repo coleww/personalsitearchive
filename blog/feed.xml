@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/shelling-out.html"/>
     <id>http://colewillsea.com/blog/shelling-out.html</id>
     <published>2015-07-09T20:14:00-07:00</published>
-    <updated>2015-07-10T07:21:56-07:00</updated>
+    <updated>2015-07-10T08:50:25-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -22,11 +22,15 @@
 
 &lt;h2&gt;I would gladly shell out 5$ for you to pipe a burrito to me, streaming, over the course of the next 7 minutes.&lt;/h2&gt;
 
-&lt;p&gt;Traditionally, in UNIX land, one would connect the output of various programs to the inputs of others with pipes (&lt;code&gt;|&lt;/code&gt;) directly on the command line, or within the depths of a shell script, like so &lt;code&gt;cd | grep potatoes&lt;/code&gt;. This is a great way to compose complex actions out of many small utilities.&lt;/p&gt;
+&lt;p&gt;Traditionally in UNIX land one would connect the output of various programs to the inputs of others with pipes (&lt;code&gt;|&lt;/code&gt;) directly on the command line, or within the depths of a shell script, like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;cat recipe.txt | grep potatoes &amp;gt;&amp;gt; potato_ideas.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a great way to compose complex actions out of many small utilities.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="pipe" src="/blog/images/pipe.png" /&gt;&lt;/p&gt;
 
-&lt;p&gt;This works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts taht &lt;code&gt;touch&lt;/code&gt; and &lt;code&gt;mkdir&lt;/code&gt; your way to much accomplishment, but what about  more complicated CLI tools like npm, bower, ember, rails, or git which might do things like prompt the user, hit the network, or generate a metric ton of files? Well, you can always shell out to them instead!&lt;/p&gt;
+&lt;p&gt;Piping works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts that &lt;code&gt;touch&lt;/code&gt; and &lt;code&gt;mkdir&lt;/code&gt; your way to many victories, but what about integrating more complicated CLI tools like npm, bower, ember, rails, or git? These programs do things like prompt the user to make decisions, hit the network, or generate a metric ton of files, and it might get unwieldy to try to control such chaos directly from the command line. Instead, you can write a script that shells out to them!&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="shelling" src="/blog/images/shelling.png" /&gt;&lt;/p&gt;
 
@@ -45,7 +49,7 @@
 &lt;span class="p"&gt;});&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;With these, you can easily run shell commands and respond to their output as part of your script. But what if instead of just running a command you want to turn over control to a different program? Maybe that program has user prompts that need answering or it shows some pretty sweet terminal graphics&lt;/p&gt;
+&lt;p&gt;With these, you can easily run shell commands and respond to their output as part of your script. But what if instead of just running a command you want to turn over control to a different program? Maybe that program has user prompts that need answering or it shows some pretty sweet terminal graphics.&lt;/p&gt;
 
 &lt;p&gt;In Ruby you can use &lt;code&gt;exec&lt;/code&gt;, which replaces the current process with the given command:&lt;/p&gt;
 &lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;exec&lt;/span&gt; &lt;span class="s2"&gt;"rails new monolith"&lt;/span&gt;
