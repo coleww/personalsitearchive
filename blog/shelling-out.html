@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>shelling out to the system</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/blog/stylesheets/main.css" rel="stylesheet" type="text/css" />
+    <meta name="description" content="Making art with code and vice versa." />
+<meta name="keywords" content="ruby, javascript, code, art" />
+  </head>
+  <body>
+    <center>
+<a href="/blog">        <img class="header" src="/blog/images/cool.png" />
+</a>    </center>
+
+    <div id="main" role="main">
+      <h1>Shelling Out</h1>
+
+<h2>I would gladly shell out 5$ for you to pipe a burrito to me, streaming, over the course of the next 7 minutes.</h2>
+
+<p>Traditionally, in UNIX land, one would connect the output of various programs to the inputs of others with pipes (<code>|</code>) directly on the command line, or within the depths of a shell script, like so <code>cd | grep potatoes</code>. This is a great way to compose complex actions out of many small utilities.</p>
+
+<p><img alt="pipe" src="/blog/images/pipe.png" /></p>
+
+<p>This works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts taht <code>touch</code> and <code>mkdir</code> your way to much accomplishment, but what about  more complicated CLI tools like npm, bower, ember, rails, or git which might do things like prompt the user, hit the network, or generate a metric ton of files? Well, you can always shell out to them instead!</p>
+
+<p><img alt="shelling" src="/blog/images/shelling.png" /></p>
+
+<p>In Ruby, the easiest way to shell out a command is to put it backticks, like so:</p>
+<pre class="highlight ruby"><code><span class="c1"># this would print the current directory</span>
+<span class="nb">puts</span> <span class="sb">`ls`</span>
+</code></pre>
+
+<p>The same shelling, but with Node.js:</p>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">exec</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'child_process'</span><span class="p">).</span><span class="nx">exec</span>
+<span class="nx">exec</span><span class="p">(</span><span class="s1">'ls'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// this would print the current directory</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stdout</span><span class="p">)</span>
+
+  <span class="c1">// probably some callback hell here</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>With these, you can easily run shell commands and respond to their output as part of your script. But what if instead of just running a command you want to turn over control to a different program? Maybe that program has user prompts that need answering or it shows some pretty sweet terminal graphics</p>
+
+<p>In Ruby you can use <code>exec</code>, which replaces the current process with the given command:</p>
+<pre class="highlight ruby"><code><span class="nb">exec</span> <span class="s2">"rails new monolith"</span>
+<span class="nb">puts</span> <span class="s2">"never gets here cuz rails takes over"</span>
+</code></pre>
+
+<p>In Node.js there is the <a href="https://www.npmjs.com/package/kexec">kexec</a> module, which does the exact same thing:</p>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">kexec</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kexec'</span><span class="p">)</span>
+<span class="nx">kexec</span><span class="p">(</span><span class="s1">'ember new behemoth'</span><span class="p">)</span>
+</code></pre>
+
+<p>I used some of these magical spells to build <a href="https://github.com/coleww/mkproj">mkproj</a>, which generates a bunch of files and does some NPM stuff in order to scaffold lil browserify projects. Being able to run code on the command line from a Ruby or Node script opens up tons of possibilities for destroying your computer in a for loop! Reader beware!</p>
+
+    </div>
+
+    <aside>
+      <p><div id="contact">
+        <a href="http://colewillsea.com/">Cole Willsea</a>
+        (<a href="https://github.com/coleww">gh</a>)
+        (<a href="https://twitter.com/colewillsea">twtr</a>)
+      </div></p>
+      <h2>RECENT BLAGZ</h2>
+      <ol>
+          <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
+          <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
+          <li><a href="/blog/trigger-loading-route-in-ember.html">Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
+          <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
+          <li><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></li>
+      </ol>
+
+    </aside>
+    <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(["_setAccount", "UA-26036675-1"]);
+  _gaq.push(["_trackPageview"]);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </body>
+</html>
