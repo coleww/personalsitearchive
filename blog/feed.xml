@@ -122,15 +122,19 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 </content>
   </entry>
   <entry>
-    <title>Trigger Loading Routes in Ember</title>
+    <title>Manually Trigger Loading Routes in Ember</title>
     <link rel="alternate" href="http://colewillsea.com/blog/trigger-loading-route-in-ember.html"/>
     <id>http://colewillsea.com/blog/trigger-loading-route-in-ember.html</id>
     <published>2015-06-09T10:12:00-07:00</published>
-    <updated>2015-07-09T20:00:54-07:00</updated>
+    <updated>2015-07-10T08:23:12-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
-    <content type="html">&lt;p&gt;Loading routes in Ember are pretty frigging sweet. You can drop a spinner .gif pretty much any frigging where you want. You can even make nested loading routes: it&amp;rsquo;s frigging awesome.&lt;/p&gt;
+    <content type="html">&lt;h1&gt;Manually Trigger Loading Routes in Ember&lt;/h1&gt;
+
+&lt;h2&gt;cuz Ember can&amp;rsquo;t do  e v e r y t h i n g  for you&lt;/h2&gt;
+
+&lt;p&gt;Loading routes in Ember are pretty frigging sweet. You can drop a spinner .gif pretty much any frigging where you want. You can even make nested loading routes: it&amp;rsquo;s frigging awesome.&lt;/p&gt;
 
 &lt;p&gt;One trick, however, is making use of those loading routes when persisting customer informatin to your datbase. The loading routes automagically hop into place while you are fetching data, but they can&amp;rsquo;t do the same when saving it. That would be weird and unfortunate.&lt;/p&gt;
 

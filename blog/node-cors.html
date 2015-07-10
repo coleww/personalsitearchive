@@ -16,42 +16,63 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Enabling CORS in Node.js</h1>
+      <h1>Building a simple CORS API in node</h1>
 
 <h2>TASTE THE ROCKIES</h2>
 
-<p>Building a simple API in node. Cool to serve lil bits of data to a thing. Awesome. express/rails/whatever have cors libraries, but sometimes the app is so simple that it&rsquo;s nice to play with that bare metal http server. <em>CLOSENESS TO IT</em></p>
+<p>So you want to build a lil API. Maybe you have some live data to share with the world, maybe you want to make a <a href="http://bikeshed.io/">funny joke</a>, maybe I don&rsquo;t really care what your reasons are. If you want people to use your API, you should consider enabling CORS requests so that it can be accessed from client side javascript. If you don&rsquo;t, then when I try to use jQuery to hit yr API in order to populate my Reactive Backbone Models while idling in Deep Flux, I will get an error and the whole system will crash. It&rsquo;s bad. Trust me.</p>
 
-<p>what is the coors:</p>
+<p>I&rsquo;m sure there are all kinds of things pre-built for Express or Hapi and probably even just a plain ole&rsquo; NPM module somewhere that does the CORS magic for you, but you know sometimes it&rsquo;s nice to drop down a lil closer to that bare http server metal.</p>
+
+<h3>SO, SHOW ME THE CODE!</h3>
 <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
 <span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Origin'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Request-Method'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Methods'</span><span class="p">,</span> <span class="s1">'OPTIONS, GET'</span><span class="p">)</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Headers'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Origin'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Request-Method'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Methods'</span><span class="p">,</span> <span class="s1">'OPTIONS, GET'</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Headers'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="p">(</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s1">'OPTIONS'</span> <span class="p">)</span> <span class="p">{</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">()</span>
-      <span class="k">return</span>
-    <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s1">'OPTIONS'</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+    <span class="k">return</span>
+  <span class="p">}</span>
 
-    <span class="c1">// do stuff</span>
+  <span class="c1">// do stuff</span>
 <span class="p">})</span>
 <span class="nx">server</span><span class="p">().</span><span class="nx">listen</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">8000</span><span class="p">)</span>
 </code></pre>
 
-<p>allow requests from any origin (maybe you just want your websites to use this endpoint)
-&lt;!&ndash; first you allow all req methods, then restrict? &ndash;&gt;
-only allow OPTIONS and GET requests. (open up other METHODS if you support dat?)
-allow headers:</p>
+<p>You are of course welcome to copy pasta that code snippet and be on your merry way, but I have taken the liberty of reading through some boring technical documents [<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">1</a>, <a href="http://www.w3.org/TR/cors/#access-control-request-method-request-header">2</a>] to try to figure out what the heck this all means:</p>
+
+<p><code>res.setHeader(&#39;Access-Control-Allow-Origin&#39;, &#39;*&#39;)</code>
+The Access-Control-Allow-Origin header indicates whether a resource can be shared based by returning the value of the Origin request header, &ldquo;*&rdquo;, or &ldquo;null&rdquo; in the response.  a space-separated list of origins,</p>
+
+<p><code>res.setHeader(&#39;Access-Control-Request-Method&#39;, &#39;*&#39;)</code>
+The Access-Control-Request-Method header indicates which method will be used in the actual request as part of the preflight request.</p>
+
+<p><code>res.setHeader(&#39;Access-Control-Allow-Methods&#39;, &#39;OPTIONS, GET&#39;)</code>
+The Access-Control-Allow-Methods header indicates, as part of the response to a preflight request, which methods can be used during the actual request.</p>
+
+<p>The <code>Allow</code> header is not relevant for the purposes of the CORS protocol.</p>
+
+<p><code>res.setHeader(&#39;Access-Control-Allow-Headers&#39;, &#39;*&#39;)</code>
+The Access-Control-Allow-Headers header indicates, as part of the response to a preflight request, which header field names can be used during the actual request.</p>
+<pre class="highlight plaintext"><code>if ( req.method === 'OPTIONS' ) {
+  res.writeHead(200)
+  res.end()
+  return
+}
+</code></pre>
+
+<p>In response to a preflight request the resource indicates which methods and headers (other than simple methods and simple headers) it is willing to handle and whether it supports credentials.</p>
 
 <p>OPTIONS: sometimes, the cors needs to ask yr server if it can cors before it cors&rsquo;s. That&rsquo;s pretty weird, but it&rsquo;s pretty typical for how the HTTP internet tubes work. If you get an OPTIONS request, just 200 ok it immediately.</p>
 
-<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Access<em>control</em>CORS</p>
-
 <p>simple api for serving up folders of JSON
 https://github.com/coleww/corpora-api</p>
+
+<p>SAUCES:</p>
 
     </div>
 
@@ -65,7 +86,7 @@ https://github.com/coleww/corpora-api</p>
       <ol>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
           <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
-          <li><a href="/blog/trigger-loading-route-in-ember.html">Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
+          <li><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
           <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
           <li><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></li>
       </ol>
