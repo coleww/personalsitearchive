@@ -5,10 +5,116 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2015-06-22T20:21:00-07:00</updated>
+  <updated>2015-07-09T20:14:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>shelling out to the system</title>
+    <link rel="alternate" href="http://blog.url.com/blog/shelling-out.html"/>
+    <id>http://blog.url.com/blog/shelling-out.html</id>
+    <published>2015-07-09T20:14:00-07:00</published>
+    <updated>2015-07-09T20:15:57-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Shelling Out&lt;/h1&gt;
+
+&lt;h2&gt;I would gladly shell out 5$ for you to pipe a burrito to me, streaming, over the course of the next 7 minutes.&lt;/h2&gt;
+
+&lt;p&gt;I like the UNIX philosophy which holds, among other things, that it&amp;rsquo;s best to build tools that do one thing really well. With a plethora of focused modules at our disposal building an app becomes a matter of connecting them together in new and interesting ways. But a side effect to this preference for small things is that you end up starting new projects all the time! And if we&amp;rsquo;re doing repetitive tasks to setup our small modules then we might as well write some more small modules to help reduce this tedium. Turtles all the way down.&lt;/p&gt;
+
+&lt;p&gt;Traditionally one would connect the output of various programs to the inputs of others with pipes (&lt;code&gt;|&lt;/code&gt;), like so &lt;code&gt;cd | grep potatoes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="pipe" src="/blog/images/pipe.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts taht &lt;code&gt;touch&lt;/code&gt; and &lt;code&gt;mkdir&lt;/code&gt; your way to much accomplishment, but what about  more complicated CLI tools like npm, bower, ember, rails, or git which might do things like prompt the user, hit the network, or generate a metric ton of files? Well, you can always shell out to them instead!&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="shelling" src="/blog/images/shelling.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;In Ruby, the easiest way to shell out a command is to put it backticks, like so:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# this would print the current directory&lt;/span&gt;
+&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="sb"&gt;`ls`&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The same shelling, but with Node.js:&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;exec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'child_process'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;exec&lt;/span&gt;
+&lt;span class="nx"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'ls'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;// this would print the current directory&lt;/span&gt;
+  &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// probably some callback hell here&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With these, you can easily run shell commands and respond to their output as part of your script. But what if instead of just running a command you want to turn over control to a different program? Maybe that program has user prompts that need answering or it shows some pretty sweet terminal graphics&lt;/p&gt;
+
+&lt;p&gt;In Ruby you can use &lt;code&gt;exec&lt;/code&gt;, which replaces the current process with the given command:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;exec&lt;/span&gt; &lt;span class="s2"&gt;"rails new monolith"&lt;/span&gt;
+&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s2"&gt;"never gets here cuz rails takes over"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Node.js there is the &lt;a href="https://www.npmjs.com/package/kexec"&gt;kexec&lt;/a&gt; module, which does the exact same thing:&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;kexec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'kexec'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nx"&gt;kexec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'ember new behemoth'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I used some of these magical spells to build &lt;a href="https://github.com/coleww/mkproj"&gt;mkproj&lt;/a&gt;, which generates a bunch of files and does some NPM stuff in order to scaffold lil browserify projects. Being able to run code on the command line from a Ruby or Node script opens up tons of possibilities for destroying your computer in a for loop! Reader beware!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>shelling out to the system</title>
+    <link rel="alternate" href="http://blog.url.com/blog/shelling-out.html"/>
+    <id>http://blog.url.com/blog/shelling-out.html</id>
+    <published>2015-06-25T11:55:00-07:00</published>
+    <updated>2015-07-09T20:14:29-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Shelling Out&lt;/h1&gt;
+
+&lt;h2&gt;I would gladly shell out 5$ for you to pipe a burrito to me, streaming, over the course of the next 7 minutes.&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;m a big fan of the UNIX philosophy which holds, among other things, that it&amp;rsquo;s better to build tools that do one thing really well. With a plethora of focused modules at our disposal building an app becomes a matter of connecting them together in new and interesting ways. But a side effect to this preference for small things is that you end up starting new projects all the time! And if we&amp;rsquo;re doing repetitive tasks to setup our small modules then we might as well write some more small modules to help reduce this tedium. Turtles all the way down.&lt;/p&gt;
+
+&lt;p&gt;Traditionally one would connect the output of various programs to the inputs of others with pipes (&lt;code&gt;|&lt;/code&gt;), like so &lt;code&gt;cd | grep potatoes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="pipe" src="/blog/images/pipe.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts taht &lt;code&gt;touch&lt;/code&gt; and &lt;code&gt;mkdir&lt;/code&gt; your way to much accomplishment, but what about  more complicated CLI tools like npm, bower, ember, rails, or git which might do things like prompt the user, hit the network, or generate a metric ton of files? Well, you can always shell out to them instead!&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="shelling" src="/blog/images/shelling.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;In Ruby, the easiest way to shell out a command is to put it backticks, like so:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# this would print the current directory&lt;/span&gt;
+&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="sb"&gt;`ls`&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The same shelling, but with Node.js:&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;exec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'child_process'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;exec&lt;/span&gt;
+&lt;span class="nx"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'ls'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;// this would print the current directory&lt;/span&gt;
+  &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// probably some callback hell here&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With these, you can easily run shell commands and respond to their output as part of your script. But what if instead of just running a command you want to turn over control to a different program? Maybe that program has user prompts that need answering or it shows some pretty sweet terminal graphics&lt;/p&gt;
+
+&lt;p&gt;In Ruby you can use &lt;code&gt;exec&lt;/code&gt;, which replaces the current process with the given command:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;exec&lt;/span&gt; &lt;span class="s2"&gt;"rails new monolith"&lt;/span&gt;
+&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s2"&gt;"never gets here cuz rails takes over"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Node.js there is the &lt;a href="https://www.npmjs.com/package/kexec"&gt;kexec&lt;/a&gt; module, which does the exact same thing:&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;kexec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'kexec'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nx"&gt;kexec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'ember new behemoth'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I used some of these magical spells to build &lt;a href="https://github.com/coleww/mkproj"&gt;mkproj&lt;/a&gt;, which generates a bunch of files and does some NPM stuff in order to scaffold lil browserify projects. Being able to run code on the command line from a Ruby or Node script opens up tons of possibilities for destroying your computer in a for loop! Reader beware!&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>automating bots with cron on digital ocean</title>
     <link rel="alternate" href="http://blog.url.com/blog/do-cron.html"/>
@@ -71,11 +177,51 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 </content>
   </entry>
   <entry>
+    <title>Trigger Loading Routes in Ember</title>
+    <link rel="alternate" href="http://blog.url.com/blog/trigger-loading-route-in-ember.html"/>
+    <id>http://blog.url.com/blog/trigger-loading-route-in-ember.html</id>
+    <published>2015-06-09T10:12:00-07:00</published>
+    <updated>2015-07-09T20:00:54-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;Loading routes in Ember are pretty frigging sweet. You can drop a spinner .gif pretty much any frigging where you want. You can even make nested loading routes: it&amp;rsquo;s frigging awesome.&lt;/p&gt;
+
+&lt;p&gt;One trick, however, is making use of those loading routes when persisting customer informatin to your datbase. The loading routes automagically hop into place while you are fetching data, but they can&amp;rsquo;t do the same when saving it. That would be weird and unfortunate.&lt;/p&gt;
+
+&lt;p&gt;Instead, you must explicitly tell the router that you are loading some stuff and to just chill the frig out for a second while you figure some things out.&lt;/p&gt;
+
+&lt;p&gt;FOR EXAMPLE (presuming you are on the user.edit route, editing yrself):&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="nx"&gt;saveUserInformation&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// MANUALLY TRANSITIONING TO THE LOADING ROUTE&lt;/span&gt;
+  &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;transitionTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'loading'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// return a promise whose `then` and `catch` callbacks each transition to an appropriate route&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;save&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(()&lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;transitionTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'user.index'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// success! go to the infernal User index and suffer with the rest of them!&lt;/span&gt;
+
+  &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="k"&gt;catch&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// do something to User with the `e` errors --&amp;gt; very bad... show warning/&lt;/span&gt;
+
+    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;transitionTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'user.edit'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;user&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// return to the current page, with the current model data all still set like WOWWW&lt;/span&gt;
+  &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A N D   T H A T S    I T&lt;/p&gt;
+
+&lt;p&gt;Just a simple &lt;code&gt;this.transitionTo(&amp;#39;loading&amp;#39;)&lt;/code&gt; and you can punt the Ember route back into loading mode. Try it today!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
     <title>Eating Glue</title>
     <link rel="alternate" href="http://blog.url.com/blog/eating-glue-and-paste.html"/>
     <id>http://blog.url.com/blog/eating-glue-and-paste.html</id>
     <published>2015-06-03T16:37:00-07:00</published>
-    <updated>2015-06-06T11:57:37-07:00</updated>
+    <updated>2015-07-09T20:01:14-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
