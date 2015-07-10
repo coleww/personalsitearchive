@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Blog Name</title>
-  <subtitle>Blog subtitle</subtitle>
-  <id>http://blog.url.com/</id>
-  <link href="http://blog.url.com/"/>
-  <link href="http://blog.url.com/feed.xml" rel="self"/>
+  <title>Cole Willsea</title>
+  <subtitle>Cole Codes Cool Code</subtitle>
+  <id>http://colewillsea.com/</id>
+  <link href="http://colewillsea.com/"/>
+  <link href="http://colewillsea.com/feed.xml" rel="self"/>
   <updated>2015-07-09T20:14:00-07:00</updated>
   <author>
-    <name>Blog Author</name>
+    <name>Cole Willsea</name>
   </author>
   <entry>
     <title>shelling out to the system</title>
-    <link rel="alternate" href="http://blog.url.com/blog/shelling-out.html"/>
-    <id>http://blog.url.com/blog/shelling-out.html</id>
+    <link rel="alternate" href="http://colewillsea.com/blog/shelling-out.html"/>
+    <id>http://colewillsea.com/blog/shelling-out.html</id>
     <published>2015-07-09T20:14:00-07:00</published>
     <updated>2015-07-10T07:21:56-07:00</updated>
     <author>
@@ -62,8 +62,8 @@
   </entry>
   <entry>
     <title>automating bots with cron on digital ocean</title>
-    <link rel="alternate" href="http://blog.url.com/blog/do-cron.html"/>
-    <id>http://blog.url.com/blog/do-cron.html</id>
+    <link rel="alternate" href="http://colewillsea.com/blog/do-cron.html"/>
+    <id>http://colewillsea.com/blog/do-cron.html</id>
     <published>2015-06-22T20:21:00-07:00</published>
     <updated>2015-06-24T22:39:37-07:00</updated>
     <author>
@@ -123,8 +123,8 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
   </entry>
   <entry>
     <title>Trigger Loading Routes in Ember</title>
-    <link rel="alternate" href="http://blog.url.com/blog/trigger-loading-route-in-ember.html"/>
-    <id>http://blog.url.com/blog/trigger-loading-route-in-ember.html</id>
+    <link rel="alternate" href="http://colewillsea.com/blog/trigger-loading-route-in-ember.html"/>
+    <id>http://colewillsea.com/blog/trigger-loading-route-in-ember.html</id>
     <published>2015-06-09T10:12:00-07:00</published>
     <updated>2015-07-09T20:00:54-07:00</updated>
     <author>
@@ -163,8 +163,8 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
   </entry>
   <entry>
     <title>Eating Glue</title>
-    <link rel="alternate" href="http://blog.url.com/blog/eating-glue-and-paste.html"/>
-    <id>http://blog.url.com/blog/eating-glue-and-paste.html</id>
+    <link rel="alternate" href="http://colewillsea.com/blog/eating-glue-and-paste.html"/>
+    <id>http://colewillsea.com/blog/eating-glue-and-paste.html</id>
     <published>2015-06-03T16:37:00-07:00</published>
     <updated>2015-07-09T20:01:14-07:00</updated>
     <author>
@@ -212,8 +212,8 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
   </entry>
   <entry>
     <title>100% EZ Syntax Highlighting With Middleman</title>
-    <link rel="alternate" href="http://blog.url.com/blog/syntax-highlighting-in-middleman.html"/>
-    <id>http://blog.url.com/blog/syntax-highlighting-in-middleman.html</id>
+    <link rel="alternate" href="http://colewillsea.com/blog/syntax-highlighting-in-middleman.html"/>
+    <id>http://colewillsea.com/blog/syntax-highlighting-in-middleman.html</id>
     <published>2015-05-30T12:12:00-07:00</published>
     <updated>2015-05-31T11:46:14-07:00</updated>
     <author>
