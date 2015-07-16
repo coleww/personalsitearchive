@@ -16,7 +16,125 @@
 </a>    </center>
 
     <div id="main" role="main">
-        <h2><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></h2>
+        <h2><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></h2>
+  <!-- <h1>Building a <em>nice</em> CLI For Your Sick npm Module</h1>
+
+<h2>A tale in backticks</h2>
+
+<p>Ok so you have written a pretty sweet node module. <em>nice</em>. Ok so maybe you want to make this utility available on the command line?</p>
+
+<p><code>touch cmd.js</code> lets make a file!</p>
+
+<p><code>chmod +x cmd.js</code> lets make it executable!</p>
+
+<p><code>./cmd.js</code> doesnt do anything yet!</p>
+
+<p>But hey, it ran on the command line!</p>
+
+<p>THE END</p>
+
+<p>Ok so open up cmd.js in the text editor of yr choosing and add:</p>
+
+<p><code>#!/usr/bin/env node</code> This tells computer how to run this script
+<code>var yrModule = require(&#39;./&#39;)</code> Load up that code</p>
+
+<p>But wait! What about arguments! I have a lot to say!</p>
+
+<p>shhhh go back to the command line:</p>
+
+<p><code>npm install yargs --save</code> <a href="https://www.npmjs.com/package/yargs">yargs</a> is pretty cool. <a href="https://www.npmjs.com/package/minimist">minimist</a> is also pretty cool. I ended up using yargs due to reasons that I cannot recall. Cool story.</p>
+
+<p>Go back to the text editor and add:</p>
+<pre class="highlight plaintext"><code>var argv = require('yargs')
+  .alias('h', 'help')
+  .help('help')
+  .usage('what does thing do?')
+  .example('yrModule POTATOES!')
+  .alias('i', 'intensity')
+  .describe('i', 'describe what the arguments do')
+  .argv
+</code></pre>
+
+<p>Of course&hellip;you should probably edit things to suit yr module. You can chain multiple example/alias/describe calls if you want to show off more functionality or define other options.</p>
+
+<p><code>./cmd.js -h</code> =&gt; automatic documentation!</p>
+
+<p>Once defined, yargs literally does not care how things are passed to it.</p>
+
+<p><code>./cmd.js -i 72 what is up with airline food?</code> ALL GOOD!
+<code>./cmd.js what is up with airline food? --intensity=72</code> TOTALLY COOL! SAME THING!</p>
+
+<p>In either case, inside the running cmd.js script the following would be the truth:</p>
+
+<p><code>argv._</code> =&gt; [&lsquo;what&rsquo;, &#39;is&rsquo;, &#39;up&rsquo;, &#39;with&rsquo;, &#39;airline&rsquo;, &#39;food?&rsquo;]
+<code>argv.i</code> =&gt; 72</p>
+
+<p>If your module is simple enough, you might be done! Back to the text editor!</p>
+
+<p><code>var output = yrModule(argv._.join(&quot; &quot;), argv.i)</code> pass the arguments to yrModule (maybe it responds to jokes?)
+<code>process.stdout.write(output)</code> write the output to the terminal
+<code>process.exit()</code> exit the program</p>
+
+<p>The UNIX ideology believes that building simple interfaces that accept text input and produce text output are super radical. We are fulfilling that dream right now. To the command line:</p>
+
+<p><code>./cmd.js -i 12 awwwwoooooooooooooooooo | grep whales &gt;&gt; save_them.txt</code> Amazing.</p>
+
+<p>Well, I don&rsquo;t know if yr module has anything to do with whales, but it probably should.</p>
+
+<p>But hey! <code>grep</code> accepts that weird <code>|</code> pipe thing! Can we accept the weird pipe thing and thus complete our embodiment of the UNIX philosophy?</p>
+
+<p>Yes. Sure. Lets edit some text.</p>
+
+<p>First we wrap our original non-pipey code with an if block:</p>
+<pre class="highlight plaintext"><code>if(process.stdin.isTTY) {
+  var output = yrModule(argv._.join(" "), argv.i)
+  process.stdout.write(output)
+  process.exit()
+</code></pre>
+
+<p><code>process.stdin.isTTY</code> basically asks node &ldquo;IS THIS A TERMINAL?&rdquo;</p>
+
+<p>And then the else case, for pipey-times:</p>
+<pre class="highlight plaintext"><code>} else {
+  var data = ''
+  process.stdin.resume()
+  process.stdin.setEncoding('utf8')
+  process.stdin.on('data', function(chunk) {
+    data += chunk
+  })
+
+  process.stdin.on('end', function() {
+    process.stdout.write(yrModule(data, argv.i))
+    process.exit()
+  })
+}
+</code></pre>
+
+<p><code>cat burrito_recipes.txt | ./cmd.js -i 400</code> WOW all kinds of inputs</p>
+
+<p>If your module is super complex and might be used on datasets that can&rsquo;t be stored in RAM then you should probably stream the chunks directly into your codes rather than building up a data string and doing it all at once. But this is fine, it&rsquo;s fine, probably fine. Totally.</p>
+
+<p>Cool! Now your module is ready to do all sorts of command line tricks. The last thing you need to remember to do before publishing this update to npm is adding a &ldquo;bin&rdquo; entry to your package.json file so that yr CLI script is available in the PATH of those who install your module. (But if you forget sometimes don&rsquo;t worry about dat inevitable post-npm-publish-version-bump-re-publish it happens to the best of us.)</p>
+<pre class="highlight plaintext"><code>"bin": {
+    "yrModule": "cmd.js"
+},
+</code></pre>
+
+<p>Of course replace yrModule with whatever you want the command line executable to be. In this instance you could do:</p>
+
+<p><code>yrModule foo fighters -i 65</code> probably make sure you pick a name that isn&rsquo;t already a thing, like <code>git</code>, that would be bad. </p>
+
+<p>ONE LAST THING!</p>
+
+<p><code>process.exit(1)</code> handle yr errors! If yr CLI script fails for some reason, exit with a 1 so that computer knows that a bad thing happened.</p>
+
+<hr>
+
+<p><code>npm publish</code> YOU ARE A HERO</p>
+
+<p>You can see this sort of thing in action in this <a href="https://github.com/coleww/diacriticize/blob/gh-pages/cmd.js">cmd.js example code from one of my modules</a> as well as this <a href="https://github.com/coleww/mkproj/blob/master/cmd.js">wow, absolute bare minimum here, doesn&rsquo;t even take arguments, barely trying, cool</a></p>
+ -->
+  <h2><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></h2>
   <!-- <h1>Shelling Out</h1>
 
 <h2>I would gladly shell out 5$ for you to pipe a burrito to me, streaming, over the course of the next 7 minutes.</h2>
@@ -189,65 +307,33 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 
 <p>The JSON formatter is actually just a wrapper around a node module called <a href="https://github.com/JerrySievert/json">json-nice</a>, and there are probably many other small command line tools that could benefit from being turned into tiny web apps. With <a href="https://github.com/substack/browserify-handbook">browserify</a> and <a href="http://maxogden.com/node-packaged-modules.html">npm</a> this becomes really easy.</p>
  -->
-  <h2><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></h2>
-  <!-- <h1>100% EZ Syntax Highlighting With Middleman</h1>
-
-<h2>A Meta Blog About This Middleman Blog</h2>
-
-<p>I just got these nifty syntax-highlighted-code-blocks working so I thought to myself &ldquo;why not write a blog about setting up my blog? what could possibly be more fascinating?&rdquo;. The answers to those questions being &ldquo;there is no reason not to&rdquo; and &ldquo;nothing&rdquo; respectively.</p>
-
-<p>We&rsquo;ll be using the <a href="https://github.com/middleman/middleman-syntax">middleman-syntax gem</a> in a standard, run-of-the-mill, fresh from the generator, uncustomized Middleman project.</p>
-
-<h4>Step 1: Add some gems to the <code>/Gemfile</code> and <code>bundle install</code></h4>
-<pre class="highlight ruby"><code>    <span class="n">gem</span> <span class="s2">"middleman-syntax"</span>
-    <span class="n">gem</span> <span class="s2">"redcarpet"</span>
-</code></pre>
-
-<p>middleman-syntax will work with other markdown parsers, but if you&rsquo;re at all like me you don&rsquo;t really care what is parsing your markdown, so I went with <a href="https://github.com/vmg/redcarpet">redcarpet</a> because it&rsquo;s what Github uses and that&rsquo;s usually where I&rsquo;m writing markdown.</p>
-
-<h4>Step 2: Add these lines to the bottom of <code>/config.rb</code></h4>
-<pre class="highlight ruby"><code>    <span class="n">activate</span> <span class="ss">:syntax</span>
-    <span class="n">set</span> <span class="ss">:markdown_engine</span><span class="p">,</span> <span class="ss">:redcarpet</span>
-    <span class="n">set</span> <span class="ss">:markdown</span><span class="p">,</span> <span class="ss">:fenced_code_blocks</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:smartypants</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-</code></pre>
-
-<p><code>fenced_code_blocks</code> adds a familiar and pretty background to help set your code blocks apart from the mere plain text that surrounds them. I have absolutely no idea what <code>smartypants</code> is and the <a href="https://middlemanapp.com/basics/template_engine_options/">middleman docs</a> aren&rsquo;t much help in this area, but I left it set to true because why wouldn&rsquo;t you want a pair of smart pants?</p>
-
-<h4>Step 3: Create a file name <code>highlighting.css.erb</code> inside <code>/source/stylesheets</code> and add this line</h4>
-<pre class="highlight erb"><code>    <span class="cp">&lt;%=</span> <span class="no">Rouge</span><span class="o">::</span><span class="no">Themes</span><span class="o">::</span><span class="no">Github</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="ss">:scope</span> <span class="o">=&gt;</span> <span class="s1">'.highlight'</span><span class="p">)</span> <span class="cp">%&gt;</span>
-</code></pre>
-
-<p><a href="https://github.com/jneen/rouge">Rouge</a> is the actual library doing the syntax highlighting, and the documentation tells me that you can also try out these themes: <code>ThankfulEyes</code>, <code>Colorful</code>, <code>Github</code>, <code>Base16</code>, <code>Base16::Solarized</code>, <code>Base16::Monokai</code>, <code>Monokai</code>. I went with Github in the hopes that it would help make developers feel at home reading my blog.</p>
-
-<h4>Step 4: Reference the generated CSS in the head tag of your <code>/source/layout.erb</code> file</h4>
-<pre class="highlight erb"><code>    <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span> <span class="s2">"highlighting"</span> <span class="cp">%&gt;</span>
-</code></pre>
-
-<p>Middleman, much like Rails, has an asset pipeline which you can probably use to mix this file in with your other styles and export into a single minified, uglified, bonafide, electrified six-car monorail. But I don&rsquo;t really understand CSS stuff (I mean, just <em>look</em> at this website) so ask someone else about that.</p>
-
-<h4>Step 5: Write about some code!</h4>
-
-<p>You now can use code blocks in your markdown and get awesome highlighted syntax! Just use the triple backticks markdown blocks, and put the language name after the first set of backticks, like so:</p>
-<pre class="highlight plaintext"><code>    ```ruby
-        puts "YOU ARE A CHAMPION NOW!"
-    ```
-</code></pre>
-
-<p>A full list of supported languages/syntaxes can be found <a href="https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers">here</a>.</p>
- -->
 <br /><br /><br /><br /><br /><br /><br /><br /><br />
 
+    <p><a href="/blog/page/2/">Next page</a></p>
 
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
     </div>
 
     <aside>
       <p><div id="contact">
         <a href="http://colewillsea.com/">Cole Willsea</a>
-        (<a href="https://github.com/coleww">gh</a>)
-        (<a href="https://twitter.com/colewillsea">twtr</a>)
+        (<a href="https://github.com/coleww">github</a>)
+        (<a href="https://twitter.com/colewillsea">twitter</a>)
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ol>
+          <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
           <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
           <li><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
@@ -266,5 +352,6 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
   </body>
 </html>

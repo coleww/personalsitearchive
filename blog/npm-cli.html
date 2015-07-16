@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Building a *nice* CLI For Your Sick npm Module</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/blog/stylesheets/main.css" rel="stylesheet" type="text/css" />
+    <meta name="description" content="Making art with code and vice versa." />
+<meta name="keywords" content="ruby, javascript, code, art" />
+  </head>
+  <body>
+    <center>
+<a href="/blog">        <img class="header" src="/blog/images/cool.png" />
+</a>    </center>
+
+    <div id="main" role="main">
+      <h1>Building a <em>nice</em> CLI For Your Sick npm Module</h1>
+
+<h2>A tale in backticks</h2>
+
+<p>Ok so you have written a pretty sweet node module. <em>nice</em>. Ok so maybe you want to make this utility available on the command line?</p>
+
+<p><code>touch cmd.js</code> lets make a file!</p>
+
+<p><code>chmod +x cmd.js</code> lets make it executable!</p>
+
+<p><code>./cmd.js</code> doesnt do anything yet!</p>
+
+<p>But hey, it ran on the command line!</p>
+
+<p>THE END</p>
+
+<p>Ok so open up cmd.js in the text editor of yr choosing and add:</p>
+
+<p><code>#!/usr/bin/env node</code> This tells computer how to run this script
+<code>var yrModule = require(&#39;./&#39;)</code> Load up that code</p>
+
+<p>But wait! What about arguments! I have a lot to say!</p>
+
+<p>shhhh go back to the command line:</p>
+
+<p><code>npm install yargs --save</code> <a href="https://www.npmjs.com/package/yargs">yargs</a> is pretty cool. <a href="https://www.npmjs.com/package/minimist">minimist</a> is also pretty cool. I ended up using yargs due to reasons that I cannot recall. Cool story.</p>
+
+<p>Go back to the text editor and add:</p>
+<pre class="highlight plaintext"><code>var argv = require('yargs')
+  .alias('h', 'help')
+  .help('help')
+  .usage('what does thing do?')
+  .example('yrModule POTATOES!')
+  .alias('i', 'intensity')
+  .describe('i', 'describe what the arguments do')
+  .argv
+</code></pre>
+
+<p>Of course&hellip;you should probably edit things to suit yr module. You can chain multiple example/alias/describe calls if you want to show off more functionality or define other options.</p>
+
+<p><code>./cmd.js -h</code> =&gt; automatic documentation!</p>
+
+<p>Once defined, yargs literally does not care how things are passed to it.</p>
+
+<p><code>./cmd.js -i 72 what is up with airline food?</code> ALL GOOD!
+<code>./cmd.js what is up with airline food? --intensity=72</code> TOTALLY COOL! SAME THING!</p>
+
+<p>In either case, inside the running cmd.js script the following would be the truth:</p>
+
+<p><code>argv._</code> =&gt; [&lsquo;what&rsquo;, &#39;is&rsquo;, &#39;up&rsquo;, &#39;with&rsquo;, &#39;airline&rsquo;, &#39;food?&rsquo;]
+<code>argv.i</code> =&gt; 72</p>
+
+<p>If your module is simple enough, you might be done! Back to the text editor!</p>
+
+<p><code>var output = yrModule(argv._.join(&quot; &quot;), argv.i)</code> pass the arguments to yrModule (maybe it responds to jokes?)
+<code>process.stdout.write(output)</code> write the output to the terminal
+<code>process.exit()</code> exit the program</p>
+
+<p>The UNIX ideology believes that building simple interfaces that accept text input and produce text output are super radical. We are fulfilling that dream right now. To the command line:</p>
+
+<p><code>./cmd.js -i 12 awwwwoooooooooooooooooo | grep whales &gt;&gt; save_them.txt</code> Amazing.</p>
+
+<p>Well, I don&rsquo;t know if yr module has anything to do with whales, but it probably should.</p>
+
+<p>But hey! <code>grep</code> accepts that weird <code>|</code> pipe thing! Can we accept the weird pipe thing and thus complete our embodiment of the UNIX philosophy?</p>
+
+<p>Yes. Sure. Lets edit some text.</p>
+
+<p>First we wrap our original non-pipey code with an if block:</p>
+<pre class="highlight plaintext"><code>if(process.stdin.isTTY) {
+  var output = yrModule(argv._.join(" "), argv.i)
+  process.stdout.write(output)
+  process.exit()
+</code></pre>
+
+<p><code>process.stdin.isTTY</code> basically asks node &ldquo;IS THIS A TERMINAL?&rdquo;</p>
+
+<p>And then the else case, for pipey-times:</p>
+<pre class="highlight plaintext"><code>} else {
+  var data = ''
+  process.stdin.resume()
+  process.stdin.setEncoding('utf8')
+  process.stdin.on('data', function(chunk) {
+    data += chunk
+  })
+
+  process.stdin.on('end', function() {
+    process.stdout.write(yrModule(data, argv.i))
+    process.exit()
+  })
+}
+</code></pre>
+
+<p><code>cat burrito_recipes.txt | ./cmd.js -i 400</code> WOW all kinds of inputs</p>
+
+<p>If your module is super complex and might be used on datasets that can&rsquo;t be stored in RAM then you should probably stream the chunks directly into your codes rather than building up a data string and doing it all at once. But this is fine, it&rsquo;s fine, probably fine. Totally.</p>
+
+<p>Cool! Now your module is ready to do all sorts of command line tricks. The last thing you need to remember to do before publishing this update to npm is adding a &ldquo;bin&rdquo; entry to your package.json file so that yr CLI script is available in the PATH of those who install your module. (But if you forget sometimes don&rsquo;t worry about dat inevitable post-npm-publish-version-bump-re-publish it happens to the best of us.)</p>
+<pre class="highlight plaintext"><code>"bin": {
+    "yrModule": "cmd.js"
+},
+</code></pre>
+
+<p>Of course replace yrModule with whatever you want the command line executable to be. In this instance you could do:</p>
+
+<p><code>yrModule foo fighters -i 65</code> probably make sure you pick a name that isn&rsquo;t already a thing, like <code>git</code>, that would be bad. </p>
+
+<p>ONE LAST THING!</p>
+
+<p><code>process.exit(1)</code> handle yr errors! If yr CLI script fails for some reason, exit with a 1 so that computer knows that a bad thing happened.</p>
+
+<hr>
+
+<p><code>npm publish</code> YOU ARE A HERO</p>
+
+<p>You can see this sort of thing in action in this <a href="https://github.com/coleww/diacriticize/blob/gh-pages/cmd.js">cmd.js example code from one of my modules</a> as well as this <a href="https://github.com/coleww/mkproj/blob/master/cmd.js">wow, absolute bare minimum here, doesn&rsquo;t even take arguments, barely trying, cool</a></p>
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    </div>
+
+    <aside>
+      <p><div id="contact">
+        <a href="http://colewillsea.com/">Cole Willsea</a>
+        (<a href="https://github.com/coleww">github</a>)
+        (<a href="https://twitter.com/colewillsea">twitter</a>)
+      </div></p>
+      <h2>RECENT BLAGZ</h2>
+      <ol>
+          <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
+          <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
+          <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
+          <li><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
+          <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
+          <li><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></li>
+      </ol>
+
+    </aside>
+    <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(["_setAccount", "UA-26036675-1"]);
+  _gaq.push(["_trackPageview"]);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+  </body>
+</html>
