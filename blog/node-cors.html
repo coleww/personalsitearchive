@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cole Codes Cool Code</title>
+    <title>Building a simple CORS API in node</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/blog/stylesheets/main.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Making art with code and vice versa." />
@@ -20,11 +20,11 @@
 
 <h2>TASTE THE ROCKIES</h2>
 
-<p>So you want to build a lil API. Maybe you have some live data to share with the world, maybe you want to make a <a href="http://bikeshed.io/">funny joke</a>, maybe I don&rsquo;t really even care what your reasons are. If you would like lots of people to use your API, you should consider enabling CORS requests so that it can be easily accessed from client side javascript. If you don&rsquo;t, then when people try to use jQuery to hit yr API in order to populate some Reactive Backbone Models while idling in Deep Flux, they will get an error and the whole system will crash. Or they&rsquo;ll have to do some awkward proxying in order to get the data.   It&rsquo;s bad. Trust me.</p>
+<p>So you want to build a lil API. Maybe you have some live data to share with the world, maybe you want to make a <a href="http://bikeshed.io/">funny joke</a>, maybe I don&rsquo;t really even care what your reasons are. If you would like lots of people to use your API, you should consider enabling CORS requests so that it can be easily accessed from client side javascript. If you don&rsquo;t, then when people try to use jQuery to hit yr API they will get some horrible error and the whole system will crash. Or they&rsquo;ll have to do some awkward proxying in order to get the data.   It&rsquo;s bad. Trust me.</p>
 
 <p>I&rsquo;m sure there are all kinds of things pre-built for Express or Hapi and probably even just a plain ole&rsquo; NPM module somewhere that does the CORS magic for you, but you know sometimes it&rsquo;s nice to drop down a lil closer to that bare http server metal.</p>
 
-<h3>SO, SHOW ME THE CODE!</h3>
+<h3>SHOW ME THE CODE!</h3>
 <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
 <span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Origin'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
@@ -52,9 +52,7 @@ Here, Origin refers to the URL making the request. If you put &ldquo;*&rdquo; an
 STRAIGHT FROM THE SPEC: &ldquo;The Access-Control-Request-Method header indicates which method will be used in the actual request as part of the preflight request.&rdquo; TBQH, I have no idea what this means. The star is probably fine. I don&rsquo;t see how this is much different than the next entry:</p>
 
 <p><code>res.setHeader(&#39;Access-Control-Allow-Methods&#39;, &#39;OPTIONS, GET&#39;)</code>
-Here you list which HTTP request verbs are allowed. More on the OPTIONS request later. You could obviously add PUT or POST or PATCH or DELETE or actually I think that is it that is all that you can add to this comma separate list.</p>
-
-<p>The spec adds a note that &ldquo;The <code>Allow</code> header is not relevant for the purposes of the CORS protocol&rdquo;, so take that as you will.</p>
+Here you list which HTTP request verbs are allowed. More on the OPTIONS request later. You could obviously add PUT or POST or PATCH or DELETE or actually I think that is it that is all that you can add to this comma separate list. The spec adds a note that &ldquo;The <code>Allow</code> header is not relevant for the purposes of the CORS protocol&rdquo;, so take that as you will.</p>
 
 <p><code>res.setHeader(&#39;Access-Control-Allow-Headers&#39;, &#39;*&#39;)</code>
 Much like the All-Methods reqsponse header, here you specify which request header fields to allow. If yr API is super wicked and secret then maybe you should put some controls on it.</p>
@@ -73,7 +71,9 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 
 <hr>
 
-<p>I have put this to use building <a href="https://github.com/coleww/corpora-api">corpora-api</a>, which basically serves up a directory of JSON files in API form.</p>
+<p>There you have it! Now your users can access your API using javascript in the browser OR the server, and you can finally build a hexamorphic web application!</p>
+
+<p>You can see the cors in use in <a href="https://github.com/coleww/corpora-api">this project</a>, which basically serves up a directory of JSON files as an API. (but is also sadly not currently deployed anywhere)</p>
 
       <br/>
       <br/>
@@ -97,6 +97,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ol>
+          <li><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></li>
           <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
           <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>

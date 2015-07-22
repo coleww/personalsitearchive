@@ -44,14 +44,14 @@
 <p><code>npm install yargs --save</code> <a href="https://www.npmjs.com/package/yargs">yargs</a> is pretty cool. <a href="https://www.npmjs.com/package/minimist">minimist</a> is also pretty cool. I ended up using yargs due to reasons that I cannot recall. Cool story.</p>
 
 <p>Go back to the text editor and add:</p>
-<pre class="highlight plaintext"><code>var argv = require('yargs')
-  .alias('h', 'help')
-  .help('help')
-  .usage('what does thing do?')
-  .example('yrModule POTATOES!')
-  .alias('i', 'intensity')
-  .describe('i', 'describe what the arguments do')
-  .argv
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">argv</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'yargs'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s1">'h'</span><span class="p">,</span> <span class="s1">'help'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">help</span><span class="p">(</span><span class="s1">'help'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">usage</span><span class="p">(</span><span class="s1">'what does thing do?'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s1">'yrModule POTATOES!'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s1">'i'</span><span class="p">,</span> <span class="s1">'intensity'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s1">'i'</span><span class="p">,</span> <span class="s1">'describe what the arguments do'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">argv</span>
 </code></pre>
 
 <p>Of course&hellip;you should probably edit things to suit yr module. You can chain multiple example/alias/describe calls if you want to show off more functionality or define other options.</p>
@@ -85,28 +85,28 @@
 <p>Yes. Sure. Lets edit some text.</p>
 
 <p>First we wrap our original non-pipey code with an if block:</p>
-<pre class="highlight plaintext"><code>if(process.stdin.isTTY) {
-  var output = yrModule(argv._.join(" "), argv.i)
-  process.stdout.write(output)
-  process.exit()
+<pre class="highlight javascript"><code><span class="k">if</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">isTTY</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="nx">yrModule</span><span class="p">(</span><span class="nx">argv</span><span class="p">.</span><span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">" "</span><span class="p">),</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">i</span><span class="p">)</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">output</span><span class="p">)</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">()</span>
 </code></pre>
 
 <p><code>process.stdin.isTTY</code> basically asks node &ldquo;IS THIS A TERMINAL?&rdquo;</p>
 
 <p>And then the else case, for pipey-times:</p>
-<pre class="highlight plaintext"><code>} else {
-  var data = ''
-  process.stdin.resume()
-  process.stdin.setEncoding('utf8')
-  process.stdin.on('data', function(chunk) {
-    data += chunk
-  })
+<pre class="highlight javascript"><code><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="s1">''</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">resume</span><span class="p">()</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">'utf8'</span><span class="p">)</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="o">+=</span> <span class="nx">chunk</span>
+  <span class="p">})</span>
 
-  process.stdin.on('end', function() {
-    process.stdout.write(yrModule(data, argv.i))
-    process.exit()
-  })
-}
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">yrModule</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">i</span><span class="p">))</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">()</span>
+  <span class="p">})</span>
+<span class="p">}</span>
 </code></pre>
 
 <p><code>cat burrito_recipes.txt | ./cmd.js -i 400</code> WOW all kinds of inputs</p>
@@ -114,9 +114,9 @@
 <p>If your module is super complex and might be used on datasets that can&rsquo;t be stored in RAM then you should probably stream the chunks directly into your codes rather than building up a data string and doing it all at once. But this is fine, it&rsquo;s fine, probably fine. Totally.</p>
 
 <p>Cool! Now your module is ready to do all sorts of command line tricks. The last thing you need to remember to do before publishing this update to npm is adding a &ldquo;bin&rdquo; entry to your package.json file so that yr CLI script is available in the PATH of those who install your module. (But if you forget sometimes don&rsquo;t worry about dat inevitable post-npm-publish-version-bump-re-publish it happens to the best of us.)</p>
-<pre class="highlight plaintext"><code>"bin": {
-    "yrModule": "cmd.js"
-},
+<pre class="highlight javascript"><code><span class="s2">"bin"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"yrModule"</span><span class="err">:</span> <span class="s2">"cmd.js"</span>
+<span class="p">},</span>
 </code></pre>
 
 <p>Of course replace yrModule with whatever you want the command line executable to be. In this instance you could do:</p>
@@ -155,6 +155,7 @@
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ol>
+          <li><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></li>
           <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
           <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
