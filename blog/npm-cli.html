@@ -22,11 +22,11 @@
 
 <p>Ok so you have written a pretty sweet node module. <em>nice</em>. Ok so maybe you want to make this utility available on the command line?</p>
 
-<p><code>touch cmd.js</code> lets make a file!</p>
-
-<p><code>chmod +x cmd.js</code> lets make it executable!</p>
-
-<p><code>./cmd.js</code> doesnt do anything yet!</p>
+<ul>
+<li><p><code>touch cmd.js</code> =&gt; lets make a file!</p></li>
+<li><p><code>chmod +x cmd.js</code> =&gt; lets make it executable!</p></li>
+<li><p><code>./cmd.js</code> =&gt; doesnt do anything yet!</p></li>
+</ul>
 
 <p>But hey, it ran on the command line!</p>
 
@@ -34,14 +34,18 @@
 
 <p>Ok so open up cmd.js in the text editor of yr choosing and add:</p>
 
-<p><code>#!/usr/bin/env node</code> This tells computer how to run this script
-<code>var yrModule = require(&#39;./&#39;)</code> Load up that code</p>
+<ul>
+<li><p><code>#!/usr/bin/env node</code> =&gt; This tells computer how to run this script</p></li>
+<li><p><code>var yrModule = require(&#39;./&#39;)</code> =&gt; Load up that code</p></li>
+</ul>
 
 <p>But wait! What about arguments! I have a lot to say!</p>
 
 <p>shhhh go back to the command line:</p>
 
-<p><code>npm install yargs --save</code> <a href="https://www.npmjs.com/package/yargs">yargs</a> is pretty cool. <a href="https://www.npmjs.com/package/minimist">minimist</a> is also pretty cool. I ended up using yargs due to reasons that I cannot recall. Cool story.</p>
+<ul>
+<li><code>npm install yargs --save</code> =&gt; <a href="https://www.npmjs.com/package/yargs">yargs</a> is pretty cool. <a href="https://www.npmjs.com/package/minimist">minimist</a> is also pretty cool. I ended up using yargs due to reasons that I cannot recall. Cool story.</li>
+</ul>
 
 <p>Go back to the text editor and add:</p>
 <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">argv</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'yargs'</span><span class="p">)</span>
@@ -56,31 +60,41 @@
 
 <p>Of course&hellip;you should probably edit things to suit yr module. You can chain multiple example/alias/describe calls if you want to show off more functionality or define other options.</p>
 
-<p><code>./cmd.js -h</code> =&gt; automatic documentation!</p>
+<ul>
+<li><code>./cmd.js -h</code> =&gt; =&gt; automatic documentation!</li>
+</ul>
 
 <p>Once defined, yargs literally does not care how things are passed to it.</p>
 
-<p><code>./cmd.js -i 72 what is up with airline food?</code> ALL GOOD!
-<code>./cmd.js what is up with airline food? --intensity=72</code> TOTALLY COOL! SAME THING!</p>
+<ul>
+<li><p><code>./cmd.js -i 72 what is up with airline food?</code> =&gt; ALL GOOD!</p></li>
+<li><p><code>./cmd.js what is up with airline food? --intensity=72</code> =&gt; TOTALLY COOL! SAME THING!</p></li>
+</ul>
 
 <p>In either case, inside the running cmd.js script the following would be the truth:</p>
 
-<p><code>argv._</code> =&gt; [&lsquo;what&rsquo;, &#39;is&rsquo;, &#39;up&rsquo;, &#39;with&rsquo;, &#39;airline&rsquo;, &#39;food?&rsquo;]
-<code>argv.i</code> =&gt; 72</p>
+<ul>
+<li><p><code>argv._</code> =&gt; =&gt; [&lsquo;what&rsquo;, &#39;is&rsquo;, &#39;up&rsquo;, &#39;with&rsquo;, &#39;airline&rsquo;, &#39;food?&rsquo;]</p></li>
+<li><p><code>argv.i</code> =&gt; =&gt; 72</p></li>
+</ul>
 
 <p>If your module is simple enough, you might be done! Back to the text editor!</p>
 
-<p><code>var output = yrModule(argv._.join(&quot; &quot;), argv.i)</code> pass the arguments to yrModule (maybe it responds to jokes?)
-<code>process.stdout.write(output)</code> write the output to the terminal
-<code>process.exit()</code> exit the program</p>
+<ul>
+<li><p><code>var output = yrModule(argv._.join(&quot; &quot;), argv.i)</code> =&gt; pass the arguments to yrModule (maybe it responds to jokes?)</p></li>
+<li><p><code>process.stdout.write(output)</code> =&gt; write the output to the terminal</p></li>
+<li><p><code>process.exit()</code> =&gt; exit the program</p></li>
+</ul>
 
 <p>The UNIX ideology believes that building simple interfaces that accept text input and produce text output are super radical. We are fulfilling that dream right now. To the command line:</p>
 
-<p><code>./cmd.js -i 12 awwwwoooooooooooooooooo | grep whales &gt;&gt; save_them.txt</code> Amazing.</p>
+<ul>
+<li><code>./cmd.js -i 12 awwwwoooooooooooooooooo | grep whales &gt;&gt; save_them.txt</code> =&gt; Amazing.</li>
+</ul>
 
 <p>Well, I don&rsquo;t know if yr module has anything to do with whales, but it probably should.</p>
 
-<p>But hey! <code>grep</code> accepts that weird <code>|</code> pipe thing! Can we accept the weird pipe thing and thus complete our embodiment of the UNIX philosophy?</p>
+<p>But hey! <code>grep</code> =&gt; accepts that weird <code>|</code> =&gt; pipe thing! Can we accept the weird pipe thing and thus complete our embodiment of the UNIX philosophy?</p>
 
 <p>Yes. Sure. Lets edit some text.</p>
 
@@ -91,7 +105,9 @@
   <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">()</span>
 </code></pre>
 
-<p><code>process.stdin.isTTY</code> basically asks node &ldquo;IS THIS A TERMINAL?&rdquo;</p>
+<ul>
+<li><code>process.stdin.isTTY</code> =&gt; basically asks node &ldquo;IS THIS A TERMINAL?&rdquo;</li>
+</ul>
 
 <p>And then the else case, for pipey-times:</p>
 <pre class="highlight javascript"><code><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -109,7 +125,9 @@
 <span class="p">}</span>
 </code></pre>
 
-<p><code>cat burrito_recipes.txt | ./cmd.js -i 400</code> WOW all kinds of inputs</p>
+<ul>
+<li><code>cat burrito_recipes.txt | ./cmd.js -i 400</code> =&gt; WOW all kinds of inputs</li>
+</ul>
 
 <p>If your module is super complex and might be used on datasets that can&rsquo;t be stored in RAM then you should probably stream the chunks directly into your codes rather than building up a data string and doing it all at once. But this is fine, it&rsquo;s fine, probably fine. Totally.</p>
 
@@ -121,15 +139,21 @@
 
 <p>Of course replace yrModule with whatever you want the command line executable to be. In this instance you could do:</p>
 
-<p><code>yrModule foo fighters -i 65</code> probably make sure you pick a name that isn&rsquo;t already a thing, like <code>git</code>, that would be bad. </p>
+<ul>
+<li><code>yrModule foo fighters -i 65</code> =&gt; probably make sure you pick a name that isn&rsquo;t already a thing, like <code>git</code>, that would be bad. </li>
+</ul>
 
 <p>ONE LAST THING!</p>
 
-<p><code>process.exit(1)</code> handle yr errors! If yr CLI script fails for some reason, exit with a 1 so that computer knows that a bad thing happened.</p>
+<ul>
+<li><code>process.exit(1)</code> =&gt; handle yr errors! If yr CLI script fails for some reason, exit with a 1 so that computer knows that a bad thing happened.</li>
+</ul>
 
 <hr>
 
-<p><code>npm publish</code> YOU ARE A HERO</p>
+<ul>
+<li><code>npm publish</code> =&gt; YOU ARE A HERO</li>
+</ul>
 
 <p>You can see this sort of thing in action in this <a href="https://github.com/coleww/diacriticize/blob/gh-pages/cmd.js">cmd.js example code from one of my modules</a> as well as this <a href="https://github.com/coleww/mkproj/blob/master/cmd.js">wow, absolute bare minimum here, doesn&rsquo;t even take arguments, barely trying, cool</a></p>
 
