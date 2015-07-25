@@ -83,7 +83,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
     <link rel="alternate" href="http://colewillsea.com/blog/npm-cli.html"/>
     <id>http://colewillsea.com/blog/npm-cli.html</id>
     <published>2015-07-15T18:10:00-07:00</published>
-    <updated>2015-07-23T08:23:46-07:00</updated>
+    <updated>2015-07-25T08:40:30-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -218,6 +218,12 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;process.exit(1)&lt;/code&gt; =&amp;gt; handle yr errors! If yr CLI script fails for some reason, exit with a 1 so that computer knows that a bad thing happened.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;OK ONE OTHER THING!&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;preferGlobal&amp;quot;: true&lt;/code&gt; =&amp;gt; if your script is primarily a CLI tool and wouldn&amp;rsquo;t make much sense as a local project dependency, add this so users get a warning if they don&amp;rsquo;t &lt;code&gt;npm install -g&lt;/code&gt;. this would be for things like scaffolding tools or video games.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;hr&gt;
