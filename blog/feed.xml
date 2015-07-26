@@ -10,15 +10,19 @@
     <name>Cole Willsea</name>
   </author>
   <entry>
-    <title>overtone-pitching-samples</title>
+    <title>Pitching Samples Around In Overtone</title>
     <link rel="alternate" href="http://colewillsea.com/blog/overtone-pitching-samples.html"/>
     <id>http://colewillsea.com/blog/overtone-pitching-samples.html</id>
     <published>2015-07-26T13:53:00-07:00</published>
-    <updated>2015-07-26T14:30:32-07:00</updated>
+    <updated>2015-07-26T14:32:54-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
-    <content type="html">&lt;p&gt;For a while now I have been &lt;a href="http://shreddit-hard-co.re/"&gt;building interfaces&lt;/a&gt; for &lt;a href="http://coleww.github.io/problumz/"&gt;creating music&lt;/a&gt; with &lt;a href="https://www.npmjs.com/package/drone-e-o-synth"&gt;JavaScript and Web Audio&lt;/a&gt;, but apparently Overtone already does everything I could ever possibly think of or want. Cool, my lifes work for nothing.&lt;/p&gt;
+    <content type="html">&lt;h1&gt;Pitching Samples Around In Overtone&lt;/h1&gt;
+
+&lt;h2&gt;because sometimes, you&amp;rsquo;re too lazy to sample the entire piano&lt;/h2&gt;
+
+&lt;p&gt;For a while now I have been &lt;a href="http://shreddit-hard-co.re/"&gt;building interfaces&lt;/a&gt; for &lt;a href="http://coleww.github.io/problumz/"&gt;creating music&lt;/a&gt; with &lt;a href="https://www.npmjs.com/package/drone-e-o-synth"&gt;JavaScript and Web Audio&lt;/a&gt;, but apparently Overtone already does everything I could ever possibly think of or want. Cool, my lifes work for nothing.&lt;/p&gt;
 
 &lt;p&gt;One of the coolest things about Overtone is that it interfaces directly with &lt;a href="https://www.freesound.org/"&gt;Freesound&lt;/a&gt;, a database of free audio samples. That means that you can execute &lt;code&gt;(freesound 123456)&lt;/code&gt; and the audio file at ID 123456 will be automatically downloaded, stored in &lt;code&gt;.overtone/assets&lt;/code&gt;, and played back. I don&amp;rsquo;t know what sample 123456 is, so listener beware&amp;hellip; &lt;/p&gt;
 
