@@ -16,7 +16,374 @@
 </a>    </center>
 
     <div id="main" role="main">
-        <h2><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></h2>
+        <h2><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></h2>
+  <!-- <h1>Pitching Samples Around In Overtone</h1>
+
+<h2>because sometimes, you&rsquo;re too lazy to sample the entire piano</h2>
+
+<p><img alt="otone" src="/blog/images/otone.gif" /></p>
+
+<p>For a while now I have been <a href="http://shreddit-hard-co.re/">building interfaces</a> for <a href="http://coleww.github.io/problumz/">creating music</a> with <a href="https://www.npmjs.com/package/drone-e-o-synth">JavaScript and Web Audio</a>, but apparently Overtone already does everything I could ever possibly think of or want. Cool, my lifes work for nothing.</p>
+
+<p>One of the coolest things about Overtone is that it interfaces directly with <a href="https://www.freesound.org/">Freesound</a>, a database of free audio samples. That means that you can execute <code>(freesound 123456)</code> and the audio file at ID 123456 will be automatically downloaded, stored in <code>.overtone/assets</code>, and played back. I don&rsquo;t know what sample 123456 is, so listener beware&hellip; </p>
+
+<p>With this newly discovered power I began scouring the Freesound website for vocal samples to lay on top of my music. I found this sample pack called <a href="https://www.freesound.org/people/beskhu/packs/4560/">Simplesong (MAC) pitched vocal formants</a> and set out to convert it into an instrument along the lines of this <a href="http://blog.josephwilk.net/clojure/creating-instruments-with-overtone.html">blog post by Joseph Wilk</a></p>
+
+<p>Now that I had samples that I liked I just needed to grab their IDs from the website. The aformentioned Joseph Wilk post contains a Ruby script for grabbing ids for a pack, and I also wrote a <a href="https://gist.github.com/coleww/939bc606645c57dd1b29">node script</a> for grabbing IDs based on a query. </p>
+
+<p>Unfortunately, this pack only contained samples of the notes C# A# G and E at various octaves, but I could still play the intermediate pitches by altering the playback rate of the sample. If I wanted to play midi note 34 but I only had a sample for midi note 32 I would just convert both notes to frequencies, divide them, and use the result as the playback value: <code>((freesound 123456) :rate (/ (midi-&gt;hz 34) (midi-&gt;hz 32)))</code>. </p>
+
+<p>With this simple piece of mathematics in hand, I just needed a play function to do all the equations and make some noise:</p>
+<pre class="highlight clojure"><code><span class="p">(</span><span class="nf">ns</span><span class="w"> </span><span class="n">syllable-synth.synth</span><span class="w">
+  </span><span class="p">(</span><span class="no">:require</span><span class="w"> </span><span class="p">[</span><span class="n">overtone.live</span><span class="w"> </span><span class="no">:refer</span><span class="w"> </span><span class="no">:all</span><span class="p">]))</span><span class="w">
+
+</span><span class="c1">;; object of objects mapping syllable sound to midi note to a freesound sample
+</span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">voices</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="c1">;; there were many different syllable sounds represented, but for this example we can only make "oooo" sounds
+</span><span class="w">  </span><span class="no">:oooo</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="mi">70</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70529</span><span class="p">)</span><span class="w"> </span><span class="mi">67</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70528</span><span class="p">)</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70527</span><span class="p">)</span><span class="w"> </span><span class="mi">61</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70526</span><span class="p">)</span><span class="w"> </span><span class="mi">58</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70525</span><span class="p">)</span><span class="w"> </span><span class="mi">55</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70524</span><span class="p">)</span><span class="w"> </span><span class="mi">52</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70523</span><span class="p">)</span><span class="w"> </span><span class="mi">49</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70522</span><span class="p">)</span><span class="w"> </span><span class="mi">46</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70521</span><span class="p">)</span><span class="w"> </span><span class="mi">43</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70520</span><span class="p">)</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70519</span><span class="p">)</span><span class="w"> </span><span class="mi">37</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70518</span><span class="p">)</span><span class="w"> </span><span class="mi">34</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70517</span><span class="p">)</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70516</span><span class="p">)}})</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">play</span><span class="w">
+  </span><span class="s">"accepts midi note and syllable to play, uses random if none passed"</span><span class="w">
+  </span><span class="p">[</span><span class="n">note</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">syll</span><span class="p">]]</span><span class="w">
+
+        </span><span class="c1">;; if no syllable is passed, pick one at random
+</span><span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">syllable</span><span class="w"> </span><span class="p">(</span><span class="nb">or</span><span class="w"> </span><span class="n">syll</span><span class="w"> </span><span class="p">(</span><span class="nf">rand-nth</span><span class="w"> </span><span class="p">(</span><span class="nb">keys</span><span class="w"> </span><span class="n">voices</span><span class="p">)))</span><span class="w">
+
+        </span><span class="c1">;; grab the notes for which we have a sample 
+</span><span class="w">        </span><span class="c1">;; that are lower than the note we want to play
+</span><span class="w">        </span><span class="n">notes</span><span class="w"> </span><span class="p">(</span><span class="nb">filter</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nb">&lt;=</span><span class="w"> </span><span class="n">%</span><span class="w"> </span><span class="n">note</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">keys</span><span class="w"> </span><span class="p">(</span><span class="nf">syllable</span><span class="w"> </span><span class="n">voices</span><span class="p">)))</span><span class="w">
+
+        </span><span class="c1">;; our base-note is the highest note in notes, 
+</span><span class="w">        </span><span class="c1">;; or 31 if it is lower than 31
+</span><span class="w">        </span><span class="n">base-note</span><span class="w"> </span><span class="p">(</span><span class="nb">or</span><span class="w"> </span><span class="p">(</span><span class="nb">last</span><span class="w"> </span><span class="p">(</span><span class="nb">sort</span><span class="w"> </span><span class="n">notes</span><span class="p">)</span><span class="w"> </span><span class="mi">31</span><span class="p">)</span><span class="w">
+
+        </span><span class="c1">;; in order to pitch the base-note up to our desired note, 
+</span><span class="w">        </span><span class="c1">;; we convert them both to frequencies and divide
+</span><span class="w">        </span><span class="n">rate</span><span class="w"> </span><span class="p">(</span><span class="nb">/</span><span class="w"> </span><span class="p">(</span><span class="nf">midi-&gt;hz</span><span class="w"> </span><span class="n">note</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">midi-&gt;hz</span><span class="w"> </span><span class="n">base-note</span><span class="p">))]</span><span class="w">
+
+    </span><span class="c1">;; grab the sample for the given syllable and base-note,
+</span><span class="w">    </span><span class="c1">;; and play it back with the rate set 
+</span><span class="w">    </span><span class="c1">;; to pitch the sample up the desired note
+</span><span class="w">    </span><span class="p">((</span><span class="nb">get</span><span class="w"> </span><span class="p">(</span><span class="nf">syllable</span><span class="w"> </span><span class="n">voices</span><span class="p">)</span><span class="w"> </span><span class="n">base-note</span><span class="p">)</span><span class="w"> </span><span class="no">:rate</span><span class="w"> </span><span class="n">rate</span><span class="p">)))</span><span class="w">
+
+
+</span><span class="p">(</span><span class="nf">play</span><span class="w"> </span><span class="mi">40</span><span class="p">)</span><span class="w">
+
+</span></code></pre>
+
+<p>You can see the complete code <a href="https://github.com/coleww/my-symphony/blob/master/src/my_symphony/silly-bills.clj">here</a> or see it <a href="https://github.com/coleww/my-symphony/blob/master/src/my_symphony/beat.clj">in action</a>.</p>
+ -->
+  <h2><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></h2>
+  <!-- <h1>Building a simple CORS API in node</h1>
+
+<h2>TASTE THE ROCKIES</h2>
+
+<p><img alt="cors" src="/blog/images/cors.png" /></p>
+
+<p>So you want to build a lil API. Maybe you have some live data to share with the world, maybe you want to make a <a href="http://bikeshed.io/">funny joke</a>, maybe I don&rsquo;t really even care what your reasons are. If you would like lots of people to use your API, you should consider enabling CORS requests so that it can be easily accessed from client side javascript. If you don&rsquo;t, then when people try to use jQuery to hit yr API they will get some horrible error and the whole system will crash. Or they&rsquo;ll have to do some awkward proxying in order to get the data.   It&rsquo;s bad. Trust me.</p>
+
+<p>I&rsquo;m sure there are all kinds of things pre-built for Express or Hapi and probably even just a plain ole&rsquo; NPM module somewhere that does the CORS magic for you, but you know sometimes it&rsquo;s nice to drop down a lil closer to that bare http server metal.</p>
+
+<h3>SHOW ME THE CODE!</h3>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Origin'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Request-Method'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Methods'</span><span class="p">,</span> <span class="s1">'OPTIONS, GET'</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Headers'</span><span class="p">,</span> <span class="s1">'*'</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="p">(</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s1">'OPTIONS'</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+    <span class="k">return</span>
+  <span class="p">}</span>
+
+  <span class="c1">// do stuff</span>
+<span class="p">})</span>
+<span class="nx">server</span><span class="p">().</span><span class="nx">listen</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">8000</span><span class="p">)</span>
+</code></pre>
+
+<p>You are of course welcome to copy pasta that code snippet and be on your merry way, but I have taken the liberty of reading through some boring technical documents [<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">1</a>, <a href="http://www.w3.org/TR/cors/#access-control-request-method-request-header">2</a>] to try to figure out what the heck this all means:</p>
+
+<p><code>res.setHeader(&#39;Access-Control-Allow-Origin&#39;, &#39;*&#39;)</code>
+Here, Origin refers to the URL making the request. If you put &ldquo;*&rdquo; any url will work. If you put a space separated list of urls then only requests coming from those URLs will work, for example: &ldquo;www.geocities.com www.example.com&rdquo;. You can also put &ldquo;null&rdquo; which would mean nothing could access it but that makes no sense so probably just forget it is even an option.</p>
+
+<p><code>res.setHeader(&#39;Access-Control-Request-Method&#39;, &#39;*&#39;)</code>
+STRAIGHT FROM THE SPEC: &ldquo;The Access-Control-Request-Method header indicates which method will be used in the actual request as part of the preflight request.&rdquo; TBQH, I have no idea what this means. The star is probably fine. I don&rsquo;t see how this is much different than the next entry:</p>
+
+<p><code>res.setHeader(&#39;Access-Control-Allow-Methods&#39;, &#39;OPTIONS, GET&#39;)</code>
+Here you list which HTTP request verbs are allowed. More on the OPTIONS request later. You could obviously add PUT or POST or PATCH or DELETE or actually I think that is it that is all that you can add to this comma separate list. The spec adds a note that &ldquo;The <code>Allow</code> header is not relevant for the purposes of the CORS protocol&rdquo;, so take that as you will.</p>
+
+<p><code>res.setHeader(&#39;Access-Control-Allow-Headers&#39;, &#39;*&#39;)</code>
+Much like the All-Methods reqsponse header, here you specify which request header fields to allow. If yr API is super wicked and secret then maybe you should put some controls on it.</p>
+
+<ul>
+<li>The Pre-Flight Request</li>
+</ul>
+<pre class="highlight plaintext"><code>if ( req.method === 'OPTIONS' ) {
+  res.writeHead(200)
+  res.end()
+  return
+}
+</code></pre>
+
+<p>Sometimes, the CORS request needs to ask the API if it can CORS before it even attempts to CORS. That&rsquo;s pretty weird stuff, but it&rsquo;s also fairly typical as far as how the internets work. Just roll with it: if you get an OPTIONS request, 200 ok it immediately. The response will already contain all the CORS headers that you set, so that whatever is making the OPTIONS request knows what to do next.</p>
+
+<hr>
+
+<p>There you have it! Now your users can access your API using javascript in the browser OR the server, and you can finally build a hexamorphic web application!</p>
+
+<p>You can see the cors in use in <a href="https://github.com/coleww/corpora-api">this project</a>, which basically serves up a directory of JSON files as an API. (but is also sadly not currently deployed anywhere)</p>
+ -->
+  <h2><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></h2>
+  <!-- <h1>Building a <em>nice</em> CLI For Your Sick npm Module</h1>
+
+<h2>A tale in backticks</h2>
+
+<p>Ok so you have written a pretty sweet node module. <em>nice</em>. Ok so maybe you want to make this utility available on the command line?</p>
+
+<ul>
+<li><p><code>touch cmd.js</code> =&gt; lets make a file!</p></li>
+<li><p><code>chmod +x cmd.js</code> =&gt; lets make it executable!</p></li>
+<li><p><code>./cmd.js</code> =&gt; doesnt do anything yet!</p></li>
+</ul>
+
+<p>But hey, it ran on the command line!</p>
+
+<p>THE END</p>
+
+<p>Ok so open up cmd.js in the text editor of yr choosing and add:</p>
+
+<ul>
+<li><p><code>#!/usr/bin/env node</code> =&gt; This tells computer how to run this script</p></li>
+<li><p><code>var yrModule = require(&#39;./&#39;)</code> =&gt; Load up that code</p></li>
+</ul>
+
+<p>But wait! What about arguments! I have a lot to say!</p>
+
+<p>shhhh go back to the command line:</p>
+
+<ul>
+<li><code>npm install yargs --save</code> =&gt; <a href="https://www.npmjs.com/package/yargs">yargs</a> is pretty cool. <a href="https://www.npmjs.com/package/minimist">minimist</a> is also pretty cool. I ended up using yargs due to reasons that I cannot recall. Cool story.</li>
+</ul>
+
+<p>Go back to the text editor and add:</p>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">argv</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'yargs'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s1">'h'</span><span class="p">,</span> <span class="s1">'help'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">help</span><span class="p">(</span><span class="s1">'help'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">usage</span><span class="p">(</span><span class="s1">'what does thing do?'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s1">'yrModule POTATOES!'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s1">'i'</span><span class="p">,</span> <span class="s1">'intensity'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s1">'i'</span><span class="p">,</span> <span class="s1">'describe what the arguments do'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">argv</span>
+</code></pre>
+
+<p>Of course&hellip;you should probably edit things to suit yr module. You can chain multiple example/alias/describe calls if you want to show off more functionality or define other options.</p>
+
+<ul>
+<li><code>./cmd.js -h</code> =&gt; =&gt; automatic documentation!</li>
+</ul>
+
+<p>Once defined, yargs literally does not care how things are passed to it.</p>
+
+<ul>
+<li><p><code>./cmd.js -i 72 what is up with airline food?</code> =&gt; ALL GOOD!</p></li>
+<li><p><code>./cmd.js what is up with airline food? --intensity=72</code> =&gt; TOTALLY COOL! SAME THING!</p></li>
+</ul>
+
+<p>In either case, inside the running cmd.js script the following would be the truth:</p>
+
+<ul>
+<li><p><code>argv._</code> =&gt; =&gt; [&lsquo;what&rsquo;, &#39;is&rsquo;, &#39;up&rsquo;, &#39;with&rsquo;, &#39;airline&rsquo;, &#39;food?&rsquo;]</p></li>
+<li><p><code>argv.i</code> =&gt; =&gt; 72</p></li>
+</ul>
+
+<p>If your module is simple enough, you might be done! Back to the text editor!</p>
+
+<ul>
+<li><p><code>var output = yrModule(argv._.join(&quot; &quot;), argv.i)</code> =&gt; pass the arguments to yrModule (maybe it responds to jokes?)</p></li>
+<li><p><code>process.stdout.write(output)</code> =&gt; write the output to the terminal</p></li>
+<li><p><code>process.exit()</code> =&gt; exit the program</p></li>
+</ul>
+
+<p>The UNIX ideology believes that building simple interfaces that accept text input and produce text output are super radical. We are fulfilling that dream right now. To the command line:</p>
+
+<ul>
+<li><code>./cmd.js -i 12 awwwwoooooooooooooooooo | grep whales &gt;&gt; save_them.txt</code> =&gt; Amazing.</li>
+</ul>
+
+<p>Well, I don&rsquo;t know if yr module has anything to do with whales, but it probably should.</p>
+
+<p>But hey! <code>grep</code> =&gt; accepts that weird <code>|</code> =&gt; pipe thing! Can we accept the weird pipe thing and thus complete our embodiment of the UNIX philosophy?</p>
+
+<p>Yes. Sure. Lets edit some text.</p>
+
+<p>First we wrap our original non-pipey code with an if block:</p>
+<pre class="highlight javascript"><code><span class="k">if</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">isTTY</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="nx">yrModule</span><span class="p">(</span><span class="nx">argv</span><span class="p">.</span><span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">" "</span><span class="p">),</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">i</span><span class="p">)</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">output</span><span class="p">)</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">()</span>
+</code></pre>
+
+<ul>
+<li><code>process.stdin.isTTY</code> =&gt; basically asks node &ldquo;IS THIS A TERMINAL?&rdquo;</li>
+</ul>
+
+<p>And then the else case, for pipey-times:</p>
+<pre class="highlight javascript"><code><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="s1">''</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">resume</span><span class="p">()</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">'utf8'</span><span class="p">)</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="o">+=</span> <span class="nx">chunk</span>
+  <span class="p">})</span>
+
+  <span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">yrModule</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">i</span><span class="p">))</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">()</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre>
+
+<ul>
+<li><code>cat burrito_recipes.txt | ./cmd.js -i 400</code> =&gt; WOW all kinds of inputs</li>
+</ul>
+
+<p>If your module is super complex and might be used on datasets that can&rsquo;t be stored in RAM then you should probably stream the chunks directly into your codes rather than building up a data string and doing it all at once. But this is fine, it&rsquo;s fine, probably fine. Totally.</p>
+
+<p>Cool! Now your module is ready to do all sorts of command line tricks. The last thing you need to remember to do before publishing this update to npm is adding a &ldquo;bin&rdquo; entry to your package.json file so that yr CLI script is available in the PATH of those who install your module. (But if you forget sometimes don&rsquo;t worry about dat inevitable post-npm-publish-version-bump-re-publish it happens to the best of us.)</p>
+<pre class="highlight javascript"><code><span class="s2">"bin"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"yrModule"</span><span class="err">:</span> <span class="s2">"cmd.js"</span>
+<span class="p">},</span>
+</code></pre>
+
+<p>Of course replace yrModule with whatever you want the command line executable to be. In this instance you could do:</p>
+
+<ul>
+<li><code>yrModule foo fighters -i 65</code> =&gt; probably make sure you pick a name that isn&rsquo;t already a thing, like <code>git</code>, that would be bad. </li>
+</ul>
+
+<p>ONE LAST THING!</p>
+
+<ul>
+<li><code>process.exit(1)</code> =&gt; handle yr errors! If yr CLI script fails for some reason, exit with a 1 so that computer knows that a bad thing happened.</li>
+</ul>
+
+<p>OK ONE OTHER THING!</p>
+
+<ul>
+<li><code>&quot;preferGlobal&quot;: true</code> =&gt; if your script is primarily a CLI tool and wouldn&rsquo;t make much sense as a local project dependency, add this so users get a warning if they don&rsquo;t <code>npm install -g</code>. this would be for things like scaffolding tools or video games.</li>
+</ul>
+
+<hr>
+
+<ul>
+<li><code>npm publish</code> =&gt; YOU ARE A HERO</li>
+</ul>
+
+<p>You can see this sort of thing in action in this <a href="https://github.com/coleww/diacriticize/blob/gh-pages/cmd.js">cmd.js example code from one of my modules</a> as well as this <a href="https://github.com/coleww/mkproj/blob/master/cmd.js">wow, absolute bare minimum here, doesn&rsquo;t even take arguments, barely trying, cool</a></p>
+ -->
+  <h2><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></h2>
+  <!-- <h1>Shelling Out</h1>
+
+<h2>I would gladly shell out 5$ for you to pipe a burrito to me, streaming, over the course of the next 7 minutes.</h2>
+
+<p>Traditionally in UNIX land one would connect the output of various programs to the inputs of others with pipes (<code>|</code>) directly on the command line, or within the depths of a shell script, like so:</p>
+
+<p><code>cat recipe.txt | grep potatoes &gt;&gt; potato_ideas.txt</code></p>
+
+<p>This is a great way to compose complex actions out of many small utilities.</p>
+
+<p><img alt="pipe" src="/blog/images/pipe.png" /></p>
+
+<p>Piping works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts that <code>touch</code> and <code>mkdir</code> your way to many victories, but what about integrating more complicated CLI tools like npm, bower, ember, rails, or git? These programs do things like prompt the user to make decisions, hit the network, or generate a metric ton of files, and it might get unwieldy to try to control such chaos directly from the command line. Instead, you can write a script that shells out to them!</p>
+
+<p><img alt="shelling" src="/blog/images/shelling.png" /></p>
+
+<p>In Ruby, the easiest way to shell out a command is to put it backticks, like so:</p>
+<pre class="highlight ruby"><code><span class="c1"># this would print the current directory</span>
+<span class="nb">puts</span> <span class="sb">`ls`</span>
+</code></pre>
+
+<p>The same shelling, but with Node.js:</p>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">exec</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'child_process'</span><span class="p">).</span><span class="nx">exec</span>
+<span class="nx">exec</span><span class="p">(</span><span class="s1">'ls'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// this would print the current directory</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stdout</span><span class="p">)</span>
+
+  <span class="c1">// probably some callback hell here</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>With these, you can easily run shell commands and respond to their output as part of your script. But what if instead of just running a command you want to turn over control to a different program? Maybe that program has user prompts that need answering or it shows some pretty sweet terminal graphics.</p>
+
+<p>In Ruby you can use <code>exec</code>, which replaces the current process with the given command:</p>
+<pre class="highlight ruby"><code><span class="nb">exec</span> <span class="s2">"rails new monolith"</span>
+<span class="nb">puts</span> <span class="s2">"never gets here cuz rails takes over"</span>
+</code></pre>
+
+<p>In Node.js there is the <a href="https://www.npmjs.com/package/kexec">kexec</a> module, which does the exact same thing:</p>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">kexec</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kexec'</span><span class="p">)</span>
+<span class="nx">kexec</span><span class="p">(</span><span class="s1">'ember new behemoth'</span><span class="p">)</span>
+</code></pre>
+
+<p>I used some of these magical spells to build <a href="https://github.com/coleww/mkproj">mkproj</a>, which generates a bunch of files and does some NPM stuff in order to scaffold lil browserify projects. Being able to run code on the command line from a Ruby or Node script opens up tons of possibilities for destroying your computer in a for loop! Reader beware!</p>
+ -->
+  <h2><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></h2>
+  <!-- <h1>automating bots with cron on digital ocean</h1>
+
+<h2>because setInterval is probably not the right thing to do</h2>
+
+<p>I used to deploy all my bots to Heroku, running in constant loops on those sweet sweet free single dynos.</p>
+
+<p>They looked something like this:</p>
+<pre class="highlight ruby"><code>    <span class="kp">loop</span> <span class="k">do</span>
+        <span class="c1"># do some stuff</span>
+        <span class="no">BOT</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="n">funny_tweet_lol</span><span class="p">)</span>
+        <span class="nb">sleep</span> <span class="mi">10800</span> <span class="o">+</span> <span class="p">(</span><span class="nb">rand</span> <span class="mi">5400</span><span class="p">)</span>
+    <span class="k">end</span>
+</code></pre>
+
+<p>This is&hellip;not optimal for a number of reasons. But since I could create new Heroku apps for free from the command line it was super easy, and, well, why not. I even made a <a href="https://github.com/coleww/twitter_bot_generator">twitter bot generator ruby gem</a> around the concept. Don&rsquo;t judge me.</p>
+
+<p>With deng near fifty of these things running, I was not much pleased to hear about the new Heroku pricing plan. Though of course I couldn&rsquo;t get mad cuz it was free servers in the first place. While I could have meticulously gone through all my Heroku apps and updated them to not loop/sleep forever and instead scheduled the scripts to run at various intervals, I figured it was finally time to get close to that cloud server metal and put together a lil droplet for myself in the Digital Ocean.</p>
+
+<p>There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.  It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&rsquo;s totally boring.</p>
+
+<p><img alt="corn" src="/blog/images/corn.jpg" /></p>
+
+<ul>
+<li>WHY IS THERE NO NODE.JS HERE?!</li>
+</ul>
+
+<p>Even though I had installed all the nodes and rubies, my cron seemed to just ignore them. I thought that was quite rude. To fix this, you just need to export your path. Enter <code>echo PATH=$PATH</code> and copy paste the output into your crontab.</p>
+
+<p>This was what I saw:</p>
+<pre class="highlight plaintext"><code>root@1404-64:~# echo PATH=$PATH
+PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/rvm/bin
+</code></pre>
+
+<p>And just dump it in the <code>crontab -e</code> before your job listings.</p>
+<pre class="highlight plaintext"><code>#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h  dom mon dow   command
+PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr$
+</code></pre>
+
+<ul>
+<li>.././../././relative paths :&lt;</li>
+</ul>
+
+<p>Now I had node, but my require(&rsquo;./module&rsquo;) calls didn&rsquo;t seem to work! Cron apparently is not only PATHless but also pathless. My crons looked something like <code>* * * * * node bots/lolbot/bot.js &gt;&gt; ~/lol.log</code> but in order to correctly set my working path, I just had to <code>cd</code> into the parent directory before running the script, like so: <code>* * * * * cd bots/lolbot &amp;&amp; node bot.js &gt;&gt; ~/lol.log</code>.</p>
+
+<hr>
+
+<p>This &ldquo;blog post&rdquo; was <a href="https://twitter.com/colewillsea/lists/my-robots">tested</a> on a 512MB Ram20GB SSD Disk Ubuntu 14.04 x64 Digital Ocean droplet but will probably apply for pretty much any linux-y system anywhere.</p>
+ -->
+  <h2><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></h2>
   <!-- <h1>Manually Trigger Loading Routes in Ember</h1>
 
 <h2>cuz Ember can&rsquo;t do  e v e r y t h i n g  for you</h2>
@@ -137,9 +504,7 @@
 
 <p>A full list of supported languages/syntaxes can be found <a href="https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers">here</a>.</p>
  -->
-<br /><br /><br /><br /><br /><br /><br /><br /><br />
 
-    <p><a href="/blog/">Previous page</a></p>
 
       <br/>
       <br/>
@@ -162,16 +527,13 @@
         (<a href="https://twitter.com/colewillsea">twitter</a>)
       </div></p>
       <h2>RECENT BLAGZ</h2>
-      <ol>
+      <ul>
           <li><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></li>
           <li><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></li>
           <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
           <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
-          <li><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
-          <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
-          <li><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></li>
-      </ol>
+      </ul>
 
     </aside>
     <script type="text/javascript">
