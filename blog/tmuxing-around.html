@@ -16,15 +16,81 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Archive for
-    Jun  3 2015
-</h1>
+      <p>START TMUXING AROUND MORE
+USING TMUX, SSH, OSX</p>
 
+<p>https://github.com/coleww/dotfiles/blob/master/.tmux.conf</p>
+
+<p>Recently started doing my work-work in a dev-box in the cloud. Wanted to be able to treat ssh connection like i was just on local filesystem. A bit overwhelmed, hard to find exact info.</p>
+
+<p>THE ONLY TMUX COMMANDS U NEED</p>
 
 <ul>
-    <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
+<li>sshin trick, attach directly to the mux, detach disconnects.</li>
 </ul>
 
+<p>C-a c open new window
+C-a number =&gt; jump to that number window 
+C-a arrow?</p>
+
+<p>FIRSTLY
+remap prefix to CTRL + a (or whatever you want.) b is totally absurd
+<code>bash
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+</code></p>
+
+<p>SECONDLY
+enable the mouse
+<code>
+set -g mode-mouse on
+set -g mouse-resize-pane on
+set -g mouse-select-pane on
+set -g mouse-select-window on
+</code></p>
+
+<h1>remove administrative debris (session name, hostname, time) in status bar</h1>
+
+<p>set -g status-left &ldquo;
+set -g status-right &rdquo;</p>
+
+<h1>makes entering commands much easier</h1>
+
+<p>set -s escape-time 0</p>
+
+<h1>quick pane cycling</h1>
+
+<p>unbind ^A
+bind ^A select-pane -t :.+</p>
+
+<h1>number screens 1-9 cuz thats how keyboard is</h1>
+
+<p>set -g base-index 1</p>
+
+<h1>force a reload of the config file</h1>
+
+<p>unbind r
+bind r source-file ~/.tmux.conf</p>
+
+<h1>easier splitting, open splits in current path</h1>
+
+<p>unbind %
+bind | split-window -h
+bind - split-window -v </p>
+
+<p>FUN TRICK:
+something only applicable to OSX? (works for other things too!) put it in tmux-osx.conf! it should contain <code>source-file ~/.tmux.conf</code></p>
+<pre class="highlight shell"><code><span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">$(</span>uname<span class="k">)</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"Darwin"</span> <span class="o">]]</span>; <span class="k">then
+  </span><span class="nb">alias </span><span class="nv">tmux</span><span class="o">=</span><span class="s1">'tmux -f ~/.tmux-osx.conf'</span>
+<span class="k">else
+  </span><span class="nb">alias </span><span class="nv">tmux</span><span class="o">=</span><span class="s1">'tmux'</span>
+<span class="k">fi</span>
+</code></pre>
+
+<p>Sadly, started TMUX, copy-paste, scroll, all mouse movement was not working. I know i should learn the shortcuts (i started on emacs!) but for certain things like resizing terminal panes or selecting text i just can&rsquo;t bring myself to not use a mouse.</p>
+
+<p>=&gt; list links to maybe solutions?</p>
 
       <br/>
       <br/>

@@ -16,7 +16,42 @@
 </a>    </center>
 
     <div id="main" role="main">
-        <h2><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></h2>
+        <h2><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></h2>
+  <!-- <h1>Manually Trigger Loading Routes in Ember</h1>
+
+<h2>cuz Ember can&rsquo;t do  e v e r y t h i n g  for you</h2>
+
+<p>Loading routes in Ember are pretty frigging sweet. You can drop a spinner .gif pretty much any frigging where you want. You can even make nested loading routes: it&rsquo;s frigging awesome.</p>
+
+<p>One trick, however, is making use of those loading routes when persisting customer informatin to your datbase. The loading routes automagically hop into place while you are fetching data, but they can&rsquo;t do the same when saving it. That would be weird and unfortunate.</p>
+
+<p>Instead, you must explicitly tell the router that you are loading some stuff and to just chill the frig out for a second while you figure some things out.</p>
+
+<p>FOR EXAMPLE (presuming you are on the user.edit route, editing yrself):</p>
+<pre class="highlight javascript"><code><span class="nx">saveUserInformation</span><span class="p">(){</span>
+
+  <span class="c1">// MANUALLY TRANSITIONING TO THE LOADING ROUTE</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">transitionTo</span><span class="p">(</span><span class="s1">'loading'</span><span class="p">);</span>
+
+  <span class="c1">// return a promise whose `then` and `catch` callbacks each transition to an appropriate route</span>
+  <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">transitionTo</span><span class="p">(</span><span class="s1">'user.index'</span><span class="p">);</span>
+    <span class="c1">// success! go to the infernal User index and suffer with the rest of them!</span>
+
+  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span><span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// do something to User with the `e` errors --&gt; very bad... show warning/</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">transitionTo</span><span class="p">(</span><span class="s1">'user.edit'</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
+    <span class="c1">// return to the current page, with the current model data all still set like WOWWW</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>A N D   T H A T S    I T</p>
+
+<p>Just a simple <code>this.transitionTo(&#39;loading&#39;)</code> and you can punt the Ember route back into loading mode. Try it today!</p>
+ -->
+  <h2><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></h2>
   <!-- <h1>EATING GLUE</h1>
 
 <h2>Taking Over the Paste Event</h2>
@@ -128,6 +163,7 @@
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ol>
+          <li><a href="/blog/overtone-pitching-samples.html">overtone-pitching-samples</a> <span>Jul 26</span></li>
           <li><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></li>
           <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>

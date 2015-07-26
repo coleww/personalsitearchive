@@ -16,7 +16,60 @@
 </a>    </center>
 
     <div id="main" role="main">
-        <h2><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></h2>
+        <h2><a href="/blog/overtone-pitching-samples.html">overtone-pitching-samples</a> <span>Jul 26</span></h2>
+  <!-- <p>For a while now I have been <a href="http://shreddit-hard-co.re/">building interfaces</a> for <a href="http://coleww.github.io/problumz/">creating music</a> with <a href="https://www.npmjs.com/package/drone-e-o-synth">JavaScript and Web Audio</a>, but apparently Overtone already does everything I could ever possibly think of or want. Cool, my lifes work for nothing.</p>
+
+<p>One of the coolest things about Overtone is that it interfaces directly with <a href="https://www.freesound.org/">Freesound</a>, a database of free audio samples. That means that you can execute <code>(freesound 123456)</code> and the audio file at ID 123456 will be automatically downloaded, stored in <code>.overtone/assets</code>, and played back. I don&rsquo;t know what sample 123456 is, so listener beware&hellip; </p>
+
+<p>With this newly discovered power I began scouring the Freesound website for vocal samples to lay on top of my music. I found this sample pack called <a href="https://www.freesound.org/people/beskhu/packs/4560/">Simplesong (MAC) pitched vocal formants</a> and set out to convert it into an instrument along the lines of this <a href="http://blog.josephwilk.net/clojure/creating-instruments-with-overtone.html">blog post by Joseph Wilk</a></p>
+
+<p>Now that I had samples that I liked I just needed to grab their IDs from the website. The aformentioned Joseph Wilk post contains a Ruby script for grabbing ids for a pack, and I also wrote a <a href="https://gist.github.com/coleww/939bc606645c57dd1b29">node script</a> for grabbing IDs based on a query. </p>
+
+<p>Unfortunately, this pack only contained samples of the notes C# A# G and E at various octaves, but I could still play the intermediate pitches by altering the playback rate of the sample. If I wanted to play midi note 34 but I only had a sample for midi note 32 I would just convert both notes to frequencies, divide them, and use the result as the playback value: <code>((freesound 123456) :rate (/ (midi-&gt;hz 34) (midi-&gt;hz 32)))</code>. </p>
+
+<p>With this simple piece of mathematics in hand, I just needed a play function to do all the equations and make some noise:</p>
+<pre class="highlight clojure"><code><span class="p">(</span><span class="nf">ns</span><span class="w"> </span><span class="n">syllable-synth.synth</span><span class="w">
+  </span><span class="p">(</span><span class="no">:require</span><span class="w"> </span><span class="p">[</span><span class="n">overtone.live</span><span class="w"> </span><span class="no">:refer</span><span class="w"> </span><span class="no">:all</span><span class="p">]))</span><span class="w">
+
+</span><span class="c1">;; object of objects mapping syllable sound to midi note to a freesound sample
+</span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">voices</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="c1">;; there were many different syllable sounds represented, but for this example we can only make "oooo" sounds
+</span><span class="w">  </span><span class="no">:oooo</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="mi">70</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70529</span><span class="p">)</span><span class="w"> </span><span class="mi">67</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70528</span><span class="p">)</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70527</span><span class="p">)</span><span class="w"> </span><span class="mi">61</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70526</span><span class="p">)</span><span class="w"> </span><span class="mi">58</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70525</span><span class="p">)</span><span class="w"> </span><span class="mi">55</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70524</span><span class="p">)</span><span class="w"> </span><span class="mi">52</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70523</span><span class="p">)</span><span class="w"> </span><span class="mi">49</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70522</span><span class="p">)</span><span class="w"> </span><span class="mi">46</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70521</span><span class="p">)</span><span class="w"> </span><span class="mi">43</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70520</span><span class="p">)</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70519</span><span class="p">)</span><span class="w"> </span><span class="mi">37</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70518</span><span class="p">)</span><span class="w"> </span><span class="mi">34</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70517</span><span class="p">)</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="p">(</span><span class="nf">freesound</span><span class="w"> </span><span class="mi">70516</span><span class="p">)}})</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">play</span><span class="w">
+  </span><span class="s">"accepts midi note and syllable to play, uses random if none passed"</span><span class="w">
+  </span><span class="p">[</span><span class="n">note</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">syll</span><span class="p">]]</span><span class="w">
+
+        </span><span class="c1">;; if no syllable is passed, pick one at random
+</span><span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">syllable</span><span class="w"> </span><span class="p">(</span><span class="nb">or</span><span class="w"> </span><span class="n">syll</span><span class="w"> </span><span class="p">(</span><span class="nf">rand-nth</span><span class="w"> </span><span class="p">(</span><span class="nb">keys</span><span class="w"> </span><span class="n">voices</span><span class="p">)))</span><span class="w">
+
+        </span><span class="c1">;; grab the notes for which we have a sample 
+</span><span class="w">        </span><span class="c1">;; that are lower than the note we want to play
+</span><span class="w">        </span><span class="n">notes</span><span class="w"> </span><span class="p">(</span><span class="nb">filter</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nb">&lt;=</span><span class="w"> </span><span class="n">%</span><span class="w"> </span><span class="n">note</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">keys</span><span class="w"> </span><span class="p">(</span><span class="nf">syllable</span><span class="w"> </span><span class="n">voices</span><span class="p">)))</span><span class="w">
+
+        </span><span class="c1">;; our base-note is the highest note in notes, 
+</span><span class="w">        </span><span class="c1">;; or 31 if it is lower than 31
+</span><span class="w">        </span><span class="n">base-note</span><span class="w"> </span><span class="p">(</span><span class="nb">or</span><span class="w"> </span><span class="p">(</span><span class="nb">last</span><span class="w"> </span><span class="p">(</span><span class="nb">sort</span><span class="w"> </span><span class="n">notes</span><span class="p">)</span><span class="w"> </span><span class="mi">31</span><span class="p">)</span><span class="w">
+
+        </span><span class="c1">;; in order to pitch the base-note up to our desired note, 
+</span><span class="w">        </span><span class="c1">;; we convert them both to frequencies and divide
+</span><span class="w">        </span><span class="n">rate</span><span class="w"> </span><span class="p">(</span><span class="nb">/</span><span class="w"> </span><span class="p">(</span><span class="nf">midi-&gt;hz</span><span class="w"> </span><span class="n">note</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">midi-&gt;hz</span><span class="w"> </span><span class="n">base-note</span><span class="p">))]</span><span class="w">
+
+    </span><span class="c1">;; grab the sample for the given syllable and base-note,
+</span><span class="w">    </span><span class="c1">;; and play it back with the rate set 
+</span><span class="w">    </span><span class="c1">;; to pitch the sample up the desired note
+</span><span class="w">    </span><span class="p">((</span><span class="nb">get</span><span class="w"> </span><span class="p">(</span><span class="nf">syllable</span><span class="w"> </span><span class="n">voices</span><span class="p">)</span><span class="w"> </span><span class="n">base-note</span><span class="p">)</span><span class="w"> </span><span class="no">:rate</span><span class="w"> </span><span class="n">rate</span><span class="p">)))</span><span class="w">
+
+
+</span><span class="p">(</span><span class="nf">play</span><span class="w"> </span><span class="mi">40</span><span class="p">)</span><span class="w">
+
+</span></code></pre>
+
+<p>You can see the complete code <a href="https://github.com/coleww/my-symphony/blob/master/src/my_symphony/silly-bills.clj">here</a> or see it <a href="https://github.com/coleww/my-symphony/blob/master/src/my_symphony/beat.clj">in action</a>.</p>
+ -->
+  <h2><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></h2>
   <!-- <h1>Building a simple CORS API in node</h1>
 
 <h2>TASTE THE ROCKIES</h2>
@@ -322,41 +375,6 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 
 <p>This &ldquo;blog post&rdquo; was <a href="https://twitter.com/colewillsea/lists/my-robots">tested</a> on a 512MB Ram20GB SSD Disk Ubuntu 14.04 x64 Digital Ocean droplet but will probably apply for pretty much any linux-y system anywhere.</p>
  -->
-  <h2><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></h2>
-  <!-- <h1>Manually Trigger Loading Routes in Ember</h1>
-
-<h2>cuz Ember can&rsquo;t do  e v e r y t h i n g  for you</h2>
-
-<p>Loading routes in Ember are pretty frigging sweet. You can drop a spinner .gif pretty much any frigging where you want. You can even make nested loading routes: it&rsquo;s frigging awesome.</p>
-
-<p>One trick, however, is making use of those loading routes when persisting customer informatin to your datbase. The loading routes automagically hop into place while you are fetching data, but they can&rsquo;t do the same when saving it. That would be weird and unfortunate.</p>
-
-<p>Instead, you must explicitly tell the router that you are loading some stuff and to just chill the frig out for a second while you figure some things out.</p>
-
-<p>FOR EXAMPLE (presuming you are on the user.edit route, editing yrself):</p>
-<pre class="highlight javascript"><code><span class="nx">saveUserInformation</span><span class="p">(){</span>
-
-  <span class="c1">// MANUALLY TRANSITIONING TO THE LOADING ROUTE</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">transitionTo</span><span class="p">(</span><span class="s1">'loading'</span><span class="p">);</span>
-
-  <span class="c1">// return a promise whose `then` and `catch` callbacks each transition to an appropriate route</span>
-  <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">transitionTo</span><span class="p">(</span><span class="s1">'user.index'</span><span class="p">);</span>
-    <span class="c1">// success! go to the infernal User index and suffer with the rest of them!</span>
-
-  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span><span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// do something to User with the `e` errors --&gt; very bad... show warning/</span>
-
-    <span class="k">this</span><span class="p">.</span><span class="nx">transitionTo</span><span class="p">(</span><span class="s1">'user.edit'</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
-    <span class="c1">// return to the current page, with the current model data all still set like WOWWW</span>
-  <span class="p">});</span>
-<span class="p">}</span>
-</code></pre>
-
-<p>A N D   T H A T S    I T</p>
-
-<p>Just a simple <code>this.transitionTo(&#39;loading&#39;)</code> and you can punt the Ember route back into loading mode. Try it today!</p>
- -->
 <br /><br /><br /><br /><br /><br /><br /><br /><br />
 
     <p><a href="/blog/page/2/">Next page</a></p>
@@ -383,6 +401,7 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ol>
+          <li><a href="/blog/overtone-pitching-samples.html">overtone-pitching-samples</a> <span>Jul 26</span></li>
           <li><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></li>
           <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>

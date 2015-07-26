@@ -5,10 +5,72 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-07-22T08:09:00-07:00</updated>
+  <updated>2015-07-26T13:53:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>overtone-pitching-samples</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/overtone-pitching-samples.html"/>
+    <id>http://colewillsea.com/blog/overtone-pitching-samples.html</id>
+    <published>2015-07-26T13:53:00-07:00</published>
+    <updated>2015-07-26T14:30:32-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;For a while now I have been &lt;a href="http://shreddit-hard-co.re/"&gt;building interfaces&lt;/a&gt; for &lt;a href="http://coleww.github.io/problumz/"&gt;creating music&lt;/a&gt; with &lt;a href="https://www.npmjs.com/package/drone-e-o-synth"&gt;JavaScript and Web Audio&lt;/a&gt;, but apparently Overtone already does everything I could ever possibly think of or want. Cool, my lifes work for nothing.&lt;/p&gt;
+
+&lt;p&gt;One of the coolest things about Overtone is that it interfaces directly with &lt;a href="https://www.freesound.org/"&gt;Freesound&lt;/a&gt;, a database of free audio samples. That means that you can execute &lt;code&gt;(freesound 123456)&lt;/code&gt; and the audio file at ID 123456 will be automatically downloaded, stored in &lt;code&gt;.overtone/assets&lt;/code&gt;, and played back. I don&amp;rsquo;t know what sample 123456 is, so listener beware&amp;hellip; &lt;/p&gt;
+
+&lt;p&gt;With this newly discovered power I began scouring the Freesound website for vocal samples to lay on top of my music. I found this sample pack called &lt;a href="https://www.freesound.org/people/beskhu/packs/4560/"&gt;Simplesong (MAC) pitched vocal formants&lt;/a&gt; and set out to convert it into an instrument along the lines of this &lt;a href="http://blog.josephwilk.net/clojure/creating-instruments-with-overtone.html"&gt;blog post by Joseph Wilk&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now that I had samples that I liked I just needed to grab their IDs from the website. The aformentioned Joseph Wilk post contains a Ruby script for grabbing ids for a pack, and I also wrote a &lt;a href="https://gist.github.com/coleww/939bc606645c57dd1b29"&gt;node script&lt;/a&gt; for grabbing IDs based on a query. &lt;/p&gt;
+
+&lt;p&gt;Unfortunately, this pack only contained samples of the notes C# A# G and E at various octaves, but I could still play the intermediate pitches by altering the playback rate of the sample. If I wanted to play midi note 34 but I only had a sample for midi note 32 I would just convert both notes to frequencies, divide them, and use the result as the playback value: &lt;code&gt;((freesound 123456) :rate (/ (midi-&amp;gt;hz 34) (midi-&amp;gt;hz 32)))&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;With this simple piece of mathematics in hand, I just needed a play function to do all the equations and make some noise:&lt;/p&gt;
+&lt;pre class="highlight clojure"&gt;&lt;code&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;ns&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;syllable-synth.synth&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;:require&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;overtone.live&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:refer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:all&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;&lt;span class="w"&gt;
+
+&lt;/span&gt;&lt;span class="c1"&gt;;; object of objects mapping syllable sound to midi note to a freesound sample
+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;voices&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+
+  &lt;/span&gt;&lt;span class="c1"&gt;;; there were many different syllable sounds represented, but for this example we can only make "oooo" sounds
+&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="no"&gt;:oooo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+    &lt;/span&gt;&lt;span class="mi"&gt;70&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70529&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;67&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70528&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70527&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;61&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70526&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;58&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70525&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;55&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70524&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;52&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70523&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;49&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70522&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;46&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70521&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;43&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70520&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70519&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;37&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70518&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;34&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70517&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;freesound&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;70516&lt;/span&gt;&lt;span class="p"&gt;)}})&lt;/span&gt;&lt;span class="w"&gt;
+
+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;defn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;play&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="s"&gt;"accepts midi note and syllable to play, uses random if none passed"&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;note&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;syll&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="w"&gt;
+
+        &lt;/span&gt;&lt;span class="c1"&gt;;; if no syllable is passed, pick one at random
+&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;syllable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;or&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;syll&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;rand-nth&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;keys&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;voices&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;span class="w"&gt;
+
+        &lt;/span&gt;&lt;span class="c1"&gt;;; grab the notes for which we have a sample 
+&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;;; that are lower than the note we want to play
+&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;notes&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;filter&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;#&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;&amp;lt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;note&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;keys&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;syllable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;voices&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;span class="w"&gt;
+
+        &lt;/span&gt;&lt;span class="c1"&gt;;; our base-note is the highest note in notes, 
+&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;;; or 31 if it is lower than 31
+&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;base-note&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;or&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;last&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;sort&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;notes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+
+        &lt;/span&gt;&lt;span class="c1"&gt;;; in order to pitch the base-note up to our desired note, 
+&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;;; we convert them both to frequencies and divide
+&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;rate&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;/&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;midi-&amp;gt;hz&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;note&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;midi-&amp;gt;hz&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;base-note&lt;/span&gt;&lt;span class="p"&gt;))]&lt;/span&gt;&lt;span class="w"&gt;
+
+    &lt;/span&gt;&lt;span class="c1"&gt;;; grab the sample for the given syllable and base-note,
+&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;;; and play it back with the rate set 
+&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;;; to pitch the sample up the desired note
+&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nb"&gt;get&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;syllable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;voices&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;base-note&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:rate&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rate&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;span class="w"&gt;
+
+
+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;play&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see the complete code &lt;a href="https://github.com/coleww/my-symphony/blob/master/src/my_symphony/silly-bills.clj"&gt;here&lt;/a&gt; or see it &lt;a href="https://github.com/coleww/my-symphony/blob/master/src/my_symphony/beat.clj"&gt;in action&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Building a simple CORS API in node</title>
     <link rel="alternate" href="http://colewillsea.com/blog/node-cors.html"/>
@@ -393,55 +455,6 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 &lt;p&gt;A N D   T H A T S    I T&lt;/p&gt;
 
 &lt;p&gt;Just a simple &lt;code&gt;this.transitionTo(&amp;#39;loading&amp;#39;)&lt;/code&gt; and you can punt the Ember route back into loading mode. Try it today!&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Eating Glue</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/eating-glue-and-paste.html"/>
-    <id>http://colewillsea.com/blog/eating-glue-and-paste.html</id>
-    <published>2015-06-03T16:37:00-07:00</published>
-    <updated>2015-07-09T20:01:14-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;EATING GLUE&lt;/h1&gt;
-
-&lt;h2&gt;Taking Over the Paste Event&lt;/h2&gt;
-
-&lt;p&gt;Though they started out as simple document viewers, over the years web browsers have escaped from their sandbox and gained more and more access to operating system level goodness, like your camera and GPS coordinates. This level of intrusivenes used to only be possible for those with the skills and courage to wield awkward Flash hacks, but today this sort of stuff is made available through simple JavaScript APIs to every website you visit. &lt;em&gt;Awesome.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt="Ralph likes to hack JavaScript" src="/blog/images/paste.jpg" /&gt;&lt;/p&gt;
-
-&lt;p&gt;One basic computer technology that we can hijack and manipulate however we please is pasting. Some people think it&amp;rsquo;s wrong to mess with fundamental UI behavior like clicking or scrolling or, I suppose, &lt;code&gt;ctrl+v&lt;/code&gt;, but I say SHOW ME THE CODE:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;    &lt;span class="c1"&gt;// take over any paste event that occurs on this page&lt;/span&gt;
-    &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;body&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'paste'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-      &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;clipboardData&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'text/plain'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-      &lt;span class="nx"&gt;alert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'YOU TRIED TO PASTE '&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;data&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s1"&gt;', TOO BAD.'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-      &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt; &lt;span class="c1"&gt;// don't let the normal "paste" event happen&lt;/span&gt;
-    &lt;span class="p"&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And that&amp;rsquo;s it!&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://stackoverflow.com/questions/6035071/intercept-paste-event-in-javascript"&gt;According to my in depth research into this subject&lt;/a&gt; you need to use &lt;code&gt;window.clipboardData.getData(&amp;#39;Text&amp;#39;)&lt;/code&gt; in IE, or &lt;code&gt;e.originalEvent.clipboardData&lt;/code&gt; if you install the event handler with something called &amp;ldquo;Jquery&amp;rdquo;.&lt;/p&gt;
-
-&lt;h4&gt;ok but why&lt;/h4&gt;
-
-&lt;p&gt;I used this trick to build a &lt;a href="http://coleww.github.io/json-formatter/"&gt;JSON formatter&lt;/a&gt; [&lt;a href="https://github.com/coleww/json-formatter"&gt;code&lt;/a&gt;] because I wanted to quickly paste a JSON blob to the page and see it transformed, and an input field or textarea would just get in the way of things. Most JSON formatters on the web are laden with options and advertisements, but all I really needed was a quick way to inspect API responses.&lt;/p&gt;
-
-&lt;p&gt;By hacking the paste event, I was able to take something that looked like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt="before" src="/blog/images/json-og.png" /&gt;&lt;/p&gt;
-
-&lt;p&gt;And make it work more like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt="after" src="/blog/images/json-example.gif" /&gt;&lt;/p&gt;
-
-&lt;p&gt;This approach is well aligned with the UNIX philosophy, which holds among it&amp;rsquo;s tenets &amp;ldquo;make small things&amp;rdquo; and &amp;ldquo;text in/text out&amp;rdquo;. Only in this instance, input is handled by the paste event and the output is a div. The web page itself does only one thing and nothing else (literally, there isn&amp;rsquo;t even a title or attribution) which means it composes well with other &amp;ldquo;modules&amp;rdquo; in the browser, like for example using &lt;code&gt;cmd+f&lt;/code&gt; to find things in the formatted JSON. And if I needed to add an option for controlling the indentation level or something I could perhaps add it as a query param in the URL.&lt;/p&gt;
-
-&lt;p&gt;The JSON formatter is actually just a wrapper around a node module called &lt;a href="https://github.com/JerrySievert/json"&gt;json-nice&lt;/a&gt;, and there are probably many other small command line tools that could benefit from being turned into tiny web apps. With &lt;a href="https://github.com/substack/browserify-handbook"&gt;browserify&lt;/a&gt; and &lt;a href="http://maxogden.com/node-packaged-modules.html"&gt;npm&lt;/a&gt; this becomes really easy.&lt;/p&gt;
 </content>
   </entry>
 </feed>
