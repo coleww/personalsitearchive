@@ -82,7 +82,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/node-cors.html"/>
     <id>http://colewillsea.com/blog/node-cors.html</id>
     <published>2015-07-22T08:09:00-07:00</published>
-    <updated>2015-07-26T14:40:26-07:00</updated>
+    <updated>2015-07-26T14:41:39-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -90,8 +90,9 @@
 
 &lt;h2&gt;TASTE THE ROCKIES&lt;/h2&gt;
 
-&lt;p&gt;&lt;img alt="cors" src="/blog/images/cors.png" /&gt;
-So you want to build a lil API. Maybe you have some live data to share with the world, maybe you want to make a &lt;a href="http://bikeshed.io/"&gt;funny joke&lt;/a&gt;, maybe I don&amp;rsquo;t really even care what your reasons are. If you would like lots of people to use your API, you should consider enabling CORS requests so that it can be easily accessed from client side javascript. If you don&amp;rsquo;t, then when people try to use jQuery to hit yr API they will get some horrible error and the whole system will crash. Or they&amp;rsquo;ll have to do some awkward proxying in order to get the data.   It&amp;rsquo;s bad. Trust me.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cors" src="/blog/images/cors.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;So you want to build a lil API. Maybe you have some live data to share with the world, maybe you want to make a &lt;a href="http://bikeshed.io/"&gt;funny joke&lt;/a&gt;, maybe I don&amp;rsquo;t really even care what your reasons are. If you would like lots of people to use your API, you should consider enabling CORS requests so that it can be easily accessed from client side javascript. If you don&amp;rsquo;t, then when people try to use jQuery to hit yr API they will get some horrible error and the whole system will crash. Or they&amp;rsquo;ll have to do some awkward proxying in order to get the data.   It&amp;rsquo;s bad. Trust me.&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;m sure there are all kinds of things pre-built for Express or Hapi and probably even just a plain ole&amp;rsquo; NPM module somewhere that does the CORS magic for you, but you know sometimes it&amp;rsquo;s nice to drop down a lil closer to that bare http server metal.&lt;/p&gt;
 
