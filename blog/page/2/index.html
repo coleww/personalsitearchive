@@ -6,22 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cole Codes Cool Code</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
-    <link href="/blog/stylesheets/main.css" rel="stylesheet" type="text/css" />
+    <link href="/blog/stylesheets/main-b8100501.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Making art with code and vice versa." />
-<meta name="keywords" content="ruby, javascript, code, art" />
+<meta name="keywords" content="ruby, javascript, code, clojure, npm, algorithm, art" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Making art with code and vice versa." />
+<meta property="og:description" content="Making art with code and vice versa." />
   </head>
   <body>
     <center>
-<a href="/blog">        <img class="header" src="/blog/images/cool.png" />
+<a href="/blog">        <img class="header" src="/blog/images/cool-7b689408.png" />
 </a>    </center>
 
     <div id="main" role="main">
-        <h2><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></h2>
+        <h2><a href="/blog/node-poetry-modules.html">Node.js Poetic Modules</a> <span>Aug  1</span></h2>
+  <!-- <h1>Node.js Poetic Modules</h1>
+
+<h2>Presenting A Voice Unto The Computer</h2>
+
+<p><img alt="deep dreamed surrealism" src="/blog/images/surreal-773fbf3d.png" /></p>
+
+<p>Node.js and npm provide a wonderfully vibrant and delightfully rich ecosystem for making browser-or-terminal-based works of art. Generally I start a project by searching around for existing modules that do what I need, or if there are none then I write the module that does what I need and publish it to npm (<em>nice</em>). With browserify I can use the same code for a CLI tool as I do for a website. </p>
+
+<p>This makes it really easy to explore the full spectrum of possibilities for a given artistic concept or linguistic algorithm in many environments. For example, some modules work well in the browser where you can edit inputs and change paramaters on the fly, while others might be better utilised as part of a command line script. I have heard this style of development and deployment referred to as &ldquo;isomorphic JavaScript&rdquo;, but call it what you will I just think it&rsquo;s darn nifty that this code will run on anything from a refrigerator to a jumbotron. </p>
+
+<p>While there are many Node.js modules available for interfacing with every IO stream that you could possibly connect to your computer, I would like to discuss some Node.js modules that I have published recently which operate purely on, by, for, and around text:</p>
+
+<hr>
+
+<ul>
+<li><p><a href="https://github.com/coleww/eat-wrapper">eat-wrapper</a> is a set of helper functions for the Edinburgh Associative Thesauraus, which is kind of like a 70s British pseudo-word-net. One might iterate over a sentence and use it to get random words that are related to that sentence, and then find other sentences that include those related words, and so on.</p></li>
+<li><p><a href="https://github.com/coleww/word-vomit">word-vomit</a> accepts a string and randomly replaces certain words in that string with other words that are of the same part of speech. Nice for subtly changing the meaning of a passage through random juxtaposition.</p></li>
+<li><p><a href="https://github.com/coleww/n-plus-7">n-plus-7</a> employs a technique of the <a href="https://en.wikipedia.org/wiki/Oulipo">Oulipo</a> whereby each noun in a string is replaced with the seventh noun after that noun in the dictionary. You can replace &ldquo;noun&rdquo; with any list or category of words, and you can also change the offset from seven to any positive or negative integer.</p></li>
+<li><p><a href="https://github.com/coleww/poetic-vomit">poetic-vomit</a> is similar to word-vomit, but instead replaces words with a random rhyming word. This is quite useful for generating song lyrics or rhythmic poetry.</p></li>
+<li><p><a href="https://github.com/coleww/is-snowball">is-snowball</a> detects whether or not a given string is a &ldquo;snowball&rdquo;, that is, if each word in the string is 1 character longer than the previous one, i.e, &ldquo;o my wow this snowy ballll&rdquo;. The reverse case of descending length can also be detected. This might might be good to throw in the path of a web scraper or tweet stream or the entirety of Project Gutenberg.</p></li>
+<li><p><a href="https://github.com/coleww/new-slang">new-slang</a> accepts a map of string sequences to string replacements, and transforms strings of text by replacing those string sequences with the, err, uh, replacements. For example, given a map of <code>{ou: &#39;ooo&#39;}</code> and a string like <code>&#39;you dawg&#39;</code>, this module would return <code>&#39;yooo dawg&#39;</code>. If the function was called over and over with a map like <code>{ou: ooui}</code> and the output of the previous transformation it might produce something similar to <a href="https://github.com/aparrish/linear-lsystem-poetry">Allison Parrish</a>&rsquo;s l-system poem generator.</p></li>
+<li><p><a href="https://github.com/coleww/lipogram">lipogram</a> demonstrates another constraint of the Oulipo whereby a given text does not contain a letter or set of letters, for example <a href="https://en.wikipedia.org/wiki/A_Void">A Void by Georges Perec</a> which does not contain the letter e. One could perhaps draw deep meaning from a poem composed out of sentences from Ruby on Rails blog posts that do not contain the letters <code>[&quot;C&quot;, &quot;O&quot;, &quot;M&quot;, &quot;P&quot;, &quot;U&quot;, &quot;T&quot;, &quot;E&quot;, &quot;R&quot;]</code>.</p></li>
+<li><p><a href="https://github.com/coleww/each-cons">each-cons</a> does not do anything on it&rsquo;s own&hellip;it is just a helper function that exists in Ruby which I wanted to have available in Node.js without requiring all of underscore/lodash/whatever. This function returns consecutive sequences of an array, so given <code>[1, 2, 3, 4, 5]</code> and a sequence length of <code>3</code>, it would return <code>[[1, 2, 3], [2, 3, 4], [3, 4, 5]]</code>. This is particularly handy for constructing <a href="https://www.khanacademy.org/computing/computer-science/informationtheory/moderninfotheory/v/markov_chains">Markov chains</a>, and, I am certain, other things.</p></li>
+<li><p><a href="https://github.com/coleww/diacriticize">diacriticize</a> basically performs a light <a href="http://www.eeemo.net/">zalgo</a> maneuver on the text. It seems to be horridly broken on a lot of platforms, so user beware.</p></li>
+<li><p><a href="https://github.com/coleww/to-unicode">to-unicode</a> transforms some text into unicode equivalents, so you can add circles around all yr letters or switch to a mono-spaced font. Like diacriticize, there are some issues sometimes.  <code>¯\_(ツ)_/¯ unicode  ¯\_(ツ)_/¯</code></p></li>
+</ul>
+
+<hr>
+
+<p>These modules don&rsquo;t serve any &ldquo;real&rdquo; purpose, but they are fun to make and usually produce amusing output. Furthermore, in my day to day job I am usually almost always making minor adjustments or adding incremental features to user interfaces to RESTful CRUD APIs in a SAAS fashion, so it is rad to get an excuse to design, implement, benchmark, and optimize a real live algorithm. Art is a wonderful excuse to try out something new, whether it be an algorithm, framework, database, or language. I for one first became truly familiar with and enamored by mongoDB by writing a video game inside of it.</p>
+
+<p>Moreover, all of these modules follow what I consider to be best practices for Node.js projects: uses the <a href="https://github.com/feross/standard">standard</a> JavaScript style/linter, has tests, has CI setup to run those tests, has documentation that includes a breakdown of the API for the module and some examples, has a small demo app built that demonstrates what the thing does, and, if it makes sense to, it includes a CLI script version of the module. </p>
+
+<p>Other reasons to use JavaScript to destroy language:</p>
+
+<ul>
+<li><a href="https://github.com/dariusk/NaNoGenMo">NaNoGenMo</a>: which, put simply, is an annual event wherein you &ldquo;Spend the month of November writing code that generates a novel of 50k+ words.&rdquo;.</li>
+<li><a href="http://tinysubversions.com/2013/09/how-to-make-a-twitter-bot/">twitter bots</a>: make a robot spew nonsense for the world to see! (many of the modules mentioned are being used to power the brain of <a href="https://twitter.com/pataphysyllabus">Hank</a> (also a lot of taylor swift))</li>
+<li><a href="http://blog.somewhatabstract.com/2015/03/02/writing-a-simple-slack-bot-with-Node.js-slack-client/">slack bots</a>: make a robot spew nonsense for your co-workers to see! </li>
+<li><a href="http://www.tcf.ua.edu/Classes/Jbutler/T340/SurManifesto/ManifestoOfSurrealism.htm">Poetry</a>: it is important.</li>
+</ul>
+
+<h3>make a module</h3>
+
+<p>I have many friends and co-workers who agonize over finding a side project to hack on. They don&rsquo;t want to build something that requires costly infrastructure or depends on network effects, but they also don&rsquo;t want to build another TODO app or blogging client. By expanding your conception of the word &ldquo;product&rdquo; to include works of art and poetry, you&rsquo;ll soon discover an endless supply of things to work on. </p>
+ -->
+  <h2><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></h2>
   <!-- <h1>Pitching Samples Around In Overtone</h1>
 
 <h2>because sometimes, you&rsquo;re too lazy to sample the entire piano</h2>
 
-<p><img alt="otone" src="/blog/images/otone.gif" /></p>
+<p><img alt="otone" src="/blog/images/otone-1e45a68a.gif" /></p>
 
 <p>For a while now I have been <a href="http://shreddit-hard-co.re/">building interfaces</a> for <a href="http://coleww.github.io/problumz/">creating music</a> with <a href="https://www.npmjs.com/package/drone-e-o-synth">JavaScript and Web Audio</a>, but apparently Overtone already does everything I could ever possibly think of or want. Awesome, my lifes work for nothing.</p>
 
@@ -80,7 +130,7 @@
 
 <h2>TASTE THE ROCKIES</h2>
 
-<p><img alt="cors" src="/blog/images/cors.png" /></p>
+<p><img alt="cors" src="/blog/images/cors-59d91492.png" /></p>
 
 <p>So you want to build a lil API. Maybe you have some live data to share with the world, maybe you want to make a <a href="http://bikeshed.io/">funny joke</a>, maybe I don&rsquo;t really even care what your reasons are. If you would like lots of people to use your API, you should consider enabling CORS requests so that it can be easily accessed from client side javascript. If you don&rsquo;t, then when people try to use jQuery to hit yr API they will get some horrible error and the whole system will crash. Or they&rsquo;ll have to do some awkward proxying in order to get the data.   It&rsquo;s bad. Trust me.</p>
 
@@ -296,11 +346,11 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 
 <p>This is a great way to compose complex actions out of many small utilities.</p>
 
-<p><img alt="pipe" src="/blog/images/pipe.png" /></p>
+<p><img alt="pipe" src="/blog/images/pipe-d875ef91.png" /></p>
 
 <p>Piping works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts that <code>touch</code> and <code>mkdir</code> your way to many victories, but what about integrating more complicated CLI tools like npm, bower, ember, rails, or git? These programs do things like prompt the user to make decisions, hit the network, or generate a metric ton of files, and it might get unwieldy to try to control such chaos directly from the command line. Instead, you can write a script that shells out to them!</p>
 
-<p><img alt="shelling" src="/blog/images/shelling.png" /></p>
+<p><img alt="shelling" src="/blog/images/shelling-019c5ed6.png" /></p>
 
 <p>In Ruby, the easiest way to shell out a command is to put it backticks, like so:</p>
 <pre class="highlight ruby"><code><span class="c1"># this would print the current directory</span>
@@ -352,7 +402,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 
 <p>There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.  It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&rsquo;s totally boring.</p>
 
-<p><img alt="corn" src="/blog/images/corn.jpg" /></p>
+<p><img alt="corn" src="/blog/images/corn-0b0b5915.jpg" /></p>
 
 <ul>
 <li>WHY IS THERE NO NODE.JS HERE?!</li>
@@ -425,7 +475,7 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 
 <p>Though they started out as simple document viewers, over the years web browsers have escaped from their sandbox and gained more and more access to operating system level goodness, like your camera and GPS coordinates. This level of intrusivenes used to only be possible for those with the skills and courage to wield awkward Flash hacks, but today this sort of stuff is made available through simple JavaScript APIs to every website you visit. <em>Awesome.</em></p>
 
-<p><img alt="Ralph likes to hack JavaScript" src="/blog/images/paste.jpg" /></p>
+<p><img alt="Ralph likes to hack JavaScript" src="/blog/images/paste-5dc5c384.jpg" /></p>
 
 <p>One basic computer technology that we can hijack and manipulate however we please is pasting. Some people think it&rsquo;s wrong to mess with fundamental UI behavior like clicking or scrolling or, I suppose, <code>ctrl+v</code>, but I say SHOW ME THE CODE:</p>
 <pre class="highlight javascript"><code>    <span class="c1">// take over any paste event that occurs on this page</span>
@@ -448,11 +498,11 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 
 <p>By hacking the paste event, I was able to take something that looked like this:</p>
 
-<p><img alt="before" src="/blog/images/json-og.png" /></p>
+<p><img alt="before" src="/blog/images/json-og-ba891b43.png" /></p>
 
 <p>And make it work more like this:</p>
 
-<p><img alt="after" src="/blog/images/json-example.gif" /></p>
+<p><img alt="after" src="/blog/images/json-example-c07746ca.gif" /></p>
 
 <p>This approach is well aligned with the UNIX philosophy, which holds among it&rsquo;s tenets &ldquo;make small things&rdquo; and &ldquo;text in/text out&rdquo;. Only in this instance, input is handled by the paste event and the output is a div. The web page itself does only one thing and nothing else (literally, there isn&rsquo;t even a title or attribution) which means it composes well with other &ldquo;modules&rdquo; in the browser, like for example using <code>cmd+f</code> to find things in the formatted JSON. And if I needed to add an option for controlling the indentation level or something I could perhaps add it as a query param in the URL.</p>
 
@@ -528,13 +578,61 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ul>
+          <li><a href="/blog/node-poetry-modules.html">Node.js Poetic Modules</a> <span>Aug  1</span></li>
           <li><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></li>
           <li><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></li>
           <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
-          <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
       </ul>
 
+      <h2>TAGZ</h2>
+      <ul>
+          <li><a href="/blog/tags/unix.html">UNIX (5)</a></li>
+          <li><a href="/blog/tags/node.html">node (3)</a></li>
+          <li><a href="/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/tags/npm.html">npm (2)</a></li>
+          <li><a href="/blog/tags/ruby.html">ruby (2)</a></li>
+          <li><a href="/blog/tags/bash.html">bash (2)</a></li>
+          <li><a href="/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/tags/paste-events.html">paste events (1)</a></li>
+          <li><a href="/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
+          <li><a href="/blog/tags/magic.html">magic (1)</a></li>
+          <li><a href="/blog/tags/glue.html">glue (1)</a></li>
+          <li><a href="/blog/tags/markdown.html">markdown (1)</a></li>
+          <li><a href="/blog/tags/ember.html">ember (1)</a></li>
+          <li><a href="/blog/tags/loading-routes.html">loading routes (1)</a></li>
+          <li><a href="/blog/tags/spinner-gif.html">spinner gif (1)</a></li>
+          <li><a href="/blog/tags/tom-dale.html">tom dale (1)</a></li>
+          <li><a href="/blog/tags/cron-job.html">cron job (1)</a></li>
+          <li><a href="/blog/tags/digital-ocean.html">digital ocean (1)</a></li>
+          <li><a href="/blog/tags/twitter-bots.html">twitter bots (1)</a></li>
+          <li><a href="/blog/tags/path.html">path (1)</a></li>
+          <li><a href="/blog/tags/ubuntu.html">ubuntu (1)</a></li>
+          <li><a href="/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
+          <li><a href="/blog/tags/john-gruber.html">john gruber (1)</a></li>
+          <li><a href="/blog/tags/exec.html">exec (1)</a></li>
+          <li><a href="/blog/tags/kexec.html">kexec (1)</a></li>
+          <li><a href="/blog/tags/meta-blog.html">meta-blog (1)</a></li>
+          <li><a href="/blog/tags/code.html">code (1)</a></li>
+          <li><a href="/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
+          <li><a href="/blog/tags/cli-tool.html">cli tool (1)</a></li>
+          <li><a href="/blog/tags/pipe.html">pipe (1)</a></li>
+          <li><a href="/blog/tags/unix.html">unix (1)</a></li>
+          <li><a href="/blog/tags/yargs.html">yargs (1)</a></li>
+          <li><a href="/blog/tags/cors.html">cors (1)</a></li>
+          <li><a href="/blog/tags/api.html">api (1)</a></li>
+          <li><a href="/blog/tags/http.html">http (1)</a></li>
+          <li><a href="/blog/tags/the-rocky-mountain-brew.html">the rocky mountain brew (1)</a></li>
+          <li><a href="/blog/tags/overtone.html">overtone (1)</a></li>
+          <li><a href="/blog/tags/clojure.html">clojure (1)</a></li>
+          <li><a href="/blog/tags/noise.html">noise (1)</a></li>
+          <li><a href="/blog/tags/pitch.html">pitch (1)</a></li>
+          <li><a href="/blog/tags/samples.html">samples (1)</a></li>
+          <li><a href="/blog/tags/music.html">music (1)</a></li>
+          <li><a href="/blog/tags/node-js.html">Node.js (1)</a></li>
+          <li><a href="/blog/tags/poetry.html">poetry (1)</a></li>
+          <li><a href="/blog/tags/literature.html">literature (1)</a></li>
+      </ul>
     </aside>
     <script type="text/javascript">
   var _gaq = _gaq || [];

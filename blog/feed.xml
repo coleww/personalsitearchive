@@ -5,16 +5,72 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-07-26T13:53:00-07:00</updated>
+  <updated>2015-08-01T15:53:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>Node.js Poetic Modules</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/node-poetry-modules.html"/>
+    <id>http://colewillsea.com/blog/node-poetry-modules.html</id>
+    <published>2015-08-01T15:53:00-07:00</published>
+    <updated>2015-08-02T08:29:53-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Node.js Poetic Modules&lt;/h1&gt;
+
+&lt;h2&gt;Presenting A Voice Unto The Computer&lt;/h2&gt;
+
+&lt;p&gt;&lt;img alt="deep dreamed surrealism" src="/blog/images/surreal-773fbf3d.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Node.js and npm provide a wonderfully vibrant and delightfully rich ecosystem for making browser-or-terminal-based works of art. Generally I start a project by searching around for existing modules that do what I need, or if there are none then I write the module that does what I need and publish it to npm (&lt;em&gt;nice&lt;/em&gt;). With browserify I can use the same code for a CLI tool as I do for a website. &lt;/p&gt;
+
+&lt;p&gt;This makes it really easy to explore the full spectrum of possibilities for a given artistic concept or linguistic algorithm in many environments. For example, some modules work well in the browser where you can edit inputs and change paramaters on the fly, while others might be better utilised as part of a command line script. I have heard this style of development and deployment referred to as &amp;ldquo;isomorphic JavaScript&amp;rdquo;, but call it what you will I just think it&amp;rsquo;s darn nifty that this code will run on anything from a refrigerator to a jumbotron. &lt;/p&gt;
+
+&lt;p&gt;While there are many Node.js modules available for interfacing with every IO stream that you could possibly connect to your computer, I would like to discuss some Node.js modules that I have published recently which operate purely on, by, for, and around text:&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/eat-wrapper"&gt;eat-wrapper&lt;/a&gt; is a set of helper functions for the Edinburgh Associative Thesauraus, which is kind of like a 70s British pseudo-word-net. One might iterate over a sentence and use it to get random words that are related to that sentence, and then find other sentences that include those related words, and so on.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/word-vomit"&gt;word-vomit&lt;/a&gt; accepts a string and randomly replaces certain words in that string with other words that are of the same part of speech. Nice for subtly changing the meaning of a passage through random juxtaposition.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/n-plus-7"&gt;n-plus-7&lt;/a&gt; employs a technique of the &lt;a href="https://en.wikipedia.org/wiki/Oulipo"&gt;Oulipo&lt;/a&gt; whereby each noun in a string is replaced with the seventh noun after that noun in the dictionary. You can replace &amp;ldquo;noun&amp;rdquo; with any list or category of words, and you can also change the offset from seven to any positive or negative integer.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/poetic-vomit"&gt;poetic-vomit&lt;/a&gt; is similar to word-vomit, but instead replaces words with a random rhyming word. This is quite useful for generating song lyrics or rhythmic poetry.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/is-snowball"&gt;is-snowball&lt;/a&gt; detects whether or not a given string is a &amp;ldquo;snowball&amp;rdquo;, that is, if each word in the string is 1 character longer than the previous one, i.e, &amp;ldquo;o my wow this snowy ballll&amp;rdquo;. The reverse case of descending length can also be detected. This might might be good to throw in the path of a web scraper or tweet stream or the entirety of Project Gutenberg.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/new-slang"&gt;new-slang&lt;/a&gt; accepts a map of string sequences to string replacements, and transforms strings of text by replacing those string sequences with the, err, uh, replacements. For example, given a map of &lt;code&gt;{ou: &amp;#39;ooo&amp;#39;}&lt;/code&gt; and a string like &lt;code&gt;&amp;#39;you dawg&amp;#39;&lt;/code&gt;, this module would return &lt;code&gt;&amp;#39;yooo dawg&amp;#39;&lt;/code&gt;. If the function was called over and over with a map like &lt;code&gt;{ou: ooui}&lt;/code&gt; and the output of the previous transformation it might produce something similar to &lt;a href="https://github.com/aparrish/linear-lsystem-poetry"&gt;Allison Parrish&lt;/a&gt;&amp;rsquo;s l-system poem generator.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/lipogram"&gt;lipogram&lt;/a&gt; demonstrates another constraint of the Oulipo whereby a given text does not contain a letter or set of letters, for example &lt;a href="https://en.wikipedia.org/wiki/A_Void"&gt;A Void by Georges Perec&lt;/a&gt; which does not contain the letter e. One could perhaps draw deep meaning from a poem composed out of sentences from Ruby on Rails blog posts that do not contain the letters &lt;code&gt;[&amp;quot;C&amp;quot;, &amp;quot;O&amp;quot;, &amp;quot;M&amp;quot;, &amp;quot;P&amp;quot;, &amp;quot;U&amp;quot;, &amp;quot;T&amp;quot;, &amp;quot;E&amp;quot;, &amp;quot;R&amp;quot;]&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/each-cons"&gt;each-cons&lt;/a&gt; does not do anything on it&amp;rsquo;s own&amp;hellip;it is just a helper function that exists in Ruby which I wanted to have available in Node.js without requiring all of underscore/lodash/whatever. This function returns consecutive sequences of an array, so given &lt;code&gt;[1, 2, 3, 4, 5]&lt;/code&gt; and a sequence length of &lt;code&gt;3&lt;/code&gt;, it would return &lt;code&gt;[[1, 2, 3], [2, 3, 4], [3, 4, 5]]&lt;/code&gt;. This is particularly handy for constructing &lt;a href="https://www.khanacademy.org/computing/computer-science/informationtheory/moderninfotheory/v/markov_chains"&gt;Markov chains&lt;/a&gt;, and, I am certain, other things.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/diacriticize"&gt;diacriticize&lt;/a&gt; basically performs a light &lt;a href="http://www.eeemo.net/"&gt;zalgo&lt;/a&gt; maneuver on the text. It seems to be horridly broken on a lot of platforms, so user beware.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/to-unicode"&gt;to-unicode&lt;/a&gt; transforms some text into unicode equivalents, so you can add circles around all yr letters or switch to a mono-spaced font. Like diacriticize, there are some issues sometimes.  &lt;code&gt;¯\_(ツ)_/¯ unicode  ¯\_(ツ)_/¯&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;These modules don&amp;rsquo;t serve any &amp;ldquo;real&amp;rdquo; purpose, but they are fun to make and usually produce amusing output. Furthermore, in my day to day job I am usually almost always making minor adjustments or adding incremental features to user interfaces to RESTful CRUD APIs in a SAAS fashion, so it is rad to get an excuse to design, implement, benchmark, and optimize a real live algorithm. Art is a wonderful excuse to try out something new, whether it be an algorithm, framework, database, or language. I for one first became truly familiar with and enamored by mongoDB by writing a video game inside of it.&lt;/p&gt;
+
+&lt;p&gt;Moreover, all of these modules follow what I consider to be best practices for Node.js projects: uses the &lt;a href="https://github.com/feross/standard"&gt;standard&lt;/a&gt; JavaScript style/linter, has tests, has CI setup to run those tests, has documentation that includes a breakdown of the API for the module and some examples, has a small demo app built that demonstrates what the thing does, and, if it makes sense to, it includes a CLI script version of the module. &lt;/p&gt;
+
+&lt;p&gt;Other reasons to use JavaScript to destroy language:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/dariusk/NaNoGenMo"&gt;NaNoGenMo&lt;/a&gt;: which, put simply, is an annual event wherein you &amp;ldquo;Spend the month of November writing code that generates a novel of 50k+ words.&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://tinysubversions.com/2013/09/how-to-make-a-twitter-bot/"&gt;twitter bots&lt;/a&gt;: make a robot spew nonsense for the world to see! (many of the modules mentioned are being used to power the brain of &lt;a href="https://twitter.com/pataphysyllabus"&gt;Hank&lt;/a&gt; (also a lot of taylor swift))&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.somewhatabstract.com/2015/03/02/writing-a-simple-slack-bot-with-Node.js-slack-client/"&gt;slack bots&lt;/a&gt;: make a robot spew nonsense for your co-workers to see! &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.tcf.ua.edu/Classes/Jbutler/T340/SurManifesto/ManifestoOfSurrealism.htm"&gt;Poetry&lt;/a&gt;: it is important.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;make a module&lt;/h3&gt;
+
+&lt;p&gt;I have many friends and co-workers who agonize over finding a side project to hack on. They don&amp;rsquo;t want to build something that requires costly infrastructure or depends on network effects, but they also don&amp;rsquo;t want to build another TODO app or blogging client. By expanding your conception of the word &amp;ldquo;product&amp;rdquo; to include works of art and poetry, you&amp;rsquo;ll soon discover an endless supply of things to work on. &lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Pitching Samples Around In Overtone</title>
     <link rel="alternate" href="http://colewillsea.com/blog/overtone-pitching-samples.html"/>
     <id>http://colewillsea.com/blog/overtone-pitching-samples.html</id>
     <published>2015-07-26T13:53:00-07:00</published>
-    <updated>2015-07-26T15:47:05-07:00</updated>
+    <updated>2015-08-02T08:16:03-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -22,7 +78,7 @@
 
 &lt;h2&gt;because sometimes, you&amp;rsquo;re too lazy to sample the entire piano&lt;/h2&gt;
 
-&lt;p&gt;&lt;img alt="otone" src="/blog/images/otone.gif" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="otone" src="/blog/images/otone-1e45a68a.gif" /&gt;&lt;/p&gt;
 
 &lt;p&gt;For a while now I have been &lt;a href="http://shreddit-hard-co.re/"&gt;building interfaces&lt;/a&gt; for &lt;a href="http://coleww.github.io/problumz/"&gt;creating music&lt;/a&gt; with &lt;a href="https://www.npmjs.com/package/drone-e-o-synth"&gt;JavaScript and Web Audio&lt;/a&gt;, but apparently Overtone already does everything I could ever possibly think of or want. Awesome, my lifes work for nothing.&lt;/p&gt;
 
@@ -82,7 +138,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/node-cors.html"/>
     <id>http://colewillsea.com/blog/node-cors.html</id>
     <published>2015-07-22T08:09:00-07:00</published>
-    <updated>2015-07-26T14:41:39-07:00</updated>
+    <updated>2015-08-02T08:15:57-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -90,7 +146,7 @@
 
 &lt;h2&gt;TASTE THE ROCKIES&lt;/h2&gt;
 
-&lt;p&gt;&lt;img alt="cors" src="/blog/images/cors.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cors" src="/blog/images/cors-59d91492.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;So you want to build a lil API. Maybe you have some live data to share with the world, maybe you want to make a &lt;a href="http://bikeshed.io/"&gt;funny joke&lt;/a&gt;, maybe I don&amp;rsquo;t really even care what your reasons are. If you would like lots of people to use your API, you should consider enabling CORS requests so that it can be easily accessed from client side javascript. If you don&amp;rsquo;t, then when people try to use jQuery to hit yr API they will get some horrible error and the whole system will crash. Or they&amp;rsquo;ll have to do some awkward proxying in order to get the data.   It&amp;rsquo;s bad. Trust me.&lt;/p&gt;
 
@@ -153,7 +209,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
     <link rel="alternate" href="http://colewillsea.com/blog/npm-cli.html"/>
     <id>http://colewillsea.com/blog/npm-cli.html</id>
     <published>2015-07-15T18:10:00-07:00</published>
-    <updated>2015-07-25T08:40:30-07:00</updated>
+    <updated>2015-08-02T08:16:18-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -310,7 +366,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
     <link rel="alternate" href="http://colewillsea.com/blog/shelling-out.html"/>
     <id>http://colewillsea.com/blog/shelling-out.html</id>
     <published>2015-07-09T20:14:00-07:00</published>
-    <updated>2015-07-10T08:50:25-07:00</updated>
+    <updated>2015-08-02T08:16:22-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -324,11 +380,11 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 
 &lt;p&gt;This is a great way to compose complex actions out of many small utilities.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="pipe" src="/blog/images/pipe.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="pipe" src="/blog/images/pipe-d875ef91.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Piping works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts that &lt;code&gt;touch&lt;/code&gt; and &lt;code&gt;mkdir&lt;/code&gt; your way to many victories, but what about integrating more complicated CLI tools like npm, bower, ember, rails, or git? These programs do things like prompt the user to make decisions, hit the network, or generate a metric ton of files, and it might get unwieldy to try to control such chaos directly from the command line. Instead, you can write a script that shells out to them!&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="shelling" src="/blog/images/shelling.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="shelling" src="/blog/images/shelling-019c5ed6.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;In Ruby, the easiest way to shell out a command is to put it backticks, like so:&lt;/p&gt;
 &lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# this would print the current directory&lt;/span&gt;
@@ -365,7 +421,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
     <link rel="alternate" href="http://colewillsea.com/blog/do-cron.html"/>
     <id>http://colewillsea.com/blog/do-cron.html</id>
     <published>2015-06-22T20:21:00-07:00</published>
-    <updated>2015-06-24T22:39:37-07:00</updated>
+    <updated>2015-08-02T08:16:30-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -389,7 +445,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 
 &lt;p&gt;There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.  It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&amp;rsquo;s totally boring.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="corn" src="/blog/images/corn.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="corn" src="/blog/images/corn-0b0b5915.jpg" /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;WHY IS THERE NO NODE.JS HERE?!&lt;/li&gt;
@@ -419,50 +475,6 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
 &lt;hr&gt;
 
 &lt;p&gt;This &amp;ldquo;blog post&amp;rdquo; was &lt;a href="https://twitter.com/colewillsea/lists/my-robots"&gt;tested&lt;/a&gt; on a 512MB Ram20GB SSD Disk Ubuntu 14.04 x64 Digital Ocean droplet but will probably apply for pretty much any linux-y system anywhere.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Manually Trigger Loading Routes in Ember</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/trigger-loading-route-in-ember.html"/>
-    <id>http://colewillsea.com/blog/trigger-loading-route-in-ember.html</id>
-    <published>2015-06-09T10:12:00-07:00</published>
-    <updated>2015-07-10T08:23:12-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Manually Trigger Loading Routes in Ember&lt;/h1&gt;
-
-&lt;h2&gt;cuz Ember can&amp;rsquo;t do  e v e r y t h i n g  for you&lt;/h2&gt;
-
-&lt;p&gt;Loading routes in Ember are pretty frigging sweet. You can drop a spinner .gif pretty much any frigging where you want. You can even make nested loading routes: it&amp;rsquo;s frigging awesome.&lt;/p&gt;
-
-&lt;p&gt;One trick, however, is making use of those loading routes when persisting customer informatin to your datbase. The loading routes automagically hop into place while you are fetching data, but they can&amp;rsquo;t do the same when saving it. That would be weird and unfortunate.&lt;/p&gt;
-
-&lt;p&gt;Instead, you must explicitly tell the router that you are loading some stuff and to just chill the frig out for a second while you figure some things out.&lt;/p&gt;
-
-&lt;p&gt;FOR EXAMPLE (presuming you are on the user.edit route, editing yrself):&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="nx"&gt;saveUserInformation&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
-
-  &lt;span class="c1"&gt;// MANUALLY TRANSITIONING TO THE LOADING ROUTE&lt;/span&gt;
-  &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;transitionTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'loading'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-  &lt;span class="c1"&gt;// return a promise whose `then` and `catch` callbacks each transition to an appropriate route&lt;/span&gt;
-  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;save&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(()&lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;transitionTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'user.index'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="c1"&gt;// success! go to the infernal User index and suffer with the rest of them!&lt;/span&gt;
-
-  &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="k"&gt;catch&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// do something to User with the `e` errors --&amp;gt; very bad... show warning/&lt;/span&gt;
-
-    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;transitionTo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'user.edit'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;user&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="c1"&gt;// return to the current page, with the current model data all still set like WOWWW&lt;/span&gt;
-  &lt;span class="p"&gt;});&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A N D   T H A T S    I T&lt;/p&gt;
-
-&lt;p&gt;Just a simple &lt;code&gt;this.transitionTo(&amp;#39;loading&amp;#39;)&lt;/code&gt; and you can punt the Ember route back into loading mode. Try it today!&lt;/p&gt;
 </content>
   </entry>
 </feed>
