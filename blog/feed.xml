@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/node-poetry-modules.html"/>
     <id>http://colewillsea.com/blog/node-poetry-modules.html</id>
     <published>2015-08-01T15:53:00-07:00</published>
-    <updated>2015-08-02T08:29:53-07:00</updated>
+    <updated>2015-08-02T08:32:57-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -39,7 +39,7 @@
 &lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/poetic-vomit"&gt;poetic-vomit&lt;/a&gt; is similar to word-vomit, but instead replaces words with a random rhyming word. This is quite useful for generating song lyrics or rhythmic poetry.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/is-snowball"&gt;is-snowball&lt;/a&gt; detects whether or not a given string is a &amp;ldquo;snowball&amp;rdquo;, that is, if each word in the string is 1 character longer than the previous one, i.e, &amp;ldquo;o my wow this snowy ballll&amp;rdquo;. The reverse case of descending length can also be detected. This might might be good to throw in the path of a web scraper or tweet stream or the entirety of Project Gutenberg.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/new-slang"&gt;new-slang&lt;/a&gt; accepts a map of string sequences to string replacements, and transforms strings of text by replacing those string sequences with the, err, uh, replacements. For example, given a map of &lt;code&gt;{ou: &amp;#39;ooo&amp;#39;}&lt;/code&gt; and a string like &lt;code&gt;&amp;#39;you dawg&amp;#39;&lt;/code&gt;, this module would return &lt;code&gt;&amp;#39;yooo dawg&amp;#39;&lt;/code&gt;. If the function was called over and over with a map like &lt;code&gt;{ou: ooui}&lt;/code&gt; and the output of the previous transformation it might produce something similar to &lt;a href="https://github.com/aparrish/linear-lsystem-poetry"&gt;Allison Parrish&lt;/a&gt;&amp;rsquo;s l-system poem generator.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/lipogram"&gt;lipogram&lt;/a&gt; demonstrates another constraint of the Oulipo whereby a given text does not contain a letter or set of letters, for example &lt;a href="https://en.wikipedia.org/wiki/A_Void"&gt;A Void by Georges Perec&lt;/a&gt; which does not contain the letter e. One could perhaps draw deep meaning from a poem composed out of sentences from Ruby on Rails blog posts that do not contain the letters &lt;code&gt;[&amp;quot;C&amp;quot;, &amp;quot;O&amp;quot;, &amp;quot;M&amp;quot;, &amp;quot;P&amp;quot;, &amp;quot;U&amp;quot;, &amp;quot;T&amp;quot;, &amp;quot;E&amp;quot;, &amp;quot;R&amp;quot;]&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/lipogram"&gt;lipogram&lt;/a&gt; demonstrates another constraint of the Oulipo whereby a given text does not contain a letter or set of letters, for example &lt;a href="https://en.wikipedia.org/wiki/A_Void"&gt;A Void by Georges Perec&lt;/a&gt; which does not contain the letter e. One could, perhaps, draw deep meaning from a poem composed out of sentences from Ruby on Rails blog posts that do not contain the letters &lt;code&gt;[&amp;quot;C&amp;quot;, &amp;quot;O&amp;quot;, &amp;quot;M&amp;quot;, &amp;quot;P&amp;quot;, &amp;quot;U&amp;quot;, &amp;quot;T&amp;quot;, &amp;quot;E&amp;quot;, &amp;quot;R&amp;quot;]&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/each-cons"&gt;each-cons&lt;/a&gt; does not do anything on it&amp;rsquo;s own&amp;hellip;it is just a helper function that exists in Ruby which I wanted to have available in Node.js without requiring all of underscore/lodash/whatever. This function returns consecutive sequences of an array, so given &lt;code&gt;[1, 2, 3, 4, 5]&lt;/code&gt; and a sequence length of &lt;code&gt;3&lt;/code&gt;, it would return &lt;code&gt;[[1, 2, 3], [2, 3, 4], [3, 4, 5]]&lt;/code&gt;. This is particularly handy for constructing &lt;a href="https://www.khanacademy.org/computing/computer-science/informationtheory/moderninfotheory/v/markov_chains"&gt;Markov chains&lt;/a&gt;, and, I am certain, other things.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/diacriticize"&gt;diacriticize&lt;/a&gt; basically performs a light &lt;a href="http://www.eeemo.net/"&gt;zalgo&lt;/a&gt; maneuver on the text. It seems to be horridly broken on a lot of platforms, so user beware.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/to-unicode"&gt;to-unicode&lt;/a&gt; transforms some text into unicode equivalents, so you can add circles around all yr letters or switch to a mono-spaced font. Like diacriticize, there are some issues sometimes.  &lt;code&gt;¯\_(ツ)_/¯ unicode  ¯\_(ツ)_/¯&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
@@ -134,15 +134,15 @@
 </content>
   </entry>
   <entry>
-    <title>Building a simple CORS API in node</title>
+    <title>Setting up a simple CORS API in node</title>
     <link rel="alternate" href="http://colewillsea.com/blog/node-cors.html"/>
     <id>http://colewillsea.com/blog/node-cors.html</id>
     <published>2015-07-22T08:09:00-07:00</published>
-    <updated>2015-08-02T08:15:57-07:00</updated>
+    <updated>2015-08-02T08:33:59-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
-    <content type="html">&lt;h1&gt;Building a simple CORS API in node&lt;/h1&gt;
+    <content type="html">&lt;h1&gt;Setting up a simple CORS API in node&lt;/h1&gt;
 
 &lt;h2&gt;TASTE THE ROCKIES&lt;/h2&gt;
 
@@ -209,7 +209,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
     <link rel="alternate" href="http://colewillsea.com/blog/npm-cli.html"/>
     <id>http://colewillsea.com/blog/npm-cli.html</id>
     <published>2015-07-15T18:10:00-07:00</published>
-    <updated>2015-08-02T08:16:18-07:00</updated>
+    <updated>2015-08-02T08:33:12-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -366,7 +366,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
     <link rel="alternate" href="http://colewillsea.com/blog/shelling-out.html"/>
     <id>http://colewillsea.com/blog/shelling-out.html</id>
     <published>2015-07-09T20:14:00-07:00</published>
-    <updated>2015-08-02T08:16:22-07:00</updated>
+    <updated>2015-08-02T08:32:45-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -421,7 +421,7 @@ Much like the All-Methods reqsponse header, here you specify which request heade
     <link rel="alternate" href="http://colewillsea.com/blog/do-cron.html"/>
     <id>http://colewillsea.com/blog/do-cron.html</id>
     <published>2015-06-22T20:21:00-07:00</published>
-    <updated>2015-08-02T08:16:30-07:00</updated>
+    <updated>2015-08-02T08:32:42-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>

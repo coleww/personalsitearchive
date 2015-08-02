@@ -41,7 +41,7 @@
 <li><p><a href="https://github.com/coleww/poetic-vomit">poetic-vomit</a> is similar to word-vomit, but instead replaces words with a random rhyming word. This is quite useful for generating song lyrics or rhythmic poetry.</p></li>
 <li><p><a href="https://github.com/coleww/is-snowball">is-snowball</a> detects whether or not a given string is a &ldquo;snowball&rdquo;, that is, if each word in the string is 1 character longer than the previous one, i.e, &ldquo;o my wow this snowy ballll&rdquo;. The reverse case of descending length can also be detected. This might might be good to throw in the path of a web scraper or tweet stream or the entirety of Project Gutenberg.</p></li>
 <li><p><a href="https://github.com/coleww/new-slang">new-slang</a> accepts a map of string sequences to string replacements, and transforms strings of text by replacing those string sequences with the, err, uh, replacements. For example, given a map of <code>{ou: &#39;ooo&#39;}</code> and a string like <code>&#39;you dawg&#39;</code>, this module would return <code>&#39;yooo dawg&#39;</code>. If the function was called over and over with a map like <code>{ou: ooui}</code> and the output of the previous transformation it might produce something similar to <a href="https://github.com/aparrish/linear-lsystem-poetry">Allison Parrish</a>&rsquo;s l-system poem generator.</p></li>
-<li><p><a href="https://github.com/coleww/lipogram">lipogram</a> demonstrates another constraint of the Oulipo whereby a given text does not contain a letter or set of letters, for example <a href="https://en.wikipedia.org/wiki/A_Void">A Void by Georges Perec</a> which does not contain the letter e. One could perhaps draw deep meaning from a poem composed out of sentences from Ruby on Rails blog posts that do not contain the letters <code>[&quot;C&quot;, &quot;O&quot;, &quot;M&quot;, &quot;P&quot;, &quot;U&quot;, &quot;T&quot;, &quot;E&quot;, &quot;R&quot;]</code>.</p></li>
+<li><p><a href="https://github.com/coleww/lipogram">lipogram</a> demonstrates another constraint of the Oulipo whereby a given text does not contain a letter or set of letters, for example <a href="https://en.wikipedia.org/wiki/A_Void">A Void by Georges Perec</a> which does not contain the letter e. One could, perhaps, draw deep meaning from a poem composed out of sentences from Ruby on Rails blog posts that do not contain the letters <code>[&quot;C&quot;, &quot;O&quot;, &quot;M&quot;, &quot;P&quot;, &quot;U&quot;, &quot;T&quot;, &quot;E&quot;, &quot;R&quot;]</code>.</p></li>
 <li><p><a href="https://github.com/coleww/each-cons">each-cons</a> does not do anything on it&rsquo;s own&hellip;it is just a helper function that exists in Ruby which I wanted to have available in Node.js without requiring all of underscore/lodash/whatever. This function returns consecutive sequences of an array, so given <code>[1, 2, 3, 4, 5]</code> and a sequence length of <code>3</code>, it would return <code>[[1, 2, 3], [2, 3, 4], [3, 4, 5]]</code>. This is particularly handy for constructing <a href="https://www.khanacademy.org/computing/computer-science/informationtheory/moderninfotheory/v/markov_chains">Markov chains</a>, and, I am certain, other things.</p></li>
 <li><p><a href="https://github.com/coleww/diacriticize">diacriticize</a> basically performs a light <a href="http://www.eeemo.net/">zalgo</a> maneuver on the text. It seems to be horridly broken on a lot of platforms, so user beware.</p></li>
 <li><p><a href="https://github.com/coleww/to-unicode">to-unicode</a> transforms some text into unicode equivalents, so you can add circles around all yr letters or switch to a mono-spaced font. Like diacriticize, there are some issues sometimes.  <code>¯\_(ツ)_/¯ unicode  ¯\_(ツ)_/¯</code></p></li>
@@ -125,8 +125,8 @@
 
 <p>You can see the complete code <a href="https://github.com/coleww/my-symphony/blob/master/src/my_symphony/silly-bills.clj">here</a> or see it <a href="https://github.com/coleww/my-symphony/blob/master/src/my_symphony/beat.clj">in action</a>.</p>
  -->
-  <h2><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></h2>
-  <!-- <h1>Building a simple CORS API in node</h1>
+  <h2><a href="/blog/node-cors.html">Setting up a simple CORS API in node</a> <span>Jul 22</span></h2>
+  <!-- <h1>Setting up a simple CORS API in node</h1>
 
 <h2>TASTE THE ROCKIES</h2>
 
@@ -580,20 +580,20 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
       <ul>
           <li><a href="/blog/node-poetry-modules.html">Node.js Poetic Modules</a> <span>Aug  1</span></li>
           <li><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></li>
-          <li><a href="/blog/node-cors.html">Building a simple CORS API in node</a> <span>Jul 22</span></li>
+          <li><a href="/blog/node-cors.html">Setting up a simple CORS API in node</a> <span>Jul 22</span></li>
           <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
           <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
       </ul>
 
       <h2>TAGZ</h2>
       <ul>
-          <li><a href="/blog/tags/unix.html">UNIX (5)</a></li>
-          <li><a href="/blog/tags/node.html">node (3)</a></li>
+          <li><a href="/blog/tags/unix.html">unix (5)</a></li>
+          <li><a href="/blog/tags/node.html">node (4)</a></li>
+          <li><a href="/blog/tags/bash.html">bash (2)</a></li>
           <li><a href="/blog/tags/command-line.html">command line (2)</a></li>
           <li><a href="/blog/tags/npm.html">npm (2)</a></li>
           <li><a href="/blog/tags/ruby.html">ruby (2)</a></li>
-          <li><a href="/blog/tags/bash.html">bash (2)</a></li>
-          <li><a href="/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
           <li><a href="/blog/tags/paste-events.html">paste events (1)</a></li>
           <li><a href="/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
           <li><a href="/blog/tags/magic.html">magic (1)</a></li>
@@ -608,8 +608,8 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
           <li><a href="/blog/tags/twitter-bots.html">twitter bots (1)</a></li>
           <li><a href="/blog/tags/path.html">path (1)</a></li>
           <li><a href="/blog/tags/ubuntu.html">ubuntu (1)</a></li>
-          <li><a href="/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
           <li><a href="/blog/tags/john-gruber.html">john gruber (1)</a></li>
+          <li><a href="/blog/tags/middleman.html">middleman (1)</a></li>
           <li><a href="/blog/tags/exec.html">exec (1)</a></li>
           <li><a href="/blog/tags/kexec.html">kexec (1)</a></li>
           <li><a href="/blog/tags/meta-blog.html">meta-blog (1)</a></li>
@@ -617,7 +617,6 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
           <li><a href="/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
           <li><a href="/blog/tags/cli-tool.html">cli tool (1)</a></li>
           <li><a href="/blog/tags/pipe.html">pipe (1)</a></li>
-          <li><a href="/blog/tags/unix.html">unix (1)</a></li>
           <li><a href="/blog/tags/yargs.html">yargs (1)</a></li>
           <li><a href="/blog/tags/cors.html">cors (1)</a></li>
           <li><a href="/blog/tags/api.html">api (1)</a></li>
@@ -629,7 +628,6 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
           <li><a href="/blog/tags/pitch.html">pitch (1)</a></li>
           <li><a href="/blog/tags/samples.html">samples (1)</a></li>
           <li><a href="/blog/tags/music.html">music (1)</a></li>
-          <li><a href="/blog/tags/node-js.html">Node.js (1)</a></li>
           <li><a href="/blog/tags/poetry.html">poetry (1)</a></li>
           <li><a href="/blog/tags/literature.html">literature (1)</a></li>
       </ul>
