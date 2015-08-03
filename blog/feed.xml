@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/test-yr-test-suite.html"/>
     <id>http://colewillsea.com/blog/test-yr-test-suite.html</id>
     <published>2015-08-03T08:02:00-07:00</published>
-    <updated>2015-08-03T08:19:30-07:00</updated>
+    <updated>2015-08-03T08:30:45-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -46,7 +46,7 @@
 
 &lt;h3&gt;NODE.JS&lt;/h3&gt;
 
-&lt;p&gt;I recently tried to do this trick again in Node and wound up facing some strange issues. I thought I could take the easy route and just &lt;code&gt;require&lt;/code&gt; my test files, and after that failed I even put in some extra effort to test out something like &lt;code&gt;exec(cd botDir &amp;amp;&amp;amp; npm test)&lt;/code&gt;, but I instantly hit a wall that seemed to be surrounding a littly bundle of hell that we all know as &lt;code&gt;/node_modules&lt;/code&gt;. &lt;/p&gt;
+&lt;p&gt;I recently tried to do this trick again in Node and wound up facing some strange issues. I thought I could take the easy route and just &lt;code&gt;require&lt;/code&gt; my test files, and after that failed I even put in some extra effort to test out something like &lt;code&gt;cd newDir &amp;amp;&amp;amp; npm test&lt;/code&gt;, but I instantly hit a wall that seemed to be surrounding a little bundle of hell that we all know as &lt;code&gt;/node_modules&lt;/code&gt;. &lt;/p&gt;
 
 &lt;p&gt;Don&amp;rsquo;t get me wrong, npm is A M A Z I N G, but when it comes to &amp;ldquo;how my JavaScript dependencies get from the internet to a compiled state in my project folder&amp;rdquo; I know absolutely nothing and prefer to keep it that way. The error I was facing seemed to be that when my project&amp;rsquo;s copies of tap/tape ran the test suite for the generated project, there was some sort of unfathomable versioning error that caused the function/constant &lt;code&gt;defined&lt;/code&gt; to be &lt;code&gt;undefined&lt;/code&gt;. O_o wow.&lt;/p&gt;
 
