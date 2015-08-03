@@ -5,92 +5,331 @@
   <title>Page Not Found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="shortcut icon" href="favicon.ico">
-  <style>
-    html {
-      height: 100%;
-    }
-
-    body {
-      width: 100%;
-      height: 100%;
-      font-family: "Helvetica Neue", Helvetica, Open Sans, Arial, sans-serif;
-      background: #fff url('//assets.divshot.io/superstatic/background.jpg') top center no-repeat;
-      background-size: 100% auto;
-      margin: 0;
-      overflow: hidden;
-    }
-
-    @media (max-width: 400px) {
-      body {
-        background-size: 520%;
-      }
-    }
-
-    #message-wrapper {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    #message {
-      position: relative;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      -moz-transform: translateY(-50%);
-      transform: translateY(-50%);
-      max-width: 500px;
-      text-align: center;
-      margin: 0 auto;
-      padding: 1.5em;
-    }
-
-    #message h1 {
-      color: #333;
-      font-size: 3em;
-      line-height: 1.2em;
-      font-weight: bold;
-      margin: 0 0 0.2em;
-    }
-
-    #message h2 {
-      color: #333;
-      font-size: 1.6em;
-      line-height: 1.5em;
-      font-weight: bold;
-      margin: 1em 0 0.2em;
-    }
-    #message p {
-      margin: 0;
-      color: #777;
-      line-height: 1.5em;
-    }
-
-    #message #footer {
-      font-size: 11px;
-      text-align: center;
-      margin-top: 1.5em;
-      opacity: 0.5;
-    }
-
-    #message #footer a {
-      color: #999;
-    }
-
-    .glyph {
-      margin: 3.2em 0 0 0;
-    }
-  </style>
-</head>
-<body>
   <div id="message-wrapper">
-    <div id="message">
-      <h1>404 Not Found</h1>
-      <p>Sorry, we were unable to locate anything at this address.</p>
-      <h2>Should there be something here?</h2>
-      <p><a href="mailto:support@divshot.com">Get Help via Email</a> or <a href="http://docs.divshot.com/guides/common-deploy-issues">Common Deploy Issues Documentation</a></p>
-      <p id="footer">This page was served by <a href="https://github.com/divshot/superstatic" target="_blank">superstatic</a>.</p>
-      <img class="glyph" width="26" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NIDwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApIC0tPg0gPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NIDxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINIHZpZXdCb3g9IjAgMCAxNTIuNDkzIDEzNSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTUyLjQ5MyAxMzUiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0gPGcgaWQ9IkxvZ29fRGFyayI+DSA8ZyBpZD0iR2x5cGgiPg0gPC9nPg0gPGcgaWQ9IkRpdnNob3RfVGV4dCI+DSA8L2c+DSA8L2c+DSA8ZyBpZD0iTG9nb19MaWdodCI+DSA8ZyBpZD0iT3V0bGluZSI+DSA8L2c+DSA8ZyBpZD0iTGF5ZXJfNyIgb3BhY2l0eT0iMC42Ij4NIDwvZz4NIDxnIGlkPSJEaXZzaG90X1RleHRfNV8iPg0gPC9nPg0gPC9nPg0gPGcgaWQ9IkxvZ29fT3V0bGluZV9EYXJrIj4NIDxnIGlkPSJMYXllcl80NF9jb3B5Ij4NIDwvZz4NIDxnIGlkPSJEaXZzaG90X1RleHRfMV8iPg0gPC9nPg0gPC9nPg0gPGcgaWQ9IkxvZ29fT3V0bGluZV9MaWdodCI+DSA8ZyBpZD0iT3V0bGluZV8yXyI+DSA8L2c+DSA8ZyBpZD0iRGl2c2hvdF9UZXh0XzJfIj4NIDwvZz4NIDwvZz4NIDxnIGlkPSJMb2dvX1RleHRfTGlnaHQiPg0gPGcgaWQ9IkRpdnNob3RfVGV4dF82XyI+DSA8L2c+DSA8L2c+DSA8ZyBpZD0iTG9nb19UZXh0X0RhcmsiPg0gPGcgaWQ9IkRpdnNob3RfVGV4dF83XyI+DSA8L2c+DSA8L2c+DSA8ZyBpZD0iR2x5cGhfUXVhZHJhbnQiPg0gPGcgaWQ9IkxpZ2h0X0dyYWRpZW50Ij4NIDwvZz4NIDxnIGlkPSJEYXJrX0dyYWRpZW50Ij4NIDxnIGlkPSJMYXllcl81MCI+DSA8L2c+DSA8L2c+DSA8ZyBpZD0iRGFya19PdXRsaW5lIj4NIDwvZz4NIDxnIGlkPSJMaWdodF9PdXRsaW5lIj4NIDwvZz4NIDwvZz4NIDxnIGlkPSJMb2dvX1ZlcnRpY2FsX0RhcmsiPg0gPGcgaWQ9IkRpdnNob3RfVGV4dF84XyI+DSA8L2c+DSA8ZyBpZD0iR2x5cGhfM18iPg0gPC9nPg0gPC9nPg0gPGcgaWQ9IkxvZ29fVmVydGljYWxfTGlnaHQiPg0gPGcgaWQ9IkRpdnNob3RfVGV4dF8zXyI+DSA8L2c+DSA8ZyBpZD0iR2x5cGhfMV8iPg0gPC9nPg0gPC9nPg0gPGcgaWQ9IkJyYW5kX0NvbG9ycyI+DSA8ZyBpZD0iV2hpdGUiPg0gPC9nPg0gPGcgaWQ9IkRhcmtfR3JleSI+DSA8L2c+DSA8ZyBpZD0iQmxhY2siPg0gPC9nPg0gPGcgaWQ9IkdvbGQiPg0gPC9nPg0gPC9nPg0gPGcgaWQ9IkdseXBoX0RhcmsiPg0gPGcgaWQ9IkxheWVyXzUxIj4NIDwvZz4NIDwvZz4NIDxnIGlkPSJHbHlwaF9MaWdodCI+DSA8L2c+DSA8ZyBpZD0iR2x5cGhfRGFya19PdXRsaW5lIj4NIDwvZz4NIDxnIGlkPSJHbHlwaF9MaWdodF9PdXRsaW5lIj4NIDxwYXRoIGZpbGw9IiMzMzMzMzMiIGQ9Ik0xMDIuMDQ0LDAuNDAyTDEwMS43NDQsMGgtNTIuMDFMMCw2OC4wMDVMNDkuNzM5LDEzNWg1Mmw1MC4zLTY2LjM5NmwwLjQ1NC0wLjU5OUwxMDIuMDQ0LDAuNDAyeiBNNTAuNzUsMg0gaDQ4LjU1N0w4NS42NywyMkg2MC40NDVMMjYuNjAzLDY3SDMuMjEyTDUwLjc1LDJ6IE04NS4zOTQsMTEySDYxLjIzM2wxNS44MTEtMjEuMjRMOTMuNzM2LDY5aDIzLjM3NUw4NS4zOTQsMTEyeiBNNjEuMDc0LDI0LjQ5MQ0gTDc1LjAxNSw0NC4xNkw1Ny45OTgsNjguMDIxbDE2Ljk5MSwyMi4xNUw1OS42MSwxMTAuODMyTDI4LjQ4NCw2Ny44MjVMNjEuMDc0LDI0LjQ5MXogTTc2LjI0Miw4OC41Mkw2MC40ODYsNjcuOTc5bDE1Ljc1Ni0yMi4wOTQNIGwxNS43NTYsMjIuMDk0TDc2LjI0Miw4OC41MnogTTkzLjc1OCw2N0w3Ni45MjYsNDMuMzk4TDYzLjE3NiwyNGgyMi4yMTlsMzEuOTgxLDQzSDkzLjc1OHogTTMuMjMsNjloMjMuNjM3bDMyLjU2Niw0NWgyNi42NTENIGwxMy41NzIsMTlINTAuNzQ1TDMuMjMsNjl6IE0xMDEuNDQ5LDEzMi4wN2wtMTMuOTYtMTkuNTQzbDMyLjk4Mi00NC43MTZMODcuMjgzLDIzLjE4NWwxMy45NzMtMjAuNDk0bDQ4LjczNSw2NS4zMDQNIEwxMDEuNDQ5LDEzMi4wN3oiLz4NIDxwb2x5Z29uIGZpbGw9IiMzMzMzMzMiIHBvaW50cz0iNjAuOTQ0LDIzIDI3LjI0Miw2OCA1OSwxMTIgNzYsOTAgNTkuMjQyLDY4IDc2LjI0Miw0NC4xNjIgIi8+DSA8cG9seWdvbiBmaWxsPSIjMzMzMzMzIiBwb2ludHM9Ijg2LjI0MiwyMi41IDExOS4yMjcsNjggODUuODk5LDExMyAxMDEuMjQyLDEzMy41IDE1MS4yNDIsNjggMTAxLjI0MiwxICIvPg0gPC9nPg0gPGcgaWQ9IkxvZ29fVmVydGljYWxfT3V0bGluZV9EYXJrIj4NIDxnIGlkPSJEaXZzaG90X1RleHRfNF8iPg0gPC9nPg0gPGcgaWQ9IkxheWVyXzQ4Ij4NIDwvZz4NIDwvZz4NIDxnIGlkPSJEaXZzaG90X1ZlcnRpY2FsX091dGxpbmVfTGlnaHQiPg0gPGcgaWQ9IkRpdnNob3RfVGV4dF85XyI+DSA8L2c+DSA8ZyBpZD0iR2x5cGhfMl8iPg0gPC9nPg0gPC9nPg0gPC9zdmc+DQ==">
+    <style>
+        * {
+          box-sizing: border-box
+        }
+         #thing {
+      width: 25%;
+      height: 25%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top:5%;
+    }
+        .tile {
+          height: 10%;
+          width: 10%;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          -ms-box-sizing: border-box;
+          box-sizing: border-box;
+          display: inline-block;
+        }
+        .snake {
+          background-color: green;
+        }
+        .empty {
+          background-color: rgba(255,255,255,0.75);
+        }
+        .wrapper {
+          border: black thick solid;
+          height: 100%;
+          width: 100%;
+          /*background-color: rgba(255,255,255,0.25);*/
+        }
+        .apple {
+          background-color: red;
+          border-radius: 10px;
+        }
+        body {
+          background-color: pink;
+        }
+        .headline {
+          font-size: 15px;
+        }
+        .super-center {
+          margin: auto;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+        }
+        .layover {
+          margin-left: auto;
+          margin-right: auto;
+          overflow: none;
+          overflow-x: none;
+          overflow-y: none;
+          padding: 10%;
+          padding-top: 5%;
+          padding-bottom: 5%;
+          text-align: justify;
+        }
+        * {
+          color: black;
+          font-weight: bold;
+          font-family: 'Griffy';
+          font-size: 19px;
+          letter-spacing: 5px;
+          line-height: 5px;
+          /* FIX DIS NOT RESPONSIV/\ /\ */
+        }
+      </style>
+      <link href='http://fonts.googleapis.com/css?family=Griffy:400' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+
+
+
+
+      <br />
+      <center><strong><a href="http://coleww.github.io/washers">"INDY" GAME: <a href="https://github.com/coleww/washers" target="_blank">SNAKE</a></strong></center>
+      <iframe width="420" height="315" class='super-center' src="//www.youtube.com/embed/dL3ZIc5IL2w?autoplay=1&controls=0&loop=1&playlist=dL3ZIc5IL2w" frameborder="0" allowfullscreen></iframe>  <div class="super-center layover">
+      <div class="center">
+        <button id="pause_button">New game!</button>
+      </div>
+      <h2 class="center">Score: <span id="score">0</span></h2>
+      <div class="wrapper center">
+
+      </div>
     </div>
+        <div class="super-center layover">
+           <div id="thing" style="background-color: rgba(255, 255, 255, 0.25)">
+             <p>A R T</p>
+           </div>
+         </div>
+
+      <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+      <script>
+        $(function(){
+            var root = this;
+            var SnakeGame = root.SnakeGame = root.SnakeGame || {};
+            var Snake = SnakeGame.Snake = function () {
+              this.dir = "N";
+              this.segments = [new Coord([5,5])];
+              this.growing = 2;
+            };
+            Snake.prototype.move = function () {
+              var newHead = this.segments[0].plus(directionVector(this.dir));
+              this.segments.unshift(newHead);
+              if (this.growing > 0){
+                this.growing --;
+              } else {
+                this.segments.pop();
+              }
+            };
+            Snake.prototype.turn = function(newDir) {
+              if (Math.abs(directionVector(this.dir)[0])
+                      !== Math.abs(directionVector(newDir)[0]) ||
+                        this.segments.length === 1) {
+                this.dir = newDir;
+              }
+            };
+            Snake.prototype.containsPoint = function(point){
+              return _.any(this.segments, function(segment){
+                return segment.x === point[0] && segment.y === point[1];
+              })
+            }
+            var directionVector = function(direction) {
+              switch (direction) {
+                case "N":
+                  return [0,-1];
+                case "E":
+                  return [1,0];
+                case "S":
+                  return [0,1];
+                case "W":
+                  return [-1,0];
+              }
+            }
+            var Coord = SnakeGame.Coord = function(arr) {
+              this.x = arr[0]
+              this.y = arr[1]
+            }
+            Coord.prototype.plus = function(other) {
+              return new Coord([this.x+other[0], this.y+other[1]])
+            }
+            var Board = SnakeGame.Board = function() {
+              this.snake = new Snake();
+              this.width = 10;
+              this.height = 10;
+              this.apple = new Apple(this.randomApplePosition());
+            }
+            Board.prototype.render = function(){
+              var outString = "";
+              for(var y = 0; y < this.height; y++){
+                for(var x = 0; x < this.width; x++){
+                  if (this.snake.containsPoint([x, y])){
+                    outString += "S";
+                  } else {
+                    outString += ".";
+                  }
+                }
+                outString += "\n"
+              }
+              return outString;
+            }
+            Board.prototype.manageApple = function() {
+              if (this.snakeHasApple()) {
+                this.snake.growing += 45/this.height;
+                this.apple = new Apple(this.randomApplePosition());
+                return true;
+              }
+              return false;
+            }
+            Board.prototype.snakeHasApple = function () {
+              var head = this.snake.segments[0];
+              return head.x === this.apple.x && head.y === this.apple.y;
+            }
+            Board.prototype.randomApplePosition = function () {
+              var x = Math.floor(Math.random()*this.width)
+              var y = Math.floor(Math.random()*this.height)
+              if (this.snake.containsPoint([x,y])) {
+                return this.randomApplePosition();
+              }
+              return [x,y]
+            };
+            Board.prototype.checkLost = function () {
+              var head = this.snake.segments[0];
+              if (head.x < 0 || head.x >= this.width ){
+                return true;
+              }
+              if (head.y < 0 || head.y >= this.height){
+                return true;
+              }
+              for(var i = 1; i < this.snake.segments.length; i++){
+                var segment = this.snake.segments[i];
+                if (head.x === segment.x && head.y === segment.y){
+                  return true;
+                }
+              }
+              return false;
+            }
+            var Apple = SnakeGame.Apple = function (pos) {
+              this.x = pos[0];
+              this.y = pos[1];
+            };
+            Apple.prototype.isAt = function(pos){
+              return this.x === pos[0] && this.y === pos[1];
+            }
+            var View = SnakeGame.View = function(element){
+              this.$el = $(element);
+              $("#pause_button").on('click', this.start.bind(this));
+              this.board = new SnakeGame.Board();
+            }
+            View.prototype.start = function(){
+              $("html").keydown(this.handleKeyEvent.bind(this));
+              $("#pause_button").text("Pause game")
+              $("#pause_button").off('click')
+              $("#pause_button").on('click', this.pauseGame.bind(this));
+              this.step();
+              this.timer = setInterval(this.step.bind(this), 3000/this.board.height);
+              // $(".wrapper").css("height",this.board.height*30);
+              // $(".container").css("height",this.board.height*30+200);
+            }
+            View.prototype.restart = function() {
+              $("h1").text("NOKIA FUN TIMES");
+              this.board = new SnakeGame.Board();
+              this.start();
+            }
+            View.prototype.pauseGame = function () {
+              clearInterval(this.timer);
+              $("#pause_button").text("Unpause game")
+              $("#pause_button").off('click')
+              $("#pause_button").on('click', this.unpauseGame.bind(this));
+            };
+            View.prototype.unpauseGame = function () {
+              this.step();
+              this.timer = setInterval(this.step.bind(this), 3000/this.board.height);
+              $("#pause_button").text("Pause game")
+              $("#pause_button").off('click')
+              $("#pause_button").on('click', this.pauseGame.bind(this));
+            };
+            View.prototype.handleKeyEvent = function(event){
+              switch (event.keyCode) {
+              case 37: // left
+                this.board.snake.turn("W")
+                break
+              case 38: // up
+                this.board.snake.turn("N")
+                break
+              case 39: //right
+                this.board.snake.turn("E")
+                break
+              case 40: //down
+                this.board.snake.turn("S")
+                break
+              }
+            }
+            View.prototype.step = function() {
+              this.board.snake.move();
+              if (this.board.manageApple()) {
+                this.increaseScore();
+              };
+                this.render();
+            }
+            View.prototype.increaseScore = function() {
+              var score = $('#score').text();
+              score = parseInt(score) + 10;
+              // this.board.height++;
+              // this.board.width++;
+              $('#score').text(score);
+              // clearInterval(this.timer)
+              // this.timer = setInterval(this.step.bind(this), 3000/this.board.height);
+            }
+            View.prototype.lose = function() {
+              // clearInterval(this.timer);
+              $("h1").text("YOU LOSE BRO");
+              $("#pause_button").text("Restart game")
+              // $("#pause_button").off('click')
+              // $("#pause_button").on('click', this.restart.bind(this));
+              $('#score').text(0);
+            }
+            View.prototype.render = function () {
+              this.$el.empty()
+              for(var y = 0; y < this.board.height; y++){
+                for(var x = 0; x < this.board.width; x++){
+                  if (this.board.snake.containsPoint([x, y])){
+                    this.$el.append('<div class="snake tile"></div>');
+                  } else if (this.board.apple.isAt([x,y])){
+                    this.$el.append('<div class="apple tile"></div>');
+                  } else {
+                    this.$el.append('<div class="empty tile"></div>');
+                  }
+                }
+              }
+            };
+          var v = new SnakeGame.View($(".wrapper")[0])
+          v.render();
+
+
+
+          var getShad = function(){
+            a = Math.random() < 0.5 ? '-' : ''
+            b = ~~(Math.random() * 1000)
+            c = Math.random() < 0.5 ? '-' : ''
+            d = ~~(Math.random() * 1000)
+            color = 'rgba('+~~(Math.random()*255)+','+~~(Math.random()*255)+','+~~(Math.random()*255)+','+0.25+')'
+            return a+b+'px '+c+d+'px '+color
+          }
+          var $content = $("#thing");
+          var styley = getShad();
+          window.setInterval(function(){
+            $content.css({boxShadow: styley})
+            styley += (', ' + getShad());
+            $content.text('box-shadow: '+styley+';');
+          }, 50)
+        })
+      </script>
+
+
+
   </div>
 </body>
 </html>

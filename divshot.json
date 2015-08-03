@@ -1,6 +1,6 @@
 {
   "name": "coledubs",
   "root": "./",
-  "clean_urls": false,
+  "clean_urls": true,
   "error_page": "error.html"
 }
