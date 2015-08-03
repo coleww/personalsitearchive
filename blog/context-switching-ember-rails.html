@@ -19,13 +19,38 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Articles tagged 'tom dale'</h1>
+      <p>Ember and Rails make a great choice for a one-two-slam of front and back end framework. They both have powerful CLI tools and come fresh-out-the-generator setup to create RESTful JSON CRUD APIs (ooo la la) through test-driven-development (oh my). </p>
 
+<p>Both frameworks emphasize convention over configuration which means less bikeshedding over how to organize files or names things or set up basic infrastructure, but still having the ability to enter that bikeshed and paint it whatever color the team decides on if that is the route we end up choosing to go down after a series of lengthy meanings.</p>
 
-<ul>
-    <li><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
-</ul>
+<p>It also means that common solutions can be extracted and easily re-used on other projects because they all share a consistent architecture. If I solve a deployment issue in my Rails app then I can possibly abstract it into a gem or plugin so others can solve the same issue. </p>
 
+<p>This consistency in architecture also exists between Ember and Rails in their CLI. Both frameworks emphasize using generator commands to ensure that files are named right and add boilerplate code.</p>
+
+<p>You will notice that:</p>
+
+<p>ember generate &hellip;
+rails generate &hellip;</p>
+
+<p>buuuuut</p>
+
+<p>But do u ever find yrself in this position?</p>
+<pre class="highlight plaintext"><code>$ ember g model foo
+version: 0.2.3
+You have to be inside an ember-cli project in order to use the generate command
+</code></pre>
+
+<p>OOPS u forgot what you were doing and tried to <code>ember</code> inside of a rails project.</p>
+
+<p>This is called context switching. very bad. MAKE THEM THE SAME!</p>
+
+<p><img alt="geee demo" src="/blog/images/g-demo-452dfa75.gif" /></p>
+
+<p>geee (because people have already pushed libraries called <code>g</code>).</p>
+
+<p>With geee, you can simply type <code>g model foo</code> and it will figure out whether you are in an Ember or Rails project and pre-prend the correct generator accordingly</p>
+
+<p><a href="https://rubygems.org/gems/geee">Ruby gem</a> (<code>gem install geee</code>) or <a href="https://www.npmjs.com/package/geee">Node module</a> (<code>npm install -g geee</code>)</p>
 
       <br/>
       <br/>

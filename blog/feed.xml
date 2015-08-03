@@ -5,10 +5,78 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-08-01T15:53:00-07:00</updated>
+  <updated>2015-08-03T08:02:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>Meta Test Driven Development</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/test-yr-test-suite.html"/>
+    <id>http://colewillsea.com/blog/test-yr-test-suite.html</id>
+    <published>2015-08-03T08:02:00-07:00</published>
+    <updated>2015-08-03T08:19:30-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Meta Test Driven Development&lt;/h1&gt;
+
+&lt;h2&gt;Making your test suite run another test suite&lt;/h2&gt;
+
+&lt;p&gt;As a programmer, I find myself in a weird position of being both lazy and all about dat UNIX philosophy. My laziness makes me want to do as little work as possible, but my enthusiasm for UNIX makes me want to create as many small modules as possible. And what could be more boring than setting up boiler plate code for a new small module?&lt;/p&gt;
+
+&lt;p&gt;The solution, of course, is to write a scaffolding generator(s)! That way the computer can create all the appropriately named folders and files that I will need for a project, and also do things like fill in sensible defaults for config files or even insert some dummy smokescreen code. &lt;/p&gt;
+
+&lt;p&gt;The generator code will of course have a test suite: we create a new dummy app and then check that the files are all there and that they contain what we expect and then we rimraf it. But what about the dummy app? It too might have a smokescreen test suite, which we can use to demonstrate that everything is running correctly (or at least correctly enough to print &amp;ldquo;hello world&amp;rdquo;). &lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="glitchy test recursion" src="/blog/images/testrecurse-839ed3c0.png" /&gt;&lt;/p&gt;
+
+&lt;h3&gt;RUBY&lt;/h3&gt;
+
+&lt;p&gt;The first time I did this trick was in Ruby with Minitest. Here, it turned out to be easy as loading the test file:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;load &amp;#39;./such_test_bot/test/such_test_bot_test.rb&amp;#39;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Thats about all there is to see, but if you really want more sauce code here are the tests for my &lt;a href="https://github.com/coleww/twitter_bot_generator/tree/master/test"&gt;twitter bot generator&lt;/a&gt;. The rakefile simply loads all these files, which runs the tests for the generator as well as each different type of generated bot. &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;WOW THAT WAS SO EASY THAT I AM ALREADY BORED&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You are correct, Ruby is like that. &lt;/p&gt;
+
+&lt;h3&gt;NODE.JS&lt;/h3&gt;
+
+&lt;p&gt;I recently tried to do this trick again in Node and wound up facing some strange issues. I thought I could take the easy route and just &lt;code&gt;require&lt;/code&gt; my test files, and after that failed I even put in some extra effort to test out something like &lt;code&gt;exec(cd botDir &amp;amp;&amp;amp; npm test)&lt;/code&gt;, but I instantly hit a wall that seemed to be surrounding a littly bundle of hell that we all know as &lt;code&gt;/node_modules&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;Don&amp;rsquo;t get me wrong, npm is A M A Z I N G, but when it comes to &amp;ldquo;how my JavaScript dependencies get from the internet to a compiled state in my project folder&amp;rdquo; I know absolutely nothing and prefer to keep it that way. The error I was facing seemed to be that when my project&amp;rsquo;s copies of tap/tape ran the test suite for the generated project, there was some sort of unfathomable versioning error that caused the function/constant &lt;code&gt;defined&lt;/code&gt; to be &lt;code&gt;undefined&lt;/code&gt;. O_o wow.&lt;/p&gt;
+
+&lt;p&gt;To verify that this was in fact the culprit I made it so that the generated app did an &lt;code&gt;npm install&lt;/code&gt; before running the tests, and everything worked! But making my test suite hit the network and download packages would be a horrible, just awful thing. (fact: at my first job our test suite did this)&lt;/p&gt;
+
+&lt;p&gt;Instead I took the middle-road-hack: I generated a new dummy app, &lt;code&gt;cd&lt;/code&gt;&amp;rsquo;d into the directory, and then manually &lt;code&gt;npm install --save-dev&lt;/code&gt;&amp;rsquo;d the bare minimum packages that it would take for it&amp;rsquo;s test suite to run/pass. I then took the &lt;code&gt;node_modules&lt;/code&gt; folder that was created and copied it over to my generator project as &lt;code&gt;test_modules&lt;/code&gt;. Now when I wanted to run a generated test suite I just had to copy that &lt;code&gt;test_modules&lt;/code&gt; folder over to the generated project as it&amp;rsquo;s &lt;code&gt;node_modules&lt;/code&gt; before running the tests:&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;exec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'child_process'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;exec&lt;/span&gt;
+
+&lt;span class="nx"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'does all the stuff'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;// generate a generatedAppThing i guess?&lt;/span&gt;
+
+  &lt;span class="nx"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'cp -r test_modules generatedAppThing/node_modules &amp;amp;&amp;amp; cd generatedAppThing &amp;amp;&amp;amp; node test.js'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ok&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'generated module also works'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After that runs I just call a test assertion from the meta-test callback, and if that fails I know I broke something in the generated code. See more in &lt;a href="https://github.com/coleww/mkproj/blob/master/test.js"&gt;mkproj/test.js&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;It is indeed unfortunate that I now have this &lt;code&gt;test_modules&lt;/code&gt; thing checked into my project, and even worse that those modules will be harder to update now, but I think this awkwardness is worth the assurance that my code is really really working.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;To take this one step further, for a particularly complicated generator app one might use a meta-TDD style. The test suite for the generator would simply create a new app and call it&amp;rsquo;s test suite. You would start out by writing the bare minimum of code to generate an app that has a failing test, then make that generated test pass, and continue in this fashion, forever and ever. For a larger project like Yeoman which abstracts project generation across multiple domains, one might even write a generator-generator which could be meta-meta-test-driven. Turtles, all the way.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="turtles" src="/blog/images/turts-1a4ec479.jpg" /&gt;&lt;/p&gt;
+
+&lt;h3&gt;WOWWWW&lt;/h3&gt;
+</content>
+  </entry>
   <entry>
     <title>Node.js Poetic Modules</title>
     <link rel="alternate" href="http://colewillsea.com/blog/node-poetry-modules.html"/>
@@ -414,67 +482,6 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;I used some of these magical spells to build &lt;a href="https://github.com/coleww/mkproj"&gt;mkproj&lt;/a&gt;, which generates a bunch of files and does some NPM stuff in order to scaffold lil browserify projects. Being able to run code on the command line from a Ruby or Node script opens up tons of possibilities for destroying your computer in a for loop! Reader beware!&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>automating bots with cron on digital ocean</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/do-cron.html"/>
-    <id>http://colewillsea.com/blog/do-cron.html</id>
-    <published>2015-06-22T20:21:00-07:00</published>
-    <updated>2015-08-02T08:32:42-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;automating bots with cron on digital ocean&lt;/h1&gt;
-
-&lt;h2&gt;because setInterval is probably not the right thing to do&lt;/h2&gt;
-
-&lt;p&gt;I used to deploy all my bots to Heroku, running in constant loops on those sweet sweet free single dynos.&lt;/p&gt;
-
-&lt;p&gt;They looked something like this:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;code&gt;    &lt;span class="kp"&gt;loop&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-        &lt;span class="c1"&gt;# do some stuff&lt;/span&gt;
-        &lt;span class="no"&gt;BOT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;funny_tweet_lol&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="nb"&gt;sleep&lt;/span&gt; &lt;span class="mi"&gt;10800&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;rand&lt;/span&gt; &lt;span class="mi"&gt;5400&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is&amp;hellip;not optimal for a number of reasons. But since I could create new Heroku apps for free from the command line it was super easy, and, well, why not. I even made a &lt;a href="https://github.com/coleww/twitter_bot_generator"&gt;twitter bot generator ruby gem&lt;/a&gt; around the concept. Don&amp;rsquo;t judge me.&lt;/p&gt;
-
-&lt;p&gt;With deng near fifty of these things running, I was not much pleased to hear about the new Heroku pricing plan. Though of course I couldn&amp;rsquo;t get mad cuz it was free servers in the first place. While I could have meticulously gone through all my Heroku apps and updated them to not loop/sleep forever and instead scheduled the scripts to run at various intervals, I figured it was finally time to get close to that cloud server metal and put together a lil droplet for myself in the Digital Ocean.&lt;/p&gt;
-
-&lt;p&gt;There are many tutorials on setting up virtual servers, but I found that the biggest pain point in the process was getting my scripts to run on a schedule with cron.  It turns out that cron jobs are run with a very minimal environment setup, for reasons that I guess are cool. You can look up why but honestly it&amp;rsquo;s totally boring.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt="corn" src="/blog/images/corn-0b0b5915.jpg" /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;WHY IS THERE NO NODE.JS HERE?!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Even though I had installed all the nodes and rubies, my cron seemed to just ignore them. I thought that was quite rude. To fix this, you just need to export your path. Enter &lt;code&gt;echo PATH=$PATH&lt;/code&gt; and copy paste the output into your crontab.&lt;/p&gt;
-
-&lt;p&gt;This was what I saw:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;root@1404-64:~# echo PATH=$PATH
-PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/rvm/bin
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And just dump it in the &lt;code&gt;crontab -e&lt;/code&gt; before your job listings.&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;#
-# For more information see the manual pages of crontab(5) and cron(8)
-#
-# m h  dom mon dow   command
-PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr$
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;.././../././relative paths :&amp;lt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Now I had node, but my require(&amp;rsquo;./module&amp;rsquo;) calls didn&amp;rsquo;t seem to work! Cron apparently is not only PATHless but also pathless. My crons looked something like &lt;code&gt;* * * * * node bots/lolbot/bot.js &amp;gt;&amp;gt; ~/lol.log&lt;/code&gt; but in order to correctly set my working path, I just had to &lt;code&gt;cd&lt;/code&gt; into the parent directory before running the script, like so: &lt;code&gt;* * * * * cd bots/lolbot &amp;amp;&amp;amp; node bot.js &amp;gt;&amp;gt; ~/lol.log&lt;/code&gt;.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;This &amp;ldquo;blog post&amp;rdquo; was &lt;a href="https://twitter.com/colewillsea/lists/my-robots"&gt;tested&lt;/a&gt; on a 512MB Ram20GB SSD Disk Ubuntu 14.04 x64 Digital Ocean droplet but will probably apply for pretty much any linux-y system anywhere.&lt;/p&gt;
 </content>
   </entry>
 </feed>

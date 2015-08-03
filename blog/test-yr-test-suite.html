@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Meta Test Driven Development</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/blog/stylesheets/main-b8100501.css" rel="stylesheet" type="text/css" />
+    <meta name="description" content="Making art with code and vice versa." />
+<meta name="keywords" content="ruby, javascript, code, poetry, clojure, npm, algorithm, art" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Making art with code and vice versa." />
+<meta property="og:description" content="Making art with code and vice versa." />
+  </head>
+  <body>
+    <center>
+<a href="/blog">        <img class="header" src="/blog/images/cool-7b689408.png" />
+</a>    </center>
+
+    <div id="main" role="main">
+      <h1>Meta Test Driven Development</h1>
+
+<h2>Making your test suite run another test suite</h2>
+
+<p>As a programmer, I find myself in a weird position of being both lazy and all about dat UNIX philosophy. My laziness makes me want to do as little work as possible, but my enthusiasm for UNIX makes me want to create as many small modules as possible. And what could be more boring than setting up boiler plate code for a new small module?</p>
+
+<p>The solution, of course, is to write a scaffolding generator(s)! That way the computer can create all the appropriately named folders and files that I will need for a project, and also do things like fill in sensible defaults for config files or even insert some dummy smokescreen code. </p>
+
+<p>The generator code will of course have a test suite: we create a new dummy app and then check that the files are all there and that they contain what we expect and then we rimraf it. But what about the dummy app? It too might have a smokescreen test suite, which we can use to demonstrate that everything is running correctly (or at least correctly enough to print &ldquo;hello world&rdquo;). </p>
+
+<p><img alt="glitchy test recursion" src="/blog/images/testrecurse-839ed3c0.png" /></p>
+
+<h3>RUBY</h3>
+
+<p>The first time I did this trick was in Ruby with Minitest. Here, it turned out to be easy as loading the test file:</p>
+
+<p><code>load &#39;./such_test_bot/test/such_test_bot_test.rb&#39;</code></p>
+
+<p>Thats about all there is to see, but if you really want more sauce code here are the tests for my <a href="https://github.com/coleww/twitter_bot_generator/tree/master/test">twitter bot generator</a>. The rakefile simply loads all these files, which runs the tests for the generator as well as each different type of generated bot. </p>
+
+<ul>
+<li>WOW THAT WAS SO EASY THAT I AM ALREADY BORED</li>
+</ul>
+
+<p>You are correct, Ruby is like that. </p>
+
+<h3>NODE.JS</h3>
+
+<p>I recently tried to do this trick again in Node and wound up facing some strange issues. I thought I could take the easy route and just <code>require</code> my test files, and after that failed I even put in some extra effort to test out something like <code>exec(cd botDir &amp;&amp; npm test)</code>, but I instantly hit a wall that seemed to be surrounding a littly bundle of hell that we all know as <code>/node_modules</code>. </p>
+
+<p>Don&rsquo;t get me wrong, npm is A M A Z I N G, but when it comes to &ldquo;how my JavaScript dependencies get from the internet to a compiled state in my project folder&rdquo; I know absolutely nothing and prefer to keep it that way. The error I was facing seemed to be that when my project&rsquo;s copies of tap/tape ran the test suite for the generated project, there was some sort of unfathomable versioning error that caused the function/constant <code>defined</code> to be <code>undefined</code>. O_o wow.</p>
+
+<p>To verify that this was in fact the culprit I made it so that the generated app did an <code>npm install</code> before running the tests, and everything worked! But making my test suite hit the network and download packages would be a horrible, just awful thing. (fact: at my first job our test suite did this)</p>
+
+<p>Instead I took the middle-road-hack: I generated a new dummy app, <code>cd</code>&rsquo;d into the directory, and then manually <code>npm install --save-dev</code>&rsquo;d the bare minimum packages that it would take for it&rsquo;s test suite to run/pass. I then took the <code>node_modules</code> folder that was created and copied it over to my generator project as <code>test_modules</code>. Now when I wanted to run a generated test suite I just had to copy that <code>test_modules</code> folder over to the generated project as it&rsquo;s <code>node_modules</code> before running the tests:</p>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">exec</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'child_process'</span><span class="p">).</span><span class="nx">exec</span>
+
+<span class="nx">tap</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">'does all the stuff'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// generate a generatedAppThing i guess?</span>
+
+  <span class="nx">exec</span><span class="p">(</span><span class="s1">'cp -r test_modules generatedAppThing/node_modules &amp;&amp; cd generatedAppThing &amp;&amp; node test.js'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">ok</span><span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">,</span> <span class="s1">'generated module also works'</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre>
+
+<p>After that runs I just call a test assertion from the meta-test callback, and if that fails I know I broke something in the generated code. See more in <a href="https://github.com/coleww/mkproj/blob/master/test.js">mkproj/test.js</a> </p>
+
+<p>It is indeed unfortunate that I now have this <code>test_modules</code> thing checked into my project, and even worse that those modules will be harder to update now, but I think this awkwardness is worth the assurance that my code is really really working.</p>
+
+<hr>
+
+<p>To take this one step further, for a particularly complicated generator app one might use a meta-TDD style. The test suite for the generator would simply create a new app and call it&rsquo;s test suite. You would start out by writing the bare minimum of code to generate an app that has a failing test, then make that generated test pass, and continue in this fashion, forever and ever. For a larger project like Yeoman which abstracts project generation across multiple domains, one might even write a generator-generator which could be meta-meta-test-driven. Turtles, all the way.</p>
+
+<p><img alt="turtles" src="/blog/images/turts-1a4ec479.jpg" /></p>
+
+<h3>WOWWWW</h3>
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    </div>
+
+    <aside>
+      <p><div id="contact">
+        <a href="http://colewillsea.com/">Cole Willsea</a>
+        (<a href="https://github.com/coleww">github</a>)
+        (<a href="https://twitter.com/colewillsea">twitter</a>)
+      </div></p>
+      <h2>RECENT BLAGZ</h2>
+      <ul>
+          <li><a href="/blog/test-yr-test-suite.html">Meta Test Driven Development</a> <span>Aug  3</span></li>
+          <li><a href="/blog/node-poetry-modules.html">Node.js Poetic Modules</a> <span>Aug  1</span></li>
+          <li><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></li>
+          <li><a href="/blog/node-cors.html">Setting up a simple CORS API in node</a> <span>Jul 22</span></li>
+          <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
+      </ul>
+
+      <h2>TAGZ</h2>
+      <ul>
+          <li><a href="/blog/tags/unix.html">unix (6)</a></li>
+          <li><a href="/blog/tags/node.html">node (5)</a></li>
+          <li><a href="/blog/tags/ruby.html">ruby (3)</a></li>
+          <li><a href="/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/tags/npm.html">npm (2)</a></li>
+          <li><a href="/blog/tags/bash.html">bash (2)</a></li>
+          <li><a href="/blog/tags/exec.html">exec (1)</a></li>
+          <li><a href="/blog/tags/paste-events.html">paste events (1)</a></li>
+          <li><a href="/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
+          <li><a href="/blog/tags/magic.html">magic (1)</a></li>
+          <li><a href="/blog/tags/glue.html">glue (1)</a></li>
+          <li><a href="/blog/tags/markdown.html">markdown (1)</a></li>
+          <li><a href="/blog/tags/ember.html">ember (1)</a></li>
+          <li><a href="/blog/tags/loading-routes.html">loading routes (1)</a></li>
+          <li><a href="/blog/tags/spinner-gif.html">spinner gif (1)</a></li>
+          <li><a href="/blog/tags/tom-dale.html">tom dale (1)</a></li>
+          <li><a href="/blog/tags/cron-job.html">cron job (1)</a></li>
+          <li><a href="/blog/tags/digital-ocean.html">digital ocean (1)</a></li>
+          <li><a href="/blog/tags/twitter-bots.html">twitter bots (1)</a></li>
+          <li><a href="/blog/tags/path.html">path (1)</a></li>
+          <li><a href="/blog/tags/ubuntu.html">ubuntu (1)</a></li>
+          <li><a href="/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
+          <li><a href="/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/tags/john-gruber.html">john gruber (1)</a></li>
+          <li><a href="/blog/tags/kexec.html">kexec (1)</a></li>
+          <li><a href="/blog/tags/meta-blog.html">meta-blog (1)</a></li>
+          <li><a href="/blog/tags/code.html">code (1)</a></li>
+          <li><a href="/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
+          <li><a href="/blog/tags/cli-tool.html">cli tool (1)</a></li>
+          <li><a href="/blog/tags/pipe.html">pipe (1)</a></li>
+          <li><a href="/blog/tags/yargs.html">yargs (1)</a></li>
+          <li><a href="/blog/tags/cors.html">cors (1)</a></li>
+          <li><a href="/blog/tags/api.html">api (1)</a></li>
+          <li><a href="/blog/tags/http.html">http (1)</a></li>
+          <li><a href="/blog/tags/the-rocky-mountain-brew.html">the rocky mountain brew (1)</a></li>
+          <li><a href="/blog/tags/overtone.html">overtone (1)</a></li>
+          <li><a href="/blog/tags/clojure.html">clojure (1)</a></li>
+          <li><a href="/blog/tags/noise.html">noise (1)</a></li>
+          <li><a href="/blog/tags/pitch.html">pitch (1)</a></li>
+          <li><a href="/blog/tags/samples.html">samples (1)</a></li>
+          <li><a href="/blog/tags/music.html">music (1)</a></li>
+          <li><a href="/blog/tags/poetry.html">poetry (1)</a></li>
+          <li><a href="/blog/tags/literature.html">literature (1)</a></li>
+          <li><a href="/blog/tags/testing.html">testing (1)</a></li>
+          <li><a href="/blog/tags/tdd.html">tdd (1)</a></li>
+          <li><a href="/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
+          <li><a href="/blog/tags/generators.html">generators (1)</a></li>
+      </ul>
+    </aside>
+    <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(["_setAccount", "UA-26036675-1"]);
+  _gaq.push(["_trackPageview"]);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+  </body>
+</html>
