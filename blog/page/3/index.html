@@ -30,32 +30,32 @@
 
 <p>It also means that common solutions can be extracted and easily re-used on other projects because they all share a consistent architecture. If I solve a deployment issue in my Ember app then I can extract it into an add-on so other people can use my solution too, as is done in the Ember community. And if I solve some problem with my Rails app then I can release a gem that flagrantly monkey patches Ruby core, as is done in the Rails community.</p>
 
-<p>This architectural consistency also exists between Ember and Rails in the APIs of their CLI tool. Both frameworks emphasize using generator commands to ensure that files are named right and add boilerplate code. And luckily they both settled on the same word for this command:</p>
-<pre class="highlight plaintext"><code>ember generate controller dubsteps 
+<p>This architectural consistency also exists between Ember and Rails in the APIs of their CLI tool. Both frameworks recommend using generator commands to ensure that files are named right and add boilerplate code. And luckily they both settled on the same word for this command:</p>
+<pre class="highlight shell"><code>ember generate controller dubsteps 
 rails generate controller dubsteps
 </code></pre>
 
 <p>But this can still get a bit confusing for those of us who spend all day hopping back and forth between Ember and Rails code bases. You might one day find yourself in this unenviable position:</p>
-<pre class="highlight plaintext"><code>$ ember g model foo
+<pre class="highlight shell"><code><span class="gp">$ </span>ember g model foo
 version: 0.2.3
-You have to be inside an ember-cli project in order to use the generate command
+You have to be inside an ember-cli project <span class="k">in </span>order to use the generate <span class="nb">command</span>
 </code></pre>
 
 <p>OOPS you forgot where you were and what you were doing and tried to use <code>ember</code> inside of a <code>rails</code> project. You should consider yourself lucky that ember-cli catches this error for you. </p>
 
 <p>This kind of thing happens more than we might care to admit, and it is caused by a phenomenon known as context switching. We get our brain all set on doing one particular task in a given environment, and then when we go to accomplish a related-but-different task in a nearby environment we get all discombobulated. </p>
 
-<p>Technologists hate context switching because it means they have less time available in their life to ship product and engage with brands on twitter. That is why a lot of startups demand that their employees give up their personal lives and abandon their families to work 80 hour weeks: if there is no longer a division between work and life, then one no longer suffers from context switching between them!</p>
+<p>Technologists hate context switching because it means they have less time available in their life to ship product and engage with brands on twitter. That is why a lot of startups demand that their employees give up their personal lives and abandon their families to work 80+ hour weeks: if there is no longer a division between work and life, then one no longer suffers from context switching between them!</p>
 
 <p>That kind of mentality is a bit too extreme and fascist for my tastes. Making it easier to jump between Rails and Ember projects is a much nicer goal to have than ruthlessly optimizing the extraction of surplus value from laborers.</p>
 
 <p>To that end, I have created a command line tool called geee (abbreviated to <code>g</code> (but it is called geee because people have already pushed libraries called <code>g</code> :/)). You see, both Ember and Rails already give you a MAJOR productivity boost by allowing you to substitute the word <code>generator</code> for the letter <code>g</code>, like so:</p>
-<pre class="highlight plaintext"><code>ember g controller dubsteps 
+<pre class="highlight shell"><code>ember g controller dubsteps 
 rails g controller dubsteps
 </code></pre>
 
 <p>I thought: &ldquo;why not take this a step further and drop the CLI command entirely?&rdquo;. That way we would just have to type:</p>
-<pre class="highlight plaintext"><code>g controller dubsteps
+<pre class="highlight shell"><code>g controller dubsteps
 </code></pre>
 
 <p>And the computer would figure out what kind of project folder we are inside of and do the right thing accordingly! Not only are you typing shorter commands, but you no longer have to switch contexts either!</p>
@@ -69,14 +69,14 @@ rails g controller dubsteps
 <p>The best part about geee is that it comes packaged as either a <a href="https://rubygems.org/gems/geee">Ruby gem</a> or a <a href="https://www.npmjs.com/package/geee">Node module</a>, so that way you don&rsquo;t even have to figure out the context of what package manager you are using! </p>
 
 <p>Just do this:</p>
-<pre class="highlight plaintext"><code>gem install geee
+<pre class="highlight shell"><code>gem install geee
 </code></pre>
 
 <p>Or this:</p>
-<pre class="highlight plaintext"><code>npm install -g geee
+<pre class="highlight shell"><code>npm install -g geee
 </code></pre>
 
-<p>and <code>g</code> will be made available on yr path!</p>
+<p>and <code>g</code> will be made available on yr <code>path</code>!</p>
 
 <p>BUT NEVER BOTH, DO NOT INSTALL BOTH AT THE SAME TIME, BAD THINGS WILL HAPPEN, MIT LICENSE YO!!!!!!!!!!!!!! &ldquo;IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.&rdquo;!!!!</p>
  -->
