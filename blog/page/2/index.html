@@ -19,7 +19,68 @@
 </a>    </center>
 
     <div id="main" role="main">
-        <h2><a href="/blog/test-yr-test-suite.html">Meta Test Driven Development</a> <span>Aug  3</span></h2>
+        <h2><a href="/blog/context-switching-ember-rails.html">Eliminating The Ember-Rails Context Switch</a> <span>Aug  8</span></h2>
+  <!-- <h1>Eliminating The Ember-Rails Context-Switch</h1>
+
+<h2>making your frameworks work for you</h2>
+
+<p>Ember and Rails make a great choice for a one-two slam-dunk of a front-and-back-end-framework combo. They both have powerful CLI tools, integrate seamlessly with each other, and come fresh-out-the-generator all-set-up to create RESTful JSON CRUD APIs (ooo la la) through Test-Driven-Development (oh my). </p>
+
+<p>Both frameworks emphasize convention over configuration which means less bikeshedding over how to organize files or names things or set up basic infrastructure. But you still retain the ability to enter that bikeshed and paint it whatever color the team decides on if that is the route you end up choosing to go down after a series of lengthy meanings. </p>
+
+<p>It also means that common solutions can be extracted and easily re-used on other projects because they all share a consistent architecture. If I solve a deployment issue in my Ember app then I can extract it into an add-on so other people can use my solution too, as is done in the Ember community. And if I solve some problem with my Rails app then I can release a gem that flagrantly monkey patches Ruby core, as is done in the Rails community.</p>
+
+<p>This architectural consistency also exists between Ember and Rails in the APIs of their CLI tool. Both frameworks emphasize using generator commands to ensure that files are named right and add boilerplate code. And luckily they both settled on the same word for this command:</p>
+<pre class="highlight plaintext"><code>ember generate controller dubsteps 
+rails generate controller dubsteps
+</code></pre>
+
+<p>But this can still get a bit confusing for those of us who spend all day hopping back and forth between Ember and Rails code bases. You might one day find yourself in this unenviable position:</p>
+<pre class="highlight plaintext"><code>$ ember g model foo
+version: 0.2.3
+You have to be inside an ember-cli project in order to use the generate command
+</code></pre>
+
+<p>OOPS you forgot where you were and what you were doing and tried to use <code>ember</code> inside of a <code>rails</code> project. You should consider yourself lucky that ember-cli catches this error for you. </p>
+
+<p>This kind of thing happens more than we might care to admit, and it is caused by a phenomenon known as context switching. We get our brain all set on doing one particular task in a given environment, and then when we go to accomplish a related-but-different task in a nearby environment we get all discombobulated. </p>
+
+<p>Technologists hate context switching because it means they have less time available in their life to ship product and engage with brands on twitter. That is why a lot of startups demand that their employees give up their personal lives and abandon their families to work 80 hour weeks: if there is no longer a division between work and life, then one no longer suffers from context switching between them!</p>
+
+<p>That kind of mentality is a bit too extreme and fascist for my tastes. Making it easier to jump between Rails and Ember projects is a much nicer goal to have than ruthlessly optimizing the extraction of surplus value from laborers.</p>
+
+<p>To that end, I have created a command line tool called geee (abbreviated to <code>g</code> (but it is called geee because people have already pushed libraries called <code>g</code> :/)). You see, both Ember and Rails already give you a MAJOR productivity boost by allowing you to substitute the word <code>generator</code> for the letter <code>g</code>, like so:</p>
+<pre class="highlight plaintext"><code>ember g controller dubsteps 
+rails g controller dubsteps
+</code></pre>
+
+<p>I thought: &ldquo;why not take this a step further and drop the CLI command entirely?&rdquo;. That way we would just have to type:</p>
+<pre class="highlight plaintext"><code>g controller dubsteps
+</code></pre>
+
+<p>And the computer would figure out what kind of project folder we are inside of and do the right thing accordingly! Not only are you typing shorter commands, but you no longer have to switch contexts either!</p>
+
+<h4>LETS SEE A DEMO:</h4>
+
+<p><img alt="geee demo" src="/blog/images/g-demo-452dfa75.gif" /></p>
+
+<p>geee/g will run any generator that Rails or Ember supports, and could be easily be forked and extended to cover other frameworks (if such things exist). </p>
+
+<p>The best part about geee is that it comes packaged as either a <a href="https://rubygems.org/gems/geee">Ruby gem</a> or a <a href="https://www.npmjs.com/package/geee">Node module</a>, so that way you don&rsquo;t even have to figure out the context of what package manager you are using! </p>
+
+<p>Just do this:</p>
+<pre class="highlight plaintext"><code>gem install geee
+</code></pre>
+
+<p>Or this:</p>
+<pre class="highlight plaintext"><code>npm install -g geee
+</code></pre>
+
+<p>and <code>g</code> will be made available on yr path!</p>
+
+<p>BUT NEVER BOTH, DO NOT INSTALL BOTH AT THE SAME TIME, BAD THINGS WILL HAPPEN, MIT LICENSE YO!!!!!!!!!!!!!! &ldquo;IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.&rdquo;!!!!</p>
+ -->
+  <h2><a href="/blog/test-yr-test-suite.html">Meta Test Driven Development</a> <span>Aug  3</span></h2>
   <!-- <h1>Meta Test Driven Development</h1>
 
 <h2>Making your test suite run another test suite</h2>
@@ -637,11 +698,11 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ul>
+          <li><a href="/blog/context-switching-ember-rails.html">Eliminating The Ember-Rails Context Switch</a> <span>Aug  8</span></li>
           <li><a href="/blog/test-yr-test-suite.html">Meta Test Driven Development</a> <span>Aug  3</span></li>
           <li><a href="/blog/node-poetry-modules.html">Node.js Poetic Modules</a> <span>Aug  1</span></li>
           <li><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></li>
           <li><a href="/blog/node-cors.html">Setting up a simple CORS API in node</a> <span>Jul 22</span></li>
-          <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
       </ul>
 
       <h2>TAGZ</h2>
@@ -652,7 +713,7 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
           <li><a href="/blog/tags/command-line.html">command line (2)</a></li>
           <li><a href="/blog/tags/npm.html">npm (2)</a></li>
           <li><a href="/blog/tags/bash.html">bash (2)</a></li>
-          <li><a href="/blog/tags/exec.html">exec (1)</a></li>
+          <li><a href="/blog/tags/kexec.html">kexec (1)</a></li>
           <li><a href="/blog/tags/paste-events.html">paste events (1)</a></li>
           <li><a href="/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
           <li><a href="/blog/tags/magic.html">magic (1)</a></li>
@@ -669,8 +730,8 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
           <li><a href="/blog/tags/ubuntu.html">ubuntu (1)</a></li>
           <li><a href="/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
           <li><a href="/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/tags/exec.html">exec (1)</a></li>
           <li><a href="/blog/tags/john-gruber.html">john gruber (1)</a></li>
-          <li><a href="/blog/tags/kexec.html">kexec (1)</a></li>
           <li><a href="/blog/tags/meta-blog.html">meta-blog (1)</a></li>
           <li><a href="/blog/tags/code.html">code (1)</a></li>
           <li><a href="/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
@@ -693,6 +754,7 @@ PATH=/root/.nvm/versions/v0.12.2/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/loc
           <li><a href="/blog/tags/tdd.html">tdd (1)</a></li>
           <li><a href="/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
           <li><a href="/blog/tags/generators.html">generators (1)</a></li>
+          <li><a href="/blog/tags/ember-rails-generators.html">ember rails generators (1)</a></li>
       </ul>
     </aside>
     <script type="text/javascript">

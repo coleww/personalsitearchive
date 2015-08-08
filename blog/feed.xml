@@ -5,10 +5,80 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-08-03T08:02:00-07:00</updated>
+  <updated>2015-08-08T09:48:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>Eliminating The Ember-Rails Context Switch</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/context-switching-ember-rails.html"/>
+    <id>http://colewillsea.com/blog/context-switching-ember-rails.html</id>
+    <published>2015-08-08T09:48:00-07:00</published>
+    <updated>2015-08-08T09:50:50-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Eliminating The Ember-Rails Context-Switch&lt;/h1&gt;
+
+&lt;h2&gt;making your frameworks work for you&lt;/h2&gt;
+
+&lt;p&gt;Ember and Rails make a great choice for a one-two slam-dunk of a front-and-back-end-framework combo. They both have powerful CLI tools, integrate seamlessly with each other, and come fresh-out-the-generator all-set-up to create RESTful JSON CRUD APIs (ooo la la) through Test-Driven-Development (oh my). &lt;/p&gt;
+
+&lt;p&gt;Both frameworks emphasize convention over configuration which means less bikeshedding over how to organize files or names things or set up basic infrastructure. But you still retain the ability to enter that bikeshed and paint it whatever color the team decides on if that is the route you end up choosing to go down after a series of lengthy meanings. &lt;/p&gt;
+
+&lt;p&gt;It also means that common solutions can be extracted and easily re-used on other projects because they all share a consistent architecture. If I solve a deployment issue in my Ember app then I can extract it into an add-on so other people can use my solution too, as is done in the Ember community. And if I solve some problem with my Rails app then I can release a gem that flagrantly monkey patches Ruby core, as is done in the Rails community.&lt;/p&gt;
+
+&lt;p&gt;This architectural consistency also exists between Ember and Rails in the APIs of their CLI tool. Both frameworks emphasize using generator commands to ensure that files are named right and add boilerplate code. And luckily they both settled on the same word for this command:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;ember generate controller dubsteps 
+rails generate controller dubsteps
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But this can still get a bit confusing for those of us who spend all day hopping back and forth between Ember and Rails code bases. You might one day find yourself in this unenviable position:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;$ ember g model foo
+version: 0.2.3
+You have to be inside an ember-cli project in order to use the generate command
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;OOPS you forgot where you were and what you were doing and tried to use &lt;code&gt;ember&lt;/code&gt; inside of a &lt;code&gt;rails&lt;/code&gt; project. You should consider yourself lucky that ember-cli catches this error for you. &lt;/p&gt;
+
+&lt;p&gt;This kind of thing happens more than we might care to admit, and it is caused by a phenomenon known as context switching. We get our brain all set on doing one particular task in a given environment, and then when we go to accomplish a related-but-different task in a nearby environment we get all discombobulated. &lt;/p&gt;
+
+&lt;p&gt;Technologists hate context switching because it means they have less time available in their life to ship product and engage with brands on twitter. That is why a lot of startups demand that their employees give up their personal lives and abandon their families to work 80 hour weeks: if there is no longer a division between work and life, then one no longer suffers from context switching between them!&lt;/p&gt;
+
+&lt;p&gt;That kind of mentality is a bit too extreme and fascist for my tastes. Making it easier to jump between Rails and Ember projects is a much nicer goal to have than ruthlessly optimizing the extraction of surplus value from laborers.&lt;/p&gt;
+
+&lt;p&gt;To that end, I have created a command line tool called geee (abbreviated to &lt;code&gt;g&lt;/code&gt; (but it is called geee because people have already pushed libraries called &lt;code&gt;g&lt;/code&gt; :/)). You see, both Ember and Rails already give you a MAJOR productivity boost by allowing you to substitute the word &lt;code&gt;generator&lt;/code&gt; for the letter &lt;code&gt;g&lt;/code&gt;, like so:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;ember g controller dubsteps 
+rails g controller dubsteps
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I thought: &amp;ldquo;why not take this a step further and drop the CLI command entirely?&amp;rdquo;. That way we would just have to type:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;g controller dubsteps
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the computer would figure out what kind of project folder we are inside of and do the right thing accordingly! Not only are you typing shorter commands, but you no longer have to switch contexts either!&lt;/p&gt;
+
+&lt;h4&gt;LETS SEE A DEMO:&lt;/h4&gt;
+
+&lt;p&gt;&lt;img alt="geee demo" src="/blog/images/g-demo-452dfa75.gif" /&gt;&lt;/p&gt;
+
+&lt;p&gt;geee/g will run any generator that Rails or Ember supports, and could be easily be forked and extended to cover other frameworks (if such things exist). &lt;/p&gt;
+
+&lt;p&gt;The best part about geee is that it comes packaged as either a &lt;a href="https://rubygems.org/gems/geee"&gt;Ruby gem&lt;/a&gt; or a &lt;a href="https://www.npmjs.com/package/geee"&gt;Node module&lt;/a&gt;, so that way you don&amp;rsquo;t even have to figure out the context of what package manager you are using! &lt;/p&gt;
+
+&lt;p&gt;Just do this:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;gem install geee
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or this:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;npm install -g geee
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and &lt;code&gt;g&lt;/code&gt; will be made available on yr path!&lt;/p&gt;
+
+&lt;p&gt;BUT NEVER BOTH, DO NOT INSTALL BOTH AT THE SAME TIME, BAD THINGS WILL HAPPEN, MIT LICENSE YO!!!!!!!!!!!!!! &amp;ldquo;IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.&amp;rdquo;!!!!&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Meta Test Driven Development</title>
     <link rel="alternate" href="http://colewillsea.com/blog/test-yr-test-suite.html"/>
@@ -427,61 +497,6 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 &lt;/ul&gt;
 
 &lt;p&gt;You can see this sort of thing in action in this &lt;a href="https://github.com/coleww/diacriticize/blob/gh-pages/cmd.js"&gt;cmd.js example code from one of my modules&lt;/a&gt; as well as this &lt;a href="https://github.com/coleww/mkproj/blob/master/cmd.js"&gt;wow, absolute bare minimum here, doesn&amp;rsquo;t even take arguments, barely trying, cool&lt;/a&gt;&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>shelling out to the system</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/shelling-out.html"/>
-    <id>http://colewillsea.com/blog/shelling-out.html</id>
-    <published>2015-07-09T20:14:00-07:00</published>
-    <updated>2015-08-02T08:32:45-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Shelling Out&lt;/h1&gt;
-
-&lt;h2&gt;I would gladly shell out 5$ for you to pipe a burrito to me, streaming, over the course of the next 7 minutes.&lt;/h2&gt;
-
-&lt;p&gt;Traditionally in UNIX land one would connect the output of various programs to the inputs of others with pipes (&lt;code&gt;|&lt;/code&gt;) directly on the command line, or within the depths of a shell script, like so:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;cat recipe.txt | grep potatoes &amp;gt;&amp;gt; potato_ideas.txt&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This is a great way to compose complex actions out of many small utilities.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt="pipe" src="/blog/images/pipe-d875ef91.png" /&gt;&lt;/p&gt;
-
-&lt;p&gt;Piping works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts that &lt;code&gt;touch&lt;/code&gt; and &lt;code&gt;mkdir&lt;/code&gt; your way to many victories, but what about integrating more complicated CLI tools like npm, bower, ember, rails, or git? These programs do things like prompt the user to make decisions, hit the network, or generate a metric ton of files, and it might get unwieldy to try to control such chaos directly from the command line. Instead, you can write a script that shells out to them!&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt="shelling" src="/blog/images/shelling-019c5ed6.png" /&gt;&lt;/p&gt;
-
-&lt;p&gt;In Ruby, the easiest way to shell out a command is to put it backticks, like so:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# this would print the current directory&lt;/span&gt;
-&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="sb"&gt;`ls`&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The same shelling, but with Node.js:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;exec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'child_process'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;exec&lt;/span&gt;
-&lt;span class="nx"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'ls'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="c1"&gt;// this would print the current directory&lt;/span&gt;
-  &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;// probably some callback hell here&lt;/span&gt;
-&lt;span class="p"&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With these, you can easily run shell commands and respond to their output as part of your script. But what if instead of just running a command you want to turn over control to a different program? Maybe that program has user prompts that need answering or it shows some pretty sweet terminal graphics.&lt;/p&gt;
-
-&lt;p&gt;In Ruby you can use &lt;code&gt;exec&lt;/code&gt;, which replaces the current process with the given command:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;exec&lt;/span&gt; &lt;span class="s2"&gt;"rails new monolith"&lt;/span&gt;
-&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s2"&gt;"never gets here cuz rails takes over"&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In Node.js there is the &lt;a href="https://www.npmjs.com/package/kexec"&gt;kexec&lt;/a&gt; module, which does the exact same thing:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;kexec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'kexec'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="nx"&gt;kexec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'ember new behemoth'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I used some of these magical spells to build &lt;a href="https://github.com/coleww/mkproj"&gt;mkproj&lt;/a&gt;, which generates a bunch of files and does some NPM stuff in order to scaffold lil browserify projects. Being able to run code on the command line from a Ruby or Node script opens up tons of possibilities for destroying your computer in a for loop! Reader beware!&lt;/p&gt;
 </content>
   </entry>
 </feed>
