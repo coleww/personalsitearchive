@@ -19,8 +19,7 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <p>START TMUXING AROUND MORE
-USING TMUX, SSH, OSX</p>
+      <h1>TMUXing around</h1>
 
 <p>https://github.com/coleww/dotfiles/blob/master/.tmux.conf</p>
 
@@ -31,12 +30,22 @@ USING TMUX, SSH, OSX</p>
 <p>THE ONLY TMUX COMMANDS U NEED</p>
 
 <ul>
-<li>sshin trick, attach directly to the mux, detach disconnects.</li>
+<li>sshin trick, attach directly to the mux, detach disconnects. You&rsquo;ll need a tmux running on the server for it to work. 
+<code>bash
+sshin(){
+ssh $1 -t tmux a
+}
+</code></li>
 </ul>
 
-<p>C-a c open new window
-C-a number =&gt; jump to that number window 
-C-a arrow?</p>
+<p>You&rsquo;ll also need to put some stuff in the .tmux.conf file on your server. 
+Make a .tmux.conf file on your server in the home directory. You can copy and paste <a href="my settings">https://github.com/coleww/dotfiles/blob/master/.tmux.conf</a> if you like, or try out bits and pieces to make your own configuration. Putting dotfiles on github will make this process way easier, should consider it. </p>
+
+<p>When you run <code>tmux</code> it will automatically look for a file named .tmux.conf and use it to configure itself. for when you are meticulously curating yr dotfiles</p>
+<pre class="highlight plaintext"><code># force a reload of the config file
+unbind r
+bind r source-file ~/.tmux.conf
+</code></pre>
 
 <p>FIRSTLY
 remap prefix to CTRL + a (or whatever you want.) b is totally absurd
@@ -47,7 +56,7 @@ bind C-a send-prefix
 </code></p>
 
 <p>SECONDLY
-enable the mouse
+enable the mouse to do all of the things.
 <code>
 set -g mode-mouse on
 set -g mouse-resize-pane on
@@ -55,34 +64,39 @@ set -g mouse-select-pane on
 set -g mouse-select-window on
 </code></p>
 
+<p>THIRDLY: some minor things
+&ldquo;`</p>
+
 <h1>remove administrative debris (session name, hostname, time) in status bar</h1>
 
-<p>set -g status-left &ldquo;
-set -g status-right &rdquo;</p>
+<p>set -g status-left &rdquo;
+set -g status-right &ldquo;</p>
 
 <h1>makes entering commands much easier</h1>
 
-<p>set -s escape-time 0</p>
+<p>set -s escape-time 0
+&rdquo;`</p>
 
-<h1>quick pane cycling</h1>
+<p>Point of tmux is to be able to run multiple things in one shell, so how do you get around?</p>
 
-<p>unbind ^A
-bind ^A select-pane -t :.+</p>
+<p>C-a c open a window
+C-a &amp; close a window
+C-a d detach from tmux</p>
+<pre class="highlight plaintext"><code># quick pane cycling
+unbind ^A
+bind ^A select-pane -t :.+
+# number screens 1-9 cuz thats how keyboard is
+set -g base-index 1
 
-<h1>number screens 1-9 cuz thats how keyboard is</h1>
-
-<p>set -g base-index 1</p>
-
-<h1>force a reload of the config file</h1>
-
-<p>unbind r
-bind r source-file ~/.tmux.conf</p>
-
-<h1>easier splitting, open splits in current path</h1>
-
-<p>unbind %
+# easier-to-remember window splitting. | is horizontal, - is vertical.
+unbind %
 bind | split-window -h
-bind - split-window -v </p>
+bind - split-window -v 
+</code></pre>
+
+<p>C-a number =&gt; jump to that number window. 
+C-| =&gt; split window horizontally
+C&ndash; =&gt; split window vertically</p>
 
 <p>FUN TRICK:
 something only applicable to OSX? (works for other things too!) put it in tmux-osx.conf! it should contain <code>source-file ~/.tmux.conf</code></p>
@@ -93,9 +107,7 @@ something only applicable to OSX? (works for other things too!) put it in tmux-o
 <span class="k">fi</span>
 </code></pre>
 
-<p>Sadly, started TMUX, copy-paste, scroll, all mouse movement was not working. I know i should learn the shortcuts (i started on emacs!) but for certain things like resizing terminal panes or selecting text i just can&rsquo;t bring myself to not use a mouse.</p>
-
-<p>=&gt; list links to maybe solutions?</p>
+<p>to copy stuff, hold the option key to select it. won&rsquo;t resepct tmux/emacs panes, but you can grab dem errors</p>
 
       <br/>
       <br/>
@@ -128,54 +140,54 @@ something only applicable to OSX? (works for other things too!) put it in tmux-o
 
       <h2>TAGZ</h2>
       <ul>
-          <li><a href="/blog/tags/unix.html">unix (6)</a></li>
-          <li><a href="/blog/tags/node.html">node (5)</a></li>
-          <li><a href="/blog/tags/ruby.html">ruby (3)</a></li>
-          <li><a href="/blog/tags/command-line.html">command line (2)</a></li>
-          <li><a href="/blog/tags/npm.html">npm (2)</a></li>
-          <li><a href="/blog/tags/bash.html">bash (2)</a></li>
-          <li><a href="/blog/tags/kexec.html">kexec (1)</a></li>
-          <li><a href="/blog/tags/paste-events.html">paste events (1)</a></li>
-          <li><a href="/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
-          <li><a href="/blog/tags/magic.html">magic (1)</a></li>
-          <li><a href="/blog/tags/glue.html">glue (1)</a></li>
-          <li><a href="/blog/tags/markdown.html">markdown (1)</a></li>
-          <li><a href="/blog/tags/ember.html">ember (1)</a></li>
-          <li><a href="/blog/tags/loading-routes.html">loading routes (1)</a></li>
-          <li><a href="/blog/tags/spinner-gif.html">spinner gif (1)</a></li>
-          <li><a href="/blog/tags/tom-dale.html">tom dale (1)</a></li>
-          <li><a href="/blog/tags/cron-job.html">cron job (1)</a></li>
-          <li><a href="/blog/tags/digital-ocean.html">digital ocean (1)</a></li>
-          <li><a href="/blog/tags/twitter-bots.html">twitter bots (1)</a></li>
-          <li><a href="/blog/tags/path.html">path (1)</a></li>
-          <li><a href="/blog/tags/ubuntu.html">ubuntu (1)</a></li>
-          <li><a href="/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
-          <li><a href="/blog/tags/middleman.html">middleman (1)</a></li>
-          <li><a href="/blog/tags/exec.html">exec (1)</a></li>
-          <li><a href="/blog/tags/john-gruber.html">john gruber (1)</a></li>
-          <li><a href="/blog/tags/meta-blog.html">meta-blog (1)</a></li>
-          <li><a href="/blog/tags/code.html">code (1)</a></li>
-          <li><a href="/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
-          <li><a href="/blog/tags/cli-tool.html">cli tool (1)</a></li>
-          <li><a href="/blog/tags/pipe.html">pipe (1)</a></li>
-          <li><a href="/blog/tags/yargs.html">yargs (1)</a></li>
-          <li><a href="/blog/tags/cors.html">cors (1)</a></li>
-          <li><a href="/blog/tags/api.html">api (1)</a></li>
-          <li><a href="/blog/tags/http.html">http (1)</a></li>
-          <li><a href="/blog/tags/the-rocky-mountain-brew.html">the rocky mountain brew (1)</a></li>
-          <li><a href="/blog/tags/overtone.html">overtone (1)</a></li>
-          <li><a href="/blog/tags/clojure.html">clojure (1)</a></li>
-          <li><a href="/blog/tags/noise.html">noise (1)</a></li>
-          <li><a href="/blog/tags/pitch.html">pitch (1)</a></li>
-          <li><a href="/blog/tags/samples.html">samples (1)</a></li>
-          <li><a href="/blog/tags/music.html">music (1)</a></li>
-          <li><a href="/blog/tags/poetry.html">poetry (1)</a></li>
-          <li><a href="/blog/tags/literature.html">literature (1)</a></li>
-          <li><a href="/blog/tags/testing.html">testing (1)</a></li>
-          <li><a href="/blog/tags/tdd.html">tdd (1)</a></li>
-          <li><a href="/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
-          <li><a href="/blog/tags/generators.html">generators (1)</a></li>
-          <li><a href="/blog/tags/ember-rails-generators.html">ember rails generators (1)</a></li>
+          <li><a href="/blog/blog/tags/unix.html">unix (7)</a></li>
+          <li><a href="/blog/blog/tags/node.html">node (6)</a></li>
+          <li><a href="/blog/blog/tags/ruby.html">ruby (4)</a></li>
+          <li><a href="/blog/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/blog/tags/npm.html">npm (2)</a></li>
+          <li><a href="/blog/blog/tags/generators.html">generators (2)</a></li>
+          <li><a href="/blog/blog/tags/ember.html">ember (2)</a></li>
+          <li><a href="/blog/blog/tags/bash.html">bash (2)</a></li>
+          <li><a href="/blog/blog/tags/kexec.html">kexec (1)</a></li>
+          <li><a href="/blog/blog/tags/magic.html">magic (1)</a></li>
+          <li><a href="/blog/blog/tags/glue.html">glue (1)</a></li>
+          <li><a href="/blog/blog/tags/paste-events.html">paste events (1)</a></li>
+          <li><a href="/blog/blog/tags/john-gruber.html">john gruber (1)</a></li>
+          <li><a href="/blog/blog/tags/loading-routes.html">loading routes (1)</a></li>
+          <li><a href="/blog/blog/tags/spinner-gif.html">spinner gif (1)</a></li>
+          <li><a href="/blog/blog/tags/tom-dale.html">tom dale (1)</a></li>
+          <li><a href="/blog/blog/tags/cron-job.html">cron job (1)</a></li>
+          <li><a href="/blog/blog/tags/digital-ocean.html">digital ocean (1)</a></li>
+          <li><a href="/blog/blog/tags/twitter-bots.html">twitter bots (1)</a></li>
+          <li><a href="/blog/blog/tags/path.html">path (1)</a></li>
+          <li><a href="/blog/blog/tags/ubuntu.html">ubuntu (1)</a></li>
+          <li><a href="/blog/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
+          <li><a href="/blog/blog/tags/markdown.html">markdown (1)</a></li>
+          <li><a href="/blog/blog/tags/exec.html">exec (1)</a></li>
+          <li><a href="/blog/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
+          <li><a href="/blog/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/blog/tags/meta-blog.html">meta-blog (1)</a></li>
+          <li><a href="/blog/blog/tags/code.html">code (1)</a></li>
+          <li><a href="/blog/blog/tags/cli-tool.html">cli tool (1)</a></li>
+          <li><a href="/blog/blog/tags/pipe.html">pipe (1)</a></li>
+          <li><a href="/blog/blog/tags/yargs.html">yargs (1)</a></li>
+          <li><a href="/blog/blog/tags/cors.html">cors (1)</a></li>
+          <li><a href="/blog/blog/tags/api.html">api (1)</a></li>
+          <li><a href="/blog/blog/tags/http.html">http (1)</a></li>
+          <li><a href="/blog/blog/tags/the-rocky-mountain-brew.html">the rocky mountain brew (1)</a></li>
+          <li><a href="/blog/blog/tags/overtone.html">overtone (1)</a></li>
+          <li><a href="/blog/blog/tags/clojure.html">clojure (1)</a></li>
+          <li><a href="/blog/blog/tags/noise.html">noise (1)</a></li>
+          <li><a href="/blog/blog/tags/pitch.html">pitch (1)</a></li>
+          <li><a href="/blog/blog/tags/samples.html">samples (1)</a></li>
+          <li><a href="/blog/blog/tags/music.html">music (1)</a></li>
+          <li><a href="/blog/blog/tags/poetry.html">poetry (1)</a></li>
+          <li><a href="/blog/blog/tags/literature.html">literature (1)</a></li>
+          <li><a href="/blog/blog/tags/testing.html">testing (1)</a></li>
+          <li><a href="/blog/blog/tags/tdd.html">tdd (1)</a></li>
+          <li><a href="/blog/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
+          <li><a href="/blog/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
+          <li><a href="/blog/blog/tags/rails.html">rails (1)</a></li>
       </ul>
     </aside>
     <script type="text/javascript">

@@ -6,39 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cole Codes Cool Code</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
-    <link href="/blog/stylesheets/main.css" rel="stylesheet" type="text/css" />
+    <link href="/blog/stylesheets/main-0d503c12.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Making art with code and vice versa." />
-<meta name="keywords" content="ruby, javascript, code, art" />
+<meta name="keywords" content="ruby, javascript, code, poetry, clojure, npm, algorithm, art" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Making art with code and vice versa." />
+<meta property="og:description" content="Making art with code and vice versa." />
   </head>
   <body>
     <center>
-<a href="/blog">        <img class="header" src="/blog/images/cool.png" />
+<a href="/blog">        <img class="header" src="/blog/images/cool-7b689408.png" />
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Glitching JPEGs</h1>
+      <h1>open up jpegs in text editors</h1>
 
-<p>A wise man once said:</p>
+<h2>seriously it is awesome</h2>
+
+<p>This quote from substack pretty much sums up everything I am about to tell you:</p>
 
 <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">you can just fuck with jpegs in vim btw</p>&mdash; substack (@substack) <a href="https://twitter.com/substack/status/612136577737756672">June 20, 2015</a></blockquote>
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<p>Open a JPEG in a text editor and you&rsquo;ll be treated to a wall of hex. Some file formats would not be happy if you started manipulating bits all willy nilly, but JPEGs are different. You can paste in selections from moby dick and something will still probably render when you open it as an image. The only thing you have to watch out for is the first few lines of data which contain important header information for the file. Just skip the first 1/10 of the file or so before making your edits.</p>
+<p>Genius.</p>
 
-<p>WRITE SOME CODE TO FUX WITH JPEGS!</p>
-<pre class="highlight plaintext"><code>data = readFile('some.jpeg')
-iterate over that data
-write some new data to another file
+<p>JPEG/JPG compression is such that you can make changes to it&rsquo;s data and it will still try to load something, usually ending up with weird glitchy art.</p>
+
+<p>Cory Arcangel wrote a research paper on the jpeg algorithm which is supposedly important but i understand little of it. math is hard.</p>
+
+<p>You can of course just open an image, delete, type randomly, copy and paste, etc., save it, and re-open to see a profound effect. Take care to avoid doing anything to the first 1/5-&frac14; of the file, which contains important header information that must not be manipulated.  There is probably some bytesequence you could look for that signifies the end of the headers, but, you know, data format specifications and mathematics. blah blah blah</p>
+
+<p>Another approach is to encode a glitching algorithm in, err, um, code. Might take control paramaters, which you can modify to explore the possibilities of this failure. </p>
+
+<p>I published one such algorithm as a Ruby gem called <a href="https://github.com/coleww/scrambled_jpeg">scrambled_jpeg</a>. Annotated sauce below:</p>
+<pre class="highlight ruby"><code><span class="k">def</span> <span class="nf">scramble</span> <span class="n">filename</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span>
+  <span class="c1"># load the file into a store, pop off the ending, and start a cache</span>
+  <span class="n">ending</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="p">(</span><span class="n">store</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">readlines</span> <span class="n">filename</span><span class="p">).</span><span class="nf">pop</span><span class="p">,</span> <span class="p">[]</span>
+
+  <span class="c1"># open a file and write the first chunk of data to it</span>
+  <span class="p">(</span><span class="n">new_file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">hash</span><span class="p">.</span><span class="nf">to_s</span> <span class="o">+</span> <span class="s1">'.jpg'</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">).</span><span class="nf">write</span> <span class="n">store</span><span class="p">.</span><span class="nf">shift</span>
+
+  <span class="c1">#  write the next n chunks of data. this should get us past the headers (hopefully)</span>
+  <span class="n">n</span><span class="p">.</span><span class="nf">times</span> <span class="p">{</span> <span class="n">new_file</span><span class="p">.</span><span class="nf">write</span> <span class="n">store</span><span class="p">.</span><span class="nf">shift</span> <span class="p">}</span>
+
+        <span class="c1"># then, save off n chunks to the cache</span>
+       <span class="p">.</span><span class="nf">times</span> <span class="p">{</span>       <span class="n">cache</span> <span class="o">&lt;&lt;</span> <span class="n">store</span><span class="p">.</span><span class="nf">shift</span> <span class="p">}</span>
+
+       <span class="c1"># write the next n chunks to the file</span>
+       <span class="p">.</span><span class="nf">times</span> <span class="p">{</span> <span class="n">new_file</span><span class="p">.</span><span class="nf">write</span> <span class="n">store</span><span class="p">.</span><span class="nf">shift</span> <span class="p">}</span>
+
+       <span class="c1"># write the cached lines to the file, and continue doing this until the store and cache are empty</span>
+       <span class="p">.</span><span class="nf">times</span> <span class="p">{</span> <span class="n">new_file</span><span class="p">.</span><span class="nf">write</span> <span class="n">cache</span><span class="p">.</span><span class="nf">shift</span> <span class="p">}</span> <span class="k">until</span> <span class="n">store</span><span class="p">.</span><span class="nf">empty?</span> <span class="o">&amp;&amp;</span> <span class="n">cache</span><span class="p">.</span><span class="nf">empty?</span>
+
+  <span class="c1"># write the ending data to the file and close it.</span>
+  <span class="n">new_file</span><span class="p">.</span><span class="nf">write</span> <span class="n">ending</span> <span class="o">&amp;&amp;</span> <span class="n">new_file</span><span class="p">.</span><span class="nf">close</span>
+<span class="k">end</span>
 </code></pre>
 
-<p><a href="https://github.com/coleww/scrambled_jpeg">one algorithm</a>
-pops off N lines
-stores N lines
-pops off N lines
-pops the stored N lines in</p>
+<p>/// EXAMPLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
 
-<p>swapping the order of lines messes it all up. changing N has differing effect. high N =&gt; data stays together but more out of place. lower N =&gt; data stays close to where it started but more shuffling.</p>
+<p>Could shuffle the data up totally randomly (probably gonna fail, shuffle larger chunks so as to be less disruptive. yes this is the one instance in comptuer science where you should NOT disrupt), 
+could copy paste the front page of the new york times into the middle of the file, 
+could take 2 jpegs and randomly mash their datas together (for political juxtaposition and statement perhaps?)</p>
+
+<p>Many possibilities for different algorithms, as well as interfaces to these algorithms. Web cam or some sort of live image feed as input, sliders and knobs for the params. </p>
 
       <br/>
       <br/>
@@ -61,15 +93,65 @@ pops the stored N lines in</p>
         (<a href="https://twitter.com/colewillsea">twitter</a>)
       </div></p>
       <h2>RECENT BLAGZ</h2>
-      <ol>
-          <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
-          <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
-          <li><a href="/blog/do-cron.html">automating bots with cron on digital ocean</a> <span>Jun 23</span></li>
-          <li><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
-          <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
-          <li><a href="/blog/syntax-highlighting-in-middleman.html">100% EZ Syntax Highlighting With Middleman</a> <span>May 30</span></li>
-      </ol>
+      <ul>
+          <li><a href="/blog/context-switching-ember-rails.html">Eliminating The Ember-Rails Context Switch</a> <span>Aug  8</span></li>
+          <li><a href="/blog/test-yr-test-suite.html">Meta Test Driven Development</a> <span>Aug  3</span></li>
+          <li><a href="/blog/node-poetry-modules.html">Node.js Poetic Modules</a> <span>Aug  1</span></li>
+          <li><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></li>
+          <li><a href="/blog/node-cors.html">Setting up a simple CORS API in node</a> <span>Jul 22</span></li>
+      </ul>
 
+      <h2>TAGZ</h2>
+      <ul>
+          <li><a href="/blog/blog/tags/unix.html">unix (7)</a></li>
+          <li><a href="/blog/blog/tags/node.html">node (6)</a></li>
+          <li><a href="/blog/blog/tags/ruby.html">ruby (4)</a></li>
+          <li><a href="/blog/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/blog/tags/npm.html">npm (2)</a></li>
+          <li><a href="/blog/blog/tags/generators.html">generators (2)</a></li>
+          <li><a href="/blog/blog/tags/ember.html">ember (2)</a></li>
+          <li><a href="/blog/blog/tags/bash.html">bash (2)</a></li>
+          <li><a href="/blog/blog/tags/kexec.html">kexec (1)</a></li>
+          <li><a href="/blog/blog/tags/magic.html">magic (1)</a></li>
+          <li><a href="/blog/blog/tags/glue.html">glue (1)</a></li>
+          <li><a href="/blog/blog/tags/paste-events.html">paste events (1)</a></li>
+          <li><a href="/blog/blog/tags/john-gruber.html">john gruber (1)</a></li>
+          <li><a href="/blog/blog/tags/loading-routes.html">loading routes (1)</a></li>
+          <li><a href="/blog/blog/tags/spinner-gif.html">spinner gif (1)</a></li>
+          <li><a href="/blog/blog/tags/tom-dale.html">tom dale (1)</a></li>
+          <li><a href="/blog/blog/tags/cron-job.html">cron job (1)</a></li>
+          <li><a href="/blog/blog/tags/digital-ocean.html">digital ocean (1)</a></li>
+          <li><a href="/blog/blog/tags/twitter-bots.html">twitter bots (1)</a></li>
+          <li><a href="/blog/blog/tags/path.html">path (1)</a></li>
+          <li><a href="/blog/blog/tags/ubuntu.html">ubuntu (1)</a></li>
+          <li><a href="/blog/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
+          <li><a href="/blog/blog/tags/markdown.html">markdown (1)</a></li>
+          <li><a href="/blog/blog/tags/exec.html">exec (1)</a></li>
+          <li><a href="/blog/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
+          <li><a href="/blog/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/blog/tags/meta-blog.html">meta-blog (1)</a></li>
+          <li><a href="/blog/blog/tags/code.html">code (1)</a></li>
+          <li><a href="/blog/blog/tags/cli-tool.html">cli tool (1)</a></li>
+          <li><a href="/blog/blog/tags/pipe.html">pipe (1)</a></li>
+          <li><a href="/blog/blog/tags/yargs.html">yargs (1)</a></li>
+          <li><a href="/blog/blog/tags/cors.html">cors (1)</a></li>
+          <li><a href="/blog/blog/tags/api.html">api (1)</a></li>
+          <li><a href="/blog/blog/tags/http.html">http (1)</a></li>
+          <li><a href="/blog/blog/tags/the-rocky-mountain-brew.html">the rocky mountain brew (1)</a></li>
+          <li><a href="/blog/blog/tags/overtone.html">overtone (1)</a></li>
+          <li><a href="/blog/blog/tags/clojure.html">clojure (1)</a></li>
+          <li><a href="/blog/blog/tags/noise.html">noise (1)</a></li>
+          <li><a href="/blog/blog/tags/pitch.html">pitch (1)</a></li>
+          <li><a href="/blog/blog/tags/samples.html">samples (1)</a></li>
+          <li><a href="/blog/blog/tags/music.html">music (1)</a></li>
+          <li><a href="/blog/blog/tags/poetry.html">poetry (1)</a></li>
+          <li><a href="/blog/blog/tags/literature.html">literature (1)</a></li>
+          <li><a href="/blog/blog/tags/testing.html">testing (1)</a></li>
+          <li><a href="/blog/blog/tags/tdd.html">tdd (1)</a></li>
+          <li><a href="/blog/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
+          <li><a href="/blog/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
+          <li><a href="/blog/blog/tags/rails.html">rails (1)</a></li>
+      </ul>
     </aside>
     <script type="text/javascript">
   var _gaq = _gaq || [];

@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/context-switching-ember-rails.html"/>
     <id>http://colewillsea.com/blog/context-switching-ember-rails.html</id>
     <published>2015-08-08T09:48:00-07:00</published>
-    <updated>2015-08-08T09:59:00-07:00</updated>
+    <updated>2015-08-08T13:15:28-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -62,7 +62,7 @@ rails g controller dubsteps
 
 &lt;p&gt;&lt;img alt="geee demo" src="/blog/images/g-demo-452dfa75.gif" /&gt;&lt;/p&gt;
 
-&lt;p&gt;geee/g will run any generator that Rails or Ember supports, and could be easily be forked and extended to cover other frameworks (if such things exist). &lt;/p&gt;
+&lt;p&gt;geee/g will run any generator that Rails or Ember supports, and could be easily be forked and extended to cover other frameworks (if such things exist). It is also an exemplary demonstration of the composability of simple command line tools in a UNIX fashion. &lt;/p&gt;
 
 &lt;p&gt;The best part about geee is that it comes packaged as either a &lt;a href="https://rubygems.org/gems/geee"&gt;Ruby gem&lt;/a&gt; or a &lt;a href="https://www.npmjs.com/package/geee"&gt;Node module&lt;/a&gt;, so that way you don&amp;rsquo;t even have to figure out the context of what package manager you are using! &lt;/p&gt;
 
