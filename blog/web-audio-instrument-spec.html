@@ -19,15 +19,37 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Archive for
-    Jun  9 2015
-</h1>
+      <p>Web audio is awesome but very close to the metal. Need a way to publish pre-assembled synths so our projects don&rsquo;t get taken over by audioNode boilerplate. Create a high level audio-node like interface that allows us to quickly create and connect synths and fx&rsquo;s while still being able to modify any individual paramater.</p>
 
+<p>I have been using the following interface to achieve this:</p>
+<pre class="highlight plaintext"><code>synth: {
+  keys(),
+  connect(destination),
+  start(),
+  stop(),
+  export(),
+  import(data),
+  audioNodes, ...,
+  fns?, ...
+}
+</code></pre>
 
 <ul>
-    <li><a href="/blog/trigger-loading-route-in-ember.html">Manually Trigger Loading Routes in Ember</a> <span>Jun  9</span></li>
+<li><code>keys()</code> =&gt; Returns an array of string keys to audioNodes, for example: <code>[&quot;osc1&quot;, &quot;filter&quot;, &quot;distortion&quot;, &quot;gain&quot;]</code>. One could then do <code>synth[&quot;osc1&quot;].frequency.value = 10000</code> or whatever you so desire. The naming of these keys is arbitrary but hopefully somehow indicates which type of audioNode they are.</li>
+<li><code>connect(destination)</code> =&gt; Connects the output nodes of the synth to a destination or other node.</li>
+<li><code>start()</code> =&gt; Calls start() on all the source nodes. </li>
+<li><code>stop()</code> =&gt; Calls stop() on all the source nodes. Shhhhhh.</li>
+<li><code>export()</code> =&gt; Returns JSON respresentation of the instrument. For easily saving settings between browser sessions.</li>
+<li><code>import(data)</code> =&gt; Loads JSON data, or use default values if no data is passed.</li>
+<li><code>audioNodes ...</code> =&gt; Each node in the synth will be present as a property on the object, allowing for direct manipulation. Their keys can be found with <code>keys()</code></li>
+<li><code>fns? ...</code> =&gt; Other arbitrarily named functions might or might not also be present on the object, such as for performing complex control changes that would be unwieldy to do directly, like setting oscillators to play chords, or turning on that dubstep wobble</li>
 </ul>
 
+<p>experimenting with html5 browser apis controlling web audio, and for each project i do i have been publishing the synth i build to npm, using this api</p>
+
+<p>https://www.npmjs.com/package/drone-e-o-synth</p>
+
+<p>https://www.npmjs.com/package/tri-tri</p>
 
       <br/>
       <br/>

@@ -5,10 +5,169 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-08-08T09:48:00-07:00</updated>
+  <updated>2015-08-15T07:50:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>Everything I Learned About TMUX In 3 Days</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/everything-tmux.html"/>
+    <id>http://colewillsea.com/blog/everything-tmux.html</id>
+    <published>2015-08-15T07:50:00-07:00</published>
+    <updated>2015-08-15T08:12:32-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Everything I Learned About TMUX In Like 3 Days&lt;/h1&gt;
+
+&lt;h2&gt;Seven Weird Tricks To Multiplex Your Terminals, Remotely!&lt;/h2&gt;
+
+&lt;p&gt;Recently I started doing my work-&amp;ldquo;work&amp;rdquo; in a dev-box in the cloud. This meant getting adjusted to a whole new set of tooling because I couldn&amp;rsquo;t use my normal tricks like running six panes in one iTerm2 window. I wanted to treat the SSH connected box as though it was just another drive on machine, and &lt;em&gt;what I learned will shock you&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;You&amp;rsquo;ll first need to create a &lt;code&gt;.tmux.conf&lt;/code&gt; file on your server if one has not already been provided for you. You can copy and paste &lt;a href="https://github.com/coleww/dotfiles/blob/master/.tmux.conf"&gt;my settings&lt;/a&gt; if you like, or read through and select only the parts you want. When you start TMUX, it will automagically look for and load this file.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3&gt;A BRIEF INTRODUCTION TO TMUX NOTATION&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;C-a r&lt;/code&gt; =&amp;gt; &lt;code&gt;ctrl + a - r&lt;/code&gt; =&amp;gt; press ctrl and a together, then release, then press r&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3&gt;.tmux.conf&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;THE MOST IMPORTANT THING: &lt;code&gt;ctrl + b&lt;/code&gt; is a nightmare to press with human meat hands. Remap it to something more sensible like &lt;code&gt;ctrl + a&lt;/code&gt;. Or, you know, whatever you want. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This lowers the escape time for entering TMUX commands, as the default speed seems to assume that you are going to pause for dramatic effect in the middle of typing. &lt;code&gt;xterm-keys&lt;/code&gt; makes it so TMUX doesn&amp;rsquo;t, like, totally freak out when it gets certain commands from iTerm.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -s escape-time 0
+set -g xterm-keys on
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;THE MOUSE: you can still use it. This makes it so you can select windows and resize panes and probably do other cool things with your mouse, because why would you ever want to resize a window through keyboard shortcuts? &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -g mode-mouse on
+set -g mouse-resize-pane on
+set -g mouse-select-pane on
+set -g mouse-select-window on
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You might be changing yr config file a lot while you try to get things juuuuuuuuuust right. A simple &lt;code&gt;ctrl + a - r&lt;/code&gt; will reload your configuration file on the spot. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;unbind r
+bind r source-file ~/.tmux.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Makes TMUX use GNU/EMACS commands for scrolling and other things. So one catch to doing work over SSH is that you inevitably must pick a side in the always riveting emacs vs. vim debate. If you are of the vim persuasion just don&amp;rsquo;t include this line because that is the default.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set-window-option -g mode-keys emacs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Move the status bar to the top. I guess if you prefer it at the bottom you can delete this. I will allow it. You might need to upgrade TMUX to at least 1.7 to get this working because apparently that is a VERY ADVANCED feature.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set-option -g status-position top
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Set the terminal to use 256 colorsa, and make the status bar and panes have prettier colors =^.^= customize to your joy! I guess that there are multiple acceptable colour formats? And that I copy-pasta&amp;rsquo;d these settings from different sources? &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -g default-terminal "screen-256color"
+set -g status-bg '#666666'
+set -g status-fg '#aaaaaa'
+set -g pane-border-fg colour245
+set -g pane-active-border-fg colour46
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Remove a bunch of junk text from the status bar. I suppose that instead of the empty strings you could add something like &amp;ldquo;PIZZA TIME 4pm!!!&amp;rdquo; or what have you. Or maybe write a script that uses this space to give you updates on things like how all your tests failed or you got another email from jira.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -g status-left ''
+set -g status-right ''
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This lets you quickly jump around panes by entering &lt;code&gt;C-a the-number-of-the-pane&lt;/code&gt;. It also takes care to rebind C-l for reasons I don&amp;rsquo;t totally understand. I should see what happens when I delete that. Also renumbers the panes to be 1-9 instead of 0-9, because on yr keyboard the number keys probably go from 1-9, so it would be quite a stretch to hit the 0 key to go to the first pane, and then hit the 1 to go to the second. Array indexing doesn&amp;rsquo;t make sense for everything.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;unbind ^A
+bind ^A select-pane -t :.+
+bind C-l send-keys 'C-l'
+set -g base-index 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This one is, I think, pretty explanatory.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;bind C-k clear-history
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I tend to never split panes/windows in tmux, and instead just create new windows and tab between them with &lt;code&gt;C-a {1-9}&lt;/code&gt;. But when I do, I can never remember the command for it. So to make things easier this remaps those actions to use &lt;code&gt;|&lt;/code&gt; for a horizontal split and &lt;code&gt;-&lt;/code&gt; for vertical, which I must say is a cute little visual memnonic.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;unbind %
+bind | split-window -h
+bind - split-window -v 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+
+&lt;h3&gt;TMUX Commands&lt;/h3&gt;
+
+&lt;p&gt;some of these are built in, some depend on using the above mentioned settings..&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;C-a c&lt;/code&gt;    open a window&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C-a &amp;amp;&lt;/code&gt;    close a window&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C-a d&lt;/code&gt;    detach from tmux&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C-a k&lt;/code&gt;    clear history&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C-a number&lt;/code&gt;    jump to that number window. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C-a |&lt;/code&gt;    split window horizontally&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C-a -&lt;/code&gt;    split window vertically&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;COPY PASTA&lt;/h3&gt;
+
+&lt;p&gt;You might notice that TMUX is not happy about you trying to select and copy it&amp;rsquo;s output. Mouse-mode makes it so we can click the text, but in order to select text from TMUX and copy and paste elsewhere, &lt;strong&gt;just hold down the option key while you are selecting the text&lt;/strong&gt;. You&amp;rsquo;ll know it&amp;rsquo;s working because the selection will be a different color than the usual TMUX selection color. However if you are running split panes you will find that the selection does not obey their boundaries.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3&gt;start a tmux session&lt;/h3&gt;
+
+&lt;p&gt;First, SSH into your server.&lt;/p&gt;
+
+&lt;p&gt;Then, run &lt;code&gt;tmux&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;Hopefully it is installed already. &lt;/p&gt;
+
+&lt;p&gt;I bet it might be.&lt;/p&gt;
+
+&lt;p&gt;Now that you have this TMUX &amp;ldquo;session&amp;rdquo; running, you can &amp;ldquo;detach&amp;rdquo; from it and go do other things, then later come back and &amp;ldquo;re-attach&amp;rdquo; to it, and everything will still be as you left it! Processes will be processing, servers will be serving, text editors will be waiting for you to edit things.&lt;/p&gt;
+
+&lt;p&gt;One neat trick I learned is to add a function like this to yr &lt;code&gt;.bash_profile&lt;/code&gt;for what have you:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;sshin () {
+  ssh $1 -t tmux a
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can do &lt;code&gt;sshin YRNAME@yr.host.server.com&lt;/code&gt; and you will automagically ssh in and attach to yr running TMUX session. When you are finished, you can enter &lt;code&gt;C-a d&lt;/code&gt; to detach and it will also disconnect you from the SSH connection. Note that you must already have a TMUX session running on the server for this command to work.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3&gt;WOW! JUST LOOK AT THAT TERMINAL! WATCH HOW IT MULTIPLEXES!&lt;/h3&gt;
+
+&lt;p&gt;&lt;img alt="tmuxing around" src="/blog/images/tmux-ea5f88b4.gif" /&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Eliminating The Ember-Rails Context Switch</title>
     <link rel="alternate" href="http://colewillsea.com/blog/context-switching-ember-rails.html"/>
@@ -340,163 +499,6 @@ Much like the All-Methods reqsponse header, here you specify which request heade
 &lt;p&gt;There you have it! Now your users can access your API using javascript in the browser OR the server, and you can finally build a hexamorphic web application!&lt;/p&gt;
 
 &lt;p&gt;You can see the cors in use in &lt;a href="https://github.com/coleww/corpora-api"&gt;this project&lt;/a&gt;, which basically serves up a directory of JSON files as an API. (but is also sadly not currently deployed anywhere)&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Building a *nice* CLI For Your Sick npm Module</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/npm-cli.html"/>
-    <id>http://colewillsea.com/blog/npm-cli.html</id>
-    <published>2015-07-15T18:10:00-07:00</published>
-    <updated>2015-08-02T08:33:12-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Building a &lt;em&gt;nice&lt;/em&gt; CLI For Your Sick npm Module&lt;/h1&gt;
-
-&lt;h2&gt;A tale in backticks&lt;/h2&gt;
-
-&lt;p&gt;Ok so you have written a pretty sweet node module. &lt;em&gt;nice&lt;/em&gt;. Ok so maybe you want to make this utility available on the command line?&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;touch cmd.js&lt;/code&gt; =&amp;gt; lets make a file!&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;chmod +x cmd.js&lt;/code&gt; =&amp;gt; lets make it executable!&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;./cmd.js&lt;/code&gt; =&amp;gt; doesnt do anything yet!&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;But hey, it ran on the command line!&lt;/p&gt;
-
-&lt;p&gt;THE END&lt;/p&gt;
-
-&lt;p&gt;Ok so open up cmd.js in the text editor of yr choosing and add:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;#!/usr/bin/env node&lt;/code&gt; =&amp;gt; This tells computer how to run this script&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;var yrModule = require(&amp;#39;./&amp;#39;)&lt;/code&gt; =&amp;gt; Load up that code&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;But wait! What about arguments! I have a lot to say!&lt;/p&gt;
-
-&lt;p&gt;shhhh go back to the command line:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;npm install yargs --save&lt;/code&gt; =&amp;gt; &lt;a href="https://www.npmjs.com/package/yargs"&gt;yargs&lt;/a&gt; is pretty cool. &lt;a href="https://www.npmjs.com/package/minimist"&gt;minimist&lt;/a&gt; is also pretty cool. I ended up using yargs due to reasons that I cannot recall. Cool story.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Go back to the text editor and add:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;argv&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'yargs'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;alias&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'h'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'help'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;help&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'help'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;usage&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'what does thing do?'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;example&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'yrModule POTATOES!'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;alias&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'i'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'intensity'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;describe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'i'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'describe what the arguments do'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;argv&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Of course&amp;hellip;you should probably edit things to suit yr module. You can chain multiple example/alias/describe calls if you want to show off more functionality or define other options.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;./cmd.js -h&lt;/code&gt; =&amp;gt; =&amp;gt; automatic documentation!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Once defined, yargs literally does not care how things are passed to it.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;./cmd.js -i 72 what is up with airline food?&lt;/code&gt; =&amp;gt; ALL GOOD!&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;./cmd.js what is up with airline food? --intensity=72&lt;/code&gt; =&amp;gt; TOTALLY COOL! SAME THING!&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In either case, inside the running cmd.js script the following would be the truth:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;argv._&lt;/code&gt; =&amp;gt; =&amp;gt; [&amp;lsquo;what&amp;rsquo;, &amp;#39;is&amp;rsquo;, &amp;#39;up&amp;rsquo;, &amp;#39;with&amp;rsquo;, &amp;#39;airline&amp;rsquo;, &amp;#39;food?&amp;rsquo;]&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;argv.i&lt;/code&gt; =&amp;gt; =&amp;gt; 72&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If your module is simple enough, you might be done! Back to the text editor!&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;var output = yrModule(argv._.join(&amp;quot; &amp;quot;), argv.i)&lt;/code&gt; =&amp;gt; pass the arguments to yrModule (maybe it responds to jokes?)&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;process.stdout.write(output)&lt;/code&gt; =&amp;gt; write the output to the terminal&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;process.exit()&lt;/code&gt; =&amp;gt; exit the program&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The UNIX ideology believes that building simple interfaces that accept text input and produce text output are super radical. We are fulfilling that dream right now. To the command line:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;./cmd.js -i 12 awwwwoooooooooooooooooo | grep whales &amp;gt;&amp;gt; save_them.txt&lt;/code&gt; =&amp;gt; Amazing.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Well, I don&amp;rsquo;t know if yr module has anything to do with whales, but it probably should.&lt;/p&gt;
-
-&lt;p&gt;But hey! &lt;code&gt;grep&lt;/code&gt; =&amp;gt; accepts that weird &lt;code&gt;|&lt;/code&gt; =&amp;gt; pipe thing! Can we accept the weird pipe thing and thus complete our embodiment of the UNIX philosophy?&lt;/p&gt;
-
-&lt;p&gt;Yes. Sure. Lets edit some text.&lt;/p&gt;
-
-&lt;p&gt;First we wrap our original non-pipey code with an if block:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;isTTY&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;yrModule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;" "&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="nx"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;output&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;process.stdin.isTTY&lt;/code&gt; =&amp;gt; basically asks node &amp;ldquo;IS THIS A TERMINAL?&amp;rdquo;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And then the else case, for pipey-times:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;''&lt;/span&gt;
-  &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;resume&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-  &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;setEncoding&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'utf8'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'data'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;chunk&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="nx"&gt;data&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="nx"&gt;chunk&lt;/span&gt;
-  &lt;span class="p"&gt;})&lt;/span&gt;
-
-  &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'end'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;yrModule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-    &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-  &lt;span class="p"&gt;})&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;cat burrito_recipes.txt | ./cmd.js -i 400&lt;/code&gt; =&amp;gt; WOW all kinds of inputs&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If your module is super complex and might be used on datasets that can&amp;rsquo;t be stored in RAM then you should probably stream the chunks directly into your codes rather than building up a data string and doing it all at once. But this is fine, it&amp;rsquo;s fine, probably fine. Totally.&lt;/p&gt;
-
-&lt;p&gt;Cool! Now your module is ready to do all sorts of command line tricks. The last thing you need to remember to do before publishing this update to npm is adding a &amp;ldquo;bin&amp;rdquo; entry to your package.json file so that yr CLI script is available in the PATH of those who install your module. (But if you forget sometimes don&amp;rsquo;t worry about dat inevitable post-npm-publish-version-bump-re-publish it happens to the best of us.)&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="s2"&gt;"bin"&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s2"&gt;"yrModule"&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"cmd.js"&lt;/span&gt;
-&lt;span class="p"&gt;},&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Of course replace yrModule with whatever you want the command line executable to be. In this instance you could do:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;yrModule foo fighters -i 65&lt;/code&gt; =&amp;gt; probably make sure you pick a name that isn&amp;rsquo;t already a thing, like &lt;code&gt;git&lt;/code&gt;, that would be bad. &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;ONE LAST THING!&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;process.exit(1)&lt;/code&gt; =&amp;gt; handle yr errors! If yr CLI script fails for some reason, exit with a 1 so that computer knows that a bad thing happened.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;OK ONE OTHER THING!&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;preferGlobal&amp;quot;: true&lt;/code&gt; =&amp;gt; if your script is primarily a CLI tool and wouldn&amp;rsquo;t make much sense as a local project dependency, add this so users get a warning if they don&amp;rsquo;t &lt;code&gt;npm install -g&lt;/code&gt;. this would be for things like scaffolding tools or video games.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;npm publish&lt;/code&gt; =&amp;gt; YOU ARE A HERO&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You can see this sort of thing in action in this &lt;a href="https://github.com/coleww/diacriticize/blob/gh-pages/cmd.js"&gt;cmd.js example code from one of my modules&lt;/a&gt; as well as this &lt;a href="https://github.com/coleww/mkproj/blob/master/cmd.js"&gt;wow, absolute bare minimum here, doesn&amp;rsquo;t even take arguments, barely trying, cool&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>

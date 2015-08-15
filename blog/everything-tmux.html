@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cole Codes Cool Code</title>
+    <title>Everything I Learned About TMUX In 3 Days</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/blog/stylesheets/main-9c5606f3.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Writing code that makes art and vice versa." />
@@ -19,13 +19,13 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Everything I Learned About TMUX In 2 Days</h1>
+      <h1>Everything I Learned About TMUX In Like 3 Days</h1>
 
-<h2>One Weird Trick To Multiplex Your Terminals!</h2>
+<h2>Seven Weird Tricks To Multiplex Your Terminals, Remotely!</h2>
 
-<p>Recently I started doing my work-&ldquo;work&rdquo; in a dev-box in the cloud. This meant getting adjusted to a whole new set of tooling, because I couldn&rsquo;t use my normal tools like Sublime Text or running six panes in one iTerm2 window. As much as I could, I wanted to treat the SSH connected box as though it was just another drive on machine. What I learned will shock you.</p>
+<p>Recently I started doing my work-&ldquo;work&rdquo; in a dev-box in the cloud. This meant getting adjusted to a whole new set of tooling because I couldn&rsquo;t use my normal tricks like running six panes in one iTerm2 window. I wanted to treat the SSH connected box as though it was just another drive on machine, and <em>what I learned will shock you</em>.</p>
 
-<p>You&rsquo;ll need to create a .tmux.conf file on your server if one does not already exist. You can copy and paste <a href="my settings">https://github.com/coleww/dotfiles/blob/master/.tmux.conf</a> if you like, or read through and select only the parts you want. When you start TMUX, it will automagically look for and load this file.</p>
+<p>You&rsquo;ll first need to create a <code>.tmux.conf</code> file on your server if one has not already been provided for you. You can copy and paste <a href="https://github.com/coleww/dotfiles/blob/master/.tmux.conf">my settings</a> if you like, or read through and select only the parts you want. When you start TMUX, it will automagically look for and load this file.</p>
 
 <hr>
 
@@ -46,15 +46,14 @@ bind C-a send-prefix
 </code></pre>
 
 <ul>
-<li>This lowers the escape time for entering TMUX commands, as the default speed seems to assume that you are going to pause for dramatic effect in the middle of typing. <code>xterm-keys</code> makes it so TMUX doesn&rsquo;t like totally freak out when it gets certain commands from iTerm.</li>
+<li>This lowers the escape time for entering TMUX commands, as the default speed seems to assume that you are going to pause for dramatic effect in the middle of typing. <code>xterm-keys</code> makes it so TMUX doesn&rsquo;t, like, totally freak out when it gets certain commands from iTerm.</li>
 </ul>
 <pre class="highlight plaintext"><code>set -s escape-time 0
-
 set -g xterm-keys on
 </code></pre>
 
 <ul>
-<li>THE MOUSE: you can still use it. This makes it so you can select windows and resize panes and probably do other things with your mouse. </li>
+<li>THE MOUSE: you can still use it. This makes it so you can select windows and resize panes and probably do other cool things with your mouse, because why would you ever want to resize a window through keyboard shortcuts? </li>
 </ul>
 <pre class="highlight plaintext"><code>set -g mode-mouse on
 set -g mouse-resize-pane on
@@ -76,7 +75,7 @@ bind r source-file ~/.tmux.conf
 </code></pre>
 
 <ul>
-<li>Move the status bar to the top. I guess if you prefer it at the bottom you can delete this. I will allow it. You might need to upgrade TMUX to at least 1.7 to get this working.</li>
+<li>Move the status bar to the top. I guess if you prefer it at the bottom you can delete this. I will allow it. You might need to upgrade TMUX to at least 1.7 to get this working because apparently that is a VERY ADVANCED feature.</li>
 </ul>
 <pre class="highlight plaintext"><code>set-option -g status-position top
 </code></pre>
@@ -99,13 +98,11 @@ set -g status-right ''
 </code></pre>
 
 <ul>
-<li>This lets you quickly jump around panes by entering <code>C-a the-number-of-the-pane</code>. It also takes care to rebind C-l for reasons I don&rsquo;t totally understand. I should see what happens when I delete this. Also renumbers the panes to be 1-9 instead of 0-9, because on yr keyboard the number keys probably go from 1-9, so it would be quite a stretch to hit the 0 key to go to the first pane.</li>
+<li>This lets you quickly jump around panes by entering <code>C-a the-number-of-the-pane</code>. It also takes care to rebind C-l for reasons I don&rsquo;t totally understand. I should see what happens when I delete that. Also renumbers the panes to be 1-9 instead of 0-9, because on yr keyboard the number keys probably go from 1-9, so it would be quite a stretch to hit the 0 key to go to the first pane, and then hit the 1 to go to the second. Array indexing doesn&rsquo;t make sense for everything.</li>
 </ul>
 <pre class="highlight plaintext"><code>unbind ^A
 bind ^A select-pane -t :.+
-
 bind C-l send-keys 'C-l'
-
 set -g base-index 1
 </code></pre>
 
@@ -116,7 +113,7 @@ set -g base-index 1
 </code></pre>
 
 <ul>
-<li>I tend to never split panes/windows in tmux, and instead just create new windows and tab between them with <code>C-a {1-9}</code>. But when I do, I can never remember the command for it. So to make things easier this remaps them to be <code>|</code> for a horizontal split and <code>-</code> for vertical which is a cute visual memnonic.</li>
+<li>I tend to never split panes/windows in tmux, and instead just create new windows and tab between them with <code>C-a {1-9}</code>. But when I do, I can never remember the command for it. So to make things easier this remaps those actions to use <code>|</code> for a horizontal split and <code>-</code> for vertical, which I must say is a cute little visual memnonic.</li>
 </ul>
 <pre class="highlight plaintext"><code>unbind %
 bind | split-window -h
@@ -127,19 +124,21 @@ bind - split-window -v
 
 <h3>TMUX Commands</h3>
 
-<p>some of these are built in, some depend on using the above mentioned settings&hellip;</p>
+<p>some of these are built in, some depend on using the above mentioned settings..</p>
 
-<p><code>C-a c</code> open a window
-<code>C-a &amp;</code> close a window
-<code>C-a d</code> detach from tmux
-<code>C-a k</code> clear history
-<code>C-a number</code> jump to that number window. 
-<code>C-a |</code> split window horizontally
-<code>C-a -</code> split window vertically</p>
+<ul>
+<li><code>C-a c</code>    open a window</li>
+<li><code>C-a &amp;</code>    close a window</li>
+<li><code>C-a d</code>    detach from tmux</li>
+<li><code>C-a k</code>    clear history</li>
+<li><code>C-a number</code>    jump to that number window. </li>
+<li><code>C-a |</code>    split window horizontally</li>
+<li><code>C-a -</code>    split window vertically</li>
+</ul>
 
 <h3>COPY PASTA</h3>
 
-<p>You might notice that TMUX is not happy about you trying to select and copy it&rsquo;s output. Mouse-mode makes it so we can click the text at all, but in order to select text from TMUX that you want to copy and paste elsewhere, <em>just hold down the option key while you are selecting the text</em>. The selection will be a different color than the TMUX selection color. However if you are running split panes you will find that the selection does not obey their boundaries.</p>
+<p>You might notice that TMUX is not happy about you trying to select and copy it&rsquo;s output. Mouse-mode makes it so we can click the text, but in order to select text from TMUX and copy and paste elsewhere, <strong>just hold down the option key while you are selecting the text</strong>. You&rsquo;ll know it&rsquo;s working because the selection will be a different color than the usual TMUX selection color. However if you are running split panes you will find that the selection does not obey their boundaries.</p>
 
 <hr>
 
@@ -153,29 +152,21 @@ bind - split-window -v
 
 <p>I bet it might be.</p>
 
-<p>WOW LOOK AT THAT TERMINAL! WATCH HOW IT MULTIPLEXES!</p>
-
 <p>Now that you have this TMUX &ldquo;session&rdquo; running, you can &ldquo;detach&rdquo; from it and go do other things, then later come back and &ldquo;re-attach&rdquo; to it, and everything will still be as you left it! Processes will be processing, servers will be serving, text editors will be waiting for you to edit things.</p>
 
 <p>One neat trick I learned is to add a function like this to yr <code>.bash_profile</code>for what have you:</p>
-<pre class="highlight shell"><code>sshin<span class="o">(){</span>
-  ssh <span class="nv">$1</span> -t tmux a
-<span class="o">}</span>
+<pre class="highlight plaintext"><code>sshin () {
+  ssh $1 -t tmux a
+}
 </code></pre>
 
-<p>Now you can do <code>sshin YRNAME@yr.host.server.com</code> and you will automagically ssh in and attach to yr running TMUX session. When you are finished, you can enter the detach command and it will also disconnect you from the SSH connection. Note that you must already have a TMUX session running on the server for this command to work.</p>
+<p>Now you can do <code>sshin YRNAME@yr.host.server.com</code> and you will automagically ssh in and attach to yr running TMUX session. When you are finished, you can enter <code>C-a d</code> to detach and it will also disconnect you from the SSH connection. Note that you must already have a TMUX session running on the server for this command to work.</p>
 
 <hr>
 
-<h3>ANOTHER FUN TRICK:</h3>
+<h3>WOW! JUST LOOK AT THAT TERMINAL! WATCH HOW IT MULTIPLEXES!</h3>
 
-<p>something only applicable to OSX? (works for other things too!) put it in tmux-osx.conf! it should contain <code>source-file ~/.tmux.conf</code></p>
-<pre class="highlight shell"><code><span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">$(</span>uname<span class="k">)</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"Darwin"</span> <span class="o">]]</span>; <span class="k">then
-  </span><span class="nb">alias </span><span class="nv">tmux</span><span class="o">=</span><span class="s1">'tmux -f ~/.tmux-osx.conf'</span>
-<span class="k">else
-  </span><span class="nb">alias </span><span class="nv">tmux</span><span class="o">=</span><span class="s1">'tmux'</span>
-<span class="k">fi</span>
-</code></pre>
+<p><img alt="tmuxing around" src="/blog/images/tmux-ea5f88b4.gif" /></p>
 
       <br/>
       <br/>

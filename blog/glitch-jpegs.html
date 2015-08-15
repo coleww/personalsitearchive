@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cole Codes Cool Code</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
-    <link href="/blog/stylesheets/main-0d503c12.css" rel="stylesheet" type="text/css" />
+    <link href="/blog/stylesheets/main-9c5606f3.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Writing code that makes art and vice versa." />
 <meta name="keywords" content="ruby, javascript, code, poetry, clojure, npm, algorithm, art" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -19,9 +19,9 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>open up jpegs in text editors</h1>
+      <h1>open up yr jpegs</h1>
 
-<h2>seriously it is awesome</h2>
+<h2>&hellip;in text editors</h2>
 
 <p>This quote from substack pretty much sums up everything I am about to tell you:</p>
 
@@ -31,15 +31,13 @@
 
 <p>Genius.</p>
 
-<p>JPEG/JPG compression is such that you can make changes to it&rsquo;s data and it will still try to load something, usually ending up with weird glitchy art.</p>
+<p>You can make arbitrary changes to the data of a JPEG and because of how the compression works it will still usually be able to load something, usually ending up with weird glitchy art.</p>
 
-<p>Cory Arcangel wrote a research paper on the jpeg algorithm which is supposedly important but i understand little of it. math is hard.</p>
+<p>LINK TO Cory Arcangel wrote a research paper on the jpeg algorithm which is supposedly important but I understand very little of it. math is hard.</p>
 
-<p>You can of course just open an image, delete, type randomly, copy and paste, etc., save it, and re-open to see a profound effect. Take care to avoid doing anything to the first 1/5-&frac14; of the file, which contains important header information that must not be manipulated.  There is probably some bytesequence you could look for that signifies the end of the headers, but, you know, data format specifications and mathematics. blah blah blah</p>
+<p>You can of course just open an image, delete, type randomly, copy and paste, etc., save it, and re-open to see a profound effect. Take care to avoid doing anything to the first 1/5-&frac14; of the file, which contains important header information that must not be manipulated.  There is probably some byte sequence you could look for that signifies the end of the headers, but, you know, data format specifications and mathematics, blah blah blah. Tweet at me if you know this!</p>
 
-<p>Another approach is to encode a glitching algorithm in, err, um, code. Might take control paramaters, which you can modify to explore the possibilities of this failure. </p>
-
-<p>I published one such algorithm as a Ruby gem called <a href="https://github.com/coleww/scrambled_jpeg">scrambled_jpeg</a>. Annotated sauce below:</p>
+<p>Another approach is to encode a glitching algorithm in, err, um, code. I published one such algorithm as a Ruby gem called <a href="https://github.com/coleww/scrambled_jpeg">scrambled_jpeg</a>. Annotated sauce and examples below:</p>
 <pre class="highlight ruby"><code><span class="k">def</span> <span class="nf">scramble</span> <span class="n">filename</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span>
   <span class="c1"># load the file into a store, pop off the ending, and start a cache</span>
   <span class="n">ending</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="p">(</span><span class="n">store</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">readlines</span> <span class="n">filename</span><span class="p">).</span><span class="nf">pop</span><span class="p">,</span> <span class="p">[]</span>
@@ -64,13 +62,17 @@
 <span class="k">end</span>
 </code></pre>
 
-<p>/// EXAMPLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
+<p>DEMO JPEGS HERE WITH N LEVE</p>
 
-<p>Could shuffle the data up totally randomly (probably gonna fail, shuffle larger chunks so as to be less disruptive. yes this is the one instance in comptuer science where you should NOT disrupt), 
-could copy paste the front page of the new york times into the middle of the file, 
-could take 2 jpegs and randomly mash their datas together (for political juxtaposition and statement perhaps?)</p>
+<p>This is just one example of a glitching algorithm, you could do many things:</p>
 
-<p>Many possibilities for different algorithms, as well as interfaces to these algorithms. Web cam or some sort of live image feed as input, sliders and knobs for the params. </p>
+<ul>
+<li>Could shuffle the data up totally randomly (probably gonna fail, shuffle larger chunks so as to be less disruptive. yes this is the one instance in comptuer science where you should NOT disrupt), </li>
+<li>could copy paste the front page of the new york times into the middle of the file, </li>
+<li>could take 2 jpegs and randomly mash their datas together (for political juxtaposition and statement perhaps?)</li>
+</ul>
+
+<p>not only that, could build an interface to the algorithm for live experimentation. some params might be prettier than others. LIKE TO SNORPEY</p>
 
       <br/>
       <br/>
@@ -94,24 +96,24 @@ could take 2 jpegs and randomly mash their datas together (for political juxtapo
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ul>
+          <li><a href="/blog/everything-tmux.html">Everything I Learned About TMUX In 3 Days</a> <span>Aug 15</span></li>
           <li><a href="/blog/context-switching-ember-rails.html">Eliminating The Ember-Rails Context Switch</a> <span>Aug  8</span></li>
           <li><a href="/blog/test-yr-test-suite.html">Meta Test Driven Development</a> <span>Aug  3</span></li>
           <li><a href="/blog/node-poetry-modules.html">Node.js Poetic Modules</a> <span>Aug  1</span></li>
           <li><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></li>
-          <li><a href="/blog/node-cors.html">Setting up a simple CORS API in node</a> <span>Jul 22</span></li>
       </ul>
 
       <h2>TAGZ</h2>
       <ul>
-          <li><a href="/blog/blog/tags/unix.html">unix (7)</a></li>
+          <li><a href="/blog/blog/tags/unix.html">unix (8)</a></li>
           <li><a href="/blog/blog/tags/node.html">node (6)</a></li>
           <li><a href="/blog/blog/tags/ruby.html">ruby (4)</a></li>
-          <li><a href="/blog/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/blog/tags/bash.html">bash (2)</a></li>
           <li><a href="/blog/blog/tags/npm.html">npm (2)</a></li>
           <li><a href="/blog/blog/tags/generators.html">generators (2)</a></li>
           <li><a href="/blog/blog/tags/ember.html">ember (2)</a></li>
-          <li><a href="/blog/blog/tags/bash.html">bash (2)</a></li>
-          <li><a href="/blog/blog/tags/kexec.html">kexec (1)</a></li>
+          <li><a href="/blog/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/blog/tags/middleman.html">middleman (1)</a></li>
           <li><a href="/blog/blog/tags/magic.html">magic (1)</a></li>
           <li><a href="/blog/blog/tags/glue.html">glue (1)</a></li>
           <li><a href="/blog/blog/tags/paste-events.html">paste events (1)</a></li>
@@ -127,9 +129,9 @@ could take 2 jpegs and randomly mash their datas together (for political juxtapo
           <li><a href="/blog/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
           <li><a href="/blog/blog/tags/markdown.html">markdown (1)</a></li>
           <li><a href="/blog/blog/tags/exec.html">exec (1)</a></li>
-          <li><a href="/blog/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
-          <li><a href="/blog/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/blog/tags/kexec.html">kexec (1)</a></li>
           <li><a href="/blog/blog/tags/meta-blog.html">meta-blog (1)</a></li>
+          <li><a href="/blog/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
           <li><a href="/blog/blog/tags/code.html">code (1)</a></li>
           <li><a href="/blog/blog/tags/cli-tool.html">cli tool (1)</a></li>
           <li><a href="/blog/blog/tags/pipe.html">pipe (1)</a></li>
@@ -151,6 +153,10 @@ could take 2 jpegs and randomly mash their datas together (for political juxtapo
           <li><a href="/blog/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
           <li><a href="/blog/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
           <li><a href="/blog/blog/tags/rails.html">rails (1)</a></li>
+          <li><a href="/blog/blog/tags/tmux.html">tmux (1)</a></li>
+          <li><a href="/blog/blog/tags/ssh.html">ssh (1)</a></li>
+          <li><a href="/blog/blog/tags/emacs.html">emacs (1)</a></li>
+          <li><a href="/blog/blog/tags/multiplexing.html">multiplexing (1)</a></li>
       </ul>
     </aside>
     <script type="text/javascript">

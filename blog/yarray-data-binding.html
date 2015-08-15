@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cole Codes Cool Code</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
-    <link href="/blog/stylesheets/main-0d503c12.css" rel="stylesheet" type="text/css" />
+    <link href="/blog/stylesheets/main-9c5606f3.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Writing code that makes art and vice versa." />
 <meta name="keywords" content="ruby, javascript, code, poetry, clojure, npm, algorithm, art" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -19,7 +19,59 @@
 </a>    </center>
 
     <div id="main" role="main">
-      
+      <h1>Lazy data binding with JavaScript</h1>
+
+<h2>no jQuery&trade;!</h2>
+
+<p>A while ago, was working on a thing where I wanted to bind an array of values to some plain ole html input elements. I didn;t need 2 way binding necessarily, I just wanted to have an array in my codes where each element of that array was bound to an html input, so i could update the values on the fly while a setInterval ran constantly. </p>
+
+<p>I couldn&rsquo;t find a module that did thsi on npm, so i took a hack at it with ember, and even looked at some other js data binding frameworks.</p>
+
+<p>it was beginning to look like i&rsquo;d have to do something absurd like this:</p>
+
+<p><code>[Ember.Object.create({value: 0.72}), Ember.Object.create({value: 18}), Ember.Object.create({value: &quot;Starbursts&quot;})]</code></p>
+
+<p>All just to keep a little value bound to some HTML! I knew there had to be a simpler way. Plus I could learn some of the horrors of keeping data in sync with the browser.</p>
+
+<p>Solution: make an input element for each thing in the array, and listen for change events on them, then reach into that sweet closured over data and modify it directly.</p>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">controlData</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.72</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">"Starbursts"</span><span class="p">]</span>
+
+<span class="kd">var</span> <span class="nx">els</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nx">controlData</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"input"</span><span class="p">)</span>
+  <span class="nx">el</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"type"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">)</span>
+  <span class="nx">el</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"data-index"</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+  <span class="nx">el</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">val</span>
+  <span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"change"</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">controlData</span><span class="p">[</span><span class="o">~~</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+  <span class="p">});</span>
+  <span class="nx">els</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="nx">els</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">){</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="c1">// do something with dat controlData!</span>
+  <span class="c1">// it will be updated on the fly!</span>
+  <span class="c1">// yeah!</span>
+<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre>
+
+<p>We can even replace the bound array if we want to! And manually reset the inputs to be the new values! </p>
+<pre class="highlight javascript"><code><span class="nx">controlData</span> <span class="o">=</span> <span class="nx">loadSomeDataSomehowOkIdkThisIsJustASampleANywaysGosh</span><span class="o">!</span><span class="p">(</span><span class="s2">"surfing"</span><span class="p">)</span>
+<span class="nx">controlData</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+  <span class="nx">els</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">val</span>
+<span class="p">})</span>
+
+</code></pre>
+
+<p>This is kind of like 1.5 way data binding I suppose.</p>
+
+<p>I made a node module that does all this for you called <a href="https://www.npmjs.com/package/yarray">yarray</a></p>
+
+<p>Unfortunately, I cannot remember what project i actually built it for and it does not seem to be installed on my machine. This sort of thing happens when you are working on something, and realize you can pull out some piece into a node module, and then you finish the node module and maybe have a beer, and then you go to work, and and and.</p>
+
       <br/>
       <br/>
       <br/>
@@ -42,24 +94,24 @@
       </div></p>
       <h2>RECENT BLAGZ</h2>
       <ul>
+          <li><a href="/blog/everything-tmux.html">Everything I Learned About TMUX In 3 Days</a> <span>Aug 15</span></li>
           <li><a href="/blog/context-switching-ember-rails.html">Eliminating The Ember-Rails Context Switch</a> <span>Aug  8</span></li>
           <li><a href="/blog/test-yr-test-suite.html">Meta Test Driven Development</a> <span>Aug  3</span></li>
           <li><a href="/blog/node-poetry-modules.html">Node.js Poetic Modules</a> <span>Aug  1</span></li>
           <li><a href="/blog/overtone-pitching-samples.html">Pitching Samples Around In Overtone</a> <span>Jul 26</span></li>
-          <li><a href="/blog/node-cors.html">Setting up a simple CORS API in node</a> <span>Jul 22</span></li>
       </ul>
 
       <h2>TAGZ</h2>
       <ul>
-          <li><a href="/blog/blog/tags/unix.html">unix (7)</a></li>
+          <li><a href="/blog/blog/tags/unix.html">unix (8)</a></li>
           <li><a href="/blog/blog/tags/node.html">node (6)</a></li>
           <li><a href="/blog/blog/tags/ruby.html">ruby (4)</a></li>
-          <li><a href="/blog/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/blog/tags/bash.html">bash (2)</a></li>
           <li><a href="/blog/blog/tags/npm.html">npm (2)</a></li>
           <li><a href="/blog/blog/tags/generators.html">generators (2)</a></li>
           <li><a href="/blog/blog/tags/ember.html">ember (2)</a></li>
-          <li><a href="/blog/blog/tags/bash.html">bash (2)</a></li>
-          <li><a href="/blog/blog/tags/kexec.html">kexec (1)</a></li>
+          <li><a href="/blog/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/blog/tags/middleman.html">middleman (1)</a></li>
           <li><a href="/blog/blog/tags/magic.html">magic (1)</a></li>
           <li><a href="/blog/blog/tags/glue.html">glue (1)</a></li>
           <li><a href="/blog/blog/tags/paste-events.html">paste events (1)</a></li>
@@ -75,9 +127,9 @@
           <li><a href="/blog/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
           <li><a href="/blog/blog/tags/markdown.html">markdown (1)</a></li>
           <li><a href="/blog/blog/tags/exec.html">exec (1)</a></li>
-          <li><a href="/blog/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
-          <li><a href="/blog/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/blog/tags/kexec.html">kexec (1)</a></li>
           <li><a href="/blog/blog/tags/meta-blog.html">meta-blog (1)</a></li>
+          <li><a href="/blog/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
           <li><a href="/blog/blog/tags/code.html">code (1)</a></li>
           <li><a href="/blog/blog/tags/cli-tool.html">cli tool (1)</a></li>
           <li><a href="/blog/blog/tags/pipe.html">pipe (1)</a></li>
@@ -99,6 +151,10 @@
           <li><a href="/blog/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
           <li><a href="/blog/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
           <li><a href="/blog/blog/tags/rails.html">rails (1)</a></li>
+          <li><a href="/blog/blog/tags/tmux.html">tmux (1)</a></li>
+          <li><a href="/blog/blog/tags/ssh.html">ssh (1)</a></li>
+          <li><a href="/blog/blog/tags/emacs.html">emacs (1)</a></li>
+          <li><a href="/blog/blog/tags/multiplexing.html">multiplexing (1)</a></li>
       </ul>
     </aside>
     <script type="text/javascript">
