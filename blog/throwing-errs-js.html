@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cole Codes Cool Code</title>
+    <title>Throwing Good Errors With JavaScript</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/blog/stylesheets/main-9c5606f3.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Writing code that makes art and vice versa." />
@@ -19,14 +19,61 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Articles tagged 'bash'</h1>
+      <h1>Throwing Good Errors With JavaScript</h1>
 
+<h2>Putting the &ldquo;roar&rdquo; in &ldquo;erroars&rdquo;</h2>
 
-<ul>
-    <li><a href="/blog/npm-cli.html">Building a *nice* CLI For Your Sick npm Module</a> <span>Jul 16</span></li>
-    <li><a href="/blog/shelling-out.html">shelling out to the system</a> <span>Jul 10</span></li>
-</ul>
+<p>As you may already know, error handling is very important in an asynchronous language such as JavaScript. You probably have callbacks nested inside of each other so intricately that it is impossible to know what is calling what, let alone where errors might emerge from, and the only way to get a handle on this mess is to make sure that all of your callbacks accept <code>err</code> as their first argument. That way you are both reminded and forced to handle errors when they happen, rather than allowing them to bubble up towards the user in unexpected ways.</p>
 
+<p>Maybe you already have a handle on handling errors: you <code>console.log</code> the unimportant ones, and halt the entire program on the really bad ones. But what do you do when you are writing code that needs to throw a special sort of error itself? JavaScript has some <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#Error_types">built-in error types</a>, but like everything in JavaScript they are a little wonky. And maybe you need something a little bit more specialized, or want to include additional debugging information.</p>
+
+<p>For this task, we can wire up a simple custom error by hand! Lets see some stinking code:</p>
+<pre class="highlight javascript"><code><span class="c1">// First we define a function. </span>
+<span class="c1">// By convention, it should be capitalized-camel-case </span>
+<span class="c1">// and end with the word "Error". </span>
+<span class="c1">// This function can take arguments, </span>
+<span class="c1">// or not, </span>
+<span class="c1">// whatever you want, </span>
+<span class="c1">// it's JavaScript after all!</span>
+<span class="kd">function</span> <span class="nx">TheNameOfYourErrorGoesHereError</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// Give your error a name!</span>
+  <span class="c1">// This should probably be the same as the name of the function,</span>
+  <span class="c1">// It is what will show up when the error gets thrown.</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">'TheNameOfYourErrorGoesHereError'</span>
+
+  <span class="c1">// A helpful message about what went wrong!</span>
+  <span class="c1">// You might want to include data from the arguments,</span>
+  <span class="c1">// or explain how to fix things.</span>
+  <span class="c1">// A link to a blog post/issue tracker/docs might also be nice!</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">'My friend:\n  There seems to have been an issue with:\n  '</span> <span class="o">+</span> <span class="nx">msg</span> <span class="o">+</span> <span class="s1">'\n  Please amend it at your earliest convenience.\nThank You.'</span>
+<span class="p">}</span>
+
+<span class="c1">// Next, we use prototypal inheritance to make our error function</span>
+<span class="c1">// inherit from the plain ole vanilla Error object.</span>
+<span class="c1">// This will give it all the properties of an Error,</span>
+<span class="c1">// making it throwable and probably some other things.</span>
+<span class="nx">TheNameOfYourErrorGoesHereError</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">()</span>
+
+<span class="c1">// Lastly, we set the constructor </span>
+<span class="c1">// of the prototype </span>
+<span class="c1">// of our custom error function </span>
+<span class="c1">// (which is now a basic Error) </span>
+<span class="c1">// to be our custom error function itself. </span>
+<span class="nx">TheNameOfYourErrorGoesHereError</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">TheNameOfYourErrorGoesHereError</span>
+</code></pre>
+
+<p>By setting the constructor of the prototype to be the custom error function, we make it so that calls to <code>new TheNameOfYourErrorGoesHereError(&#39;problems!&#39;)</code> will call it to create the new <code>Error</code> object, which is really just yr average object with name and message attributes and some other special functions, so our function satisfies the <code>Error</code> interface because it has a name and a message and descends from <code>Error</code>, which is of course itself an <code>Error</code>!</p>
+
+<p>This makes JavaScript happy, so now when a problem comes up in our code we can deal with it like so:</p>
+<pre class="highlight javascript"><code>  <span class="k">throw</span> <span class="k">new</span> <span class="nx">ACatastrophicProblemHasArisenError</span><span class="p">()</span>
+</code></pre>
+
+<p>And everything will work magically because <code>throw</code> expects to be passed an <code>Error</code>, and our function satisfies these demands due to it&rsquo;s prototypal ancestry. A W E S O M E !</p>
+
+<h2>BE KIND TO THE USER, THROW GOOD ERRORS!</h2>
+
+<p><a href="tron.jpg">tron: fight for the users</a></p>
 
       <br/>
       <br/>
