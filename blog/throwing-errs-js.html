@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Throwing Good Errors With JavaScript</title>
+    <title>Cole Codes Cool Code</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
-    <link href="/blog/stylesheets/main-9c5606f3.css" rel="stylesheet" type="text/css" />
+    <link href="/blog/stylesheets/main-f3a6a71e.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Writing code that makes art and vice versa." />
 <meta name="keywords" content="ruby, javascript, code, poetry, clojure, npm, algorithm, art" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -25,7 +25,7 @@
 
 <p>As you may already know, error handling is very important in an asynchronous language such as JavaScript. You probably have callbacks nested inside of each other so intricately that it is impossible to know what is calling what, let alone where errors might emerge from, and the only way to get a handle on this mess is to make sure that all of your callbacks accept <code>err</code> as their first argument. That way you are both reminded and forced to handle errors when they happen, rather than allowing them to bubble up towards the user in unexpected ways.</p>
 
-<p>Maybe you already have a handle on handling errors: you <code>console.log</code> the unimportant ones, and halt the entire program on the really bad ones. But what do you do when you are writing code that needs to throw a special sort of error itself? JavaScript has some <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#Error_types">built-in error types</a>, but like everything in JavaScript they are a little wonky. And maybe you need something a little bit more specialized, or want to include additional debugging information.</p>
+<p>Maybe you already have a handle on handling errors: you <code>console.log</code> the unimportant ones, and halt the entire program on the really bad ones. But what do you do when you are writing code that needs to throw a special sort of error itself? JavaScript has some <a href="TODO FIND A LINK FOR THIS YOOOOOOOOOO">built-in error types</a>, but like everything in JavaScript they are a little wonky. And maybe you need something a little bit more specialized, or want to include additional debugging information.</p>
 
 <p>For this task, we can wire up a simple custom error by hand! Lets see some stinking code:</p>
 <pre class="highlight javascript"><code><span class="c1">// First we define a function. </span>
@@ -46,7 +46,9 @@
   <span class="c1">// You might want to include data from the arguments,</span>
   <span class="c1">// or explain how to fix things.</span>
   <span class="c1">// A link to a blog post/issue tracker/docs might also be nice!</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">'My friend:\n  There seems to have been an issue with:\n  '</span> <span class="o">+</span> <span class="nx">msg</span> <span class="o">+</span> <span class="s1">'\n  Please amend it at your earliest convenience.\nThank You.'</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">'My friend:\n  There seems to have been an issue with:\n  '</span> <span class="o">+</span> 
+  <span class="nx">msg</span> <span class="o">+</span> 
+  <span class="s1">'\n  Please amend it at your earliest convenience.\nThank You.'</span>
 <span class="p">}</span>
 
 <span class="c1">// Next, we use prototypal inheritance to make our error function</span>
@@ -176,6 +178,5 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-
   </body>
 </html>
