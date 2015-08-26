@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TDD for the Lazy, Patient, and Messy</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/blog/stylesheets/main-fe057c01.css" rel="stylesheet" type="text/css" />
+    <meta name="description" content="Writing code that makes art and vice versa." />
+<meta name="keywords" content="ruby, javascript, code, poetry, clojure, npm, algorithm, art" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Writing code that makes art and vice versa." />
+<meta property="og:description" content="Writing code that makes art and vice versa." />
+  </head>
+  <body>
+    <center class="THEMAIN">
+<a href="/blog">        <img class="header" src="/blog/images/cool-7b689408.png" />
+</a>    </center>
+
+    <div id="main" role="main">
+      <h1>TDD for the lazy, patient, and messy</h1>
+
+<h2>Because sometimes, doing things in potentially unbounded time is still &ldquo;fast enough&rdquo;</h2>
+
+<p><center><img alt="tdd" src="/blog/images/tdd-ada878d8.png" /></center></p>
+
+<p>TDD is a very important software engineering buzz word that you should be able to define so that people think that you know what you are doing. Here is some text I copied from <a href="https://en.wikipedia.org/wiki/Test-driven_development">wikipedia</a>:</p>
+
+<hr>
+
+<p>Test-driven development (TDD) is a software development process that relies on the repetition of a very short development cycle: </p>
+
+<ul>
+<li>first the developer writes an (initially failing) automated test case that defines a desired improvement or new function, </li>
+<li>then produces the minimum amount of code to pass that test, </li>
+<li>and finally refactors the new code to acceptable standards.</li>
+</ul>
+
+<hr>
+
+<p><center><img alt="test-driven" src="/blog/images/tdn-7048caca.png" /></center></p>
+
+<p>A lot of people talk a lot of things about TDD. There are those that talk about TDD as their jobs. There are even meta-TDD consultants who talk to management about talking to their employees about TDD. But while it is easy to spew empty platitudes at developers, it is much harder to figure out how to use this knowledge in your day to day software engineering. Some skills can only be gained through practice, experience, and pain. However there are those rare techniques and stategies that can be effectively utilized on every project.</p>
+
+<p>Recently I discovered one such technique while working on a <a href="https://github.com/gigasquid/wonderland-clojure-katas">code kata in clojure</a>. The challenge was to compute a magic square: given a bunch of floating point numbers, you must arrange them in a 2-dimensional array such that ever row, column, and diagonal of the matrix/square a sum up to the same &ldquo;magic number&rdquo;. </p>
+
+<p><img alt="magic square" src="/blog/images/magic-d40ea8db.png" /></p>
+
+<p>There are similar games in most newspapers. Some people solve puzzles like this to keep their mind sharp, while programmers write scripts that solve these puzzles to stay sharp in a language. Weird.</p>
+
+<p>The tests for this kata looked like this:</p>
+<pre class="highlight clojure"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">sum-rows</span><span class="w"> </span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nb">reduce</span><span class="w"> </span><span class="nb">+</span><span class="w"> </span><span class="n">%</span><span class="p">)</span><span class="w"> </span><span class="n">m</span><span class="p">))</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">sum-cols</span><span class="w"> </span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="w">
+  </span><span class="p">[(</span><span class="nb">reduce</span><span class="w"> </span><span class="nb">+</span><span class="w"> </span><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="nb">first</span><span class="w"> </span><span class="n">m</span><span class="p">))</span><span class="w">
+   </span><span class="p">(</span><span class="nb">reduce</span><span class="w"> </span><span class="nb">+</span><span class="w"> </span><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="nb">second</span><span class="w"> </span><span class="n">m</span><span class="p">))</span><span class="w">
+   </span><span class="p">(</span><span class="nb">reduce</span><span class="w"> </span><span class="nb">+</span><span class="w"> </span><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="nb">last</span><span class="w"> </span><span class="n">m</span><span class="p">))])</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">sum-diagonals</span><span class="w"> </span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="w">
+  </span><span class="p">[(</span><span class="nb">+</span><span class="w"> </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="p">]))</span><span class="w">
+   </span><span class="p">(</span><span class="nb">+</span><span class="w"> </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="p">]))])</span><span class="w">
+
+</span><span class="p">(</span><span class="nf">deftest</span><span class="w"> </span><span class="n">test-magic-square</span><span class="w">
+  </span><span class="p">(</span><span class="nf">testing</span><span class="w"> </span><span class="s">"all the rows, columns, and diagonal add to the same number"</span><span class="w">
+    </span><span class="p">(</span><span class="nf">is</span><span class="w"> </span><span class="p">(</span><span class="nb">=</span><span class="w"> </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nf">sum-rows</span><span class="w"> </span><span class="p">(</span><span class="nf">magic-square</span><span class="w"> </span><span class="n">values</span><span class="p">)))</span><span class="w">
+           </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nf">sum-cols</span><span class="w"> </span><span class="p">(</span><span class="nf">magic-square</span><span class="w"> </span><span class="n">values</span><span class="p">)))</span><span class="w">
+           </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nf">sum-diagonals</span><span class="w"> </span><span class="p">(</span><span class="nf">magic-square</span><span class="w"> </span><span class="n">values</span><span class="p">)))))</span><span class="w">
+
+    </span><span class="p">(</span><span class="nf">is</span><span class="w"> </span><span class="p">(</span><span class="nb">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+           </span><span class="p">(</span><span class="nb">count</span><span class="w"> </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nf">sum-rows</span><span class="w"> </span><span class="p">(</span><span class="nf">magic-square</span><span class="w"> </span><span class="n">values</span><span class="p">))))</span><span class="w">
+           </span><span class="p">(</span><span class="nb">count</span><span class="w"> </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nf">sum-cols</span><span class="w"> </span><span class="p">(</span><span class="nf">magic-square</span><span class="w"> </span><span class="n">values</span><span class="p">))))</span><span class="w">
+           </span><span class="p">(</span><span class="nb">count</span><span class="w"> </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nf">sum-diagonals</span><span class="w"> </span><span class="p">(</span><span class="nf">magic-square</span><span class="w"> </span><span class="n">values</span><span class="p">))))))))</span><span class="w">
+</span></code></pre>
+
+<p>There are some helper functions to sum the rows, columns, and diagonals of a 2-d matrix, as well as a test that runs those helpers to check that the return value is actually a magic square. Because this is functional programming, there is no state and our function is expected to be pure, so it should always returns the same output for a given input and has no side effects.</p>
+
+<p>I&rsquo;m sure there is some really clever solution to solve this problem instantly, or at the very least some way to construct an optimized tree or queue or stack or some other horrifying software-interview-whiteboarding-question data-structure, but in this case it is really easy to just copy-paste the <code>sum-___</code> functions into our src file and randomly shuffle the values around until you get a valid arrangement:</p>
+<pre class="highlight clojure"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">make-a-square</span><span class="w"> </span><span class="p">[</span><span class="n">values</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nf">mapv</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nf">vec</span><span class="w"> </span><span class="n">%</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">partition</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">(</span><span class="nf">shuffle</span><span class="w"> </span><span class="n">values</span><span class="p">))))</span><span class="w">
+</span></code></pre>
+
+<p>That example might be a little confusing, lets thread that s-expression with the <code>-&gt;&gt;</code> macro. <em>queries emacs manual</em> <code>C-c RET t-l</code>!</p>
+<pre class="highlight clojure"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">make-a-square</span><span class="w"> </span><span class="p">[</span><span class="n">values</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nf">-&gt;&gt;</span><span class="w"> 
+    </span><span class="n">values</span><span class="w"> </span><span class="c1">; we take the values
+</span><span class="w">    </span><span class="p">(</span><span class="nf">shuffle</span><span class="p">)</span><span class="w"> </span><span class="c1">; we shuffle them
+</span><span class="w">    </span><span class="p">(</span><span class="nf">partition</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="c1">; we partition them into 3 element arrays
+</span><span class="w">    </span><span class="p">(</span><span class="nf">mapv</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nf">vec</span><span class="w"> </span><span class="n">%</span><span class="p">))))</span><span class="w"> </span><span class="c1">; finally, we convert the lists into vectors
+</span></code></pre>
+
+<p>You can take a peak at <a href="https://github.com/coleww/wonderland-clojure-katas/tree/coles-solution/magic-square">all the code</a>, but essentially we call <code>make-a-square</code> in a loop until it randomly happens upon a result that passes all the copy pasta&rsquo;d magic square tests, then we return that result to the magic square tests, which all pass because the result has already been tested, and you have green dots my friend!</p>
+
+<p><center><img alt="chill, passing tests" src="/blog/images/chill-a5cbed19.png" /></center></p>
+
+<p>Now lets not celebrate just yet. This function we have created might not always be pure for every given input! If a set of numbers had multiple magic-square arrangements then we might return any one of them. This is an utter betrayal of the principles and philosophies of functional programming, but I&rsquo;m gonna let it slide in this instance. </p>
+
+<p>Perhaps more troubling is the fact that this algorithm could potentially take until the-sun-burns-out-into-a-dull-husk-and-all-life-on-earth-ceases to find a correct result. That&rsquo;s ok though, Ruby on Rails has similar speeds yet it is very popular and used by many important businesses. </p>
+
+<p>Furthermore, despite it&rsquo;s potential for random sluggishness this script is still usually way faster than your human meat brain can even begin to comprehend. The <a href="http://www.nngroup.com/articles/response-times-3-important-limits/">Nielsen Norman Group</a> lays out some important limits in software response times:</p>
+
+<blockquote>
+<p>0.1 second is about the limit for having the user feel that the system is reacting instantaneously, meaning that no special feedback is necessary except to display the result.</p>
+
+<p>1.0 second is about the limit for the user&rsquo;s flow of thought to stay uninterrupted, even though the user will notice the delay&hellip;</p>
+
+<p>10 seconds is about the limit for keeping the user&rsquo;s attention focused on the dialogue. For longer delays, users &hellip; should be given feedback indicating when the computer expects to be done&hellip;</p>
+</blockquote>
+
+<p>Therefore if you can, on average, usually come up with a randomized solution to your problem in under 10 seconds, then that is a reasonable solution to your problem! Remember! Our definition of TDD stated that the last step is refactoring your code, but it never says that you have to do that refactoring immediately! This is an agile shop of course, we&rsquo;ll deal with fixing that in another sprint, just slap a spinner on it and call it a day.</p>
+
+<p><center><img alt="spinners" src="/blog/images/spinnerz-e308d24c.gif" /></center></p>
+
+<p>We were particularly lucky here in that the kata did not require handling the case of being passed a list of numbers for which there is no magic square. If that test was added, our function would run forever and ever, never ever returning anything. In a real world deployment of the magic square algorithm we would certainly need to improve things by adding a timeout that detects if no magic square has been found after a healthy amount of time, and does something accordingly. </p>
+
+<p>I hope you have learned a trick or two in this lesson. If I could present a succint <code>tl;dr</code> version, it would be this: </p>
+
+<blockquote>
+<p>the most important thing is to have passing tests, even if that means breaking your code to do it.</p>
+</blockquote>
+
+<p><em>:clap-emoji:</em></p>
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    </div>
+
+    <aside>
+      <p><div id="contact">
+        <a href="http://colewillsea.com/">Cole Willsea</a>
+        (<a href="https://github.com/coleww">github</a>)
+        (<a href="https://twitter.com/colewillsea">twitter</a>)
+      </div></p>
+      <h2>RECENT BLAGZ</h2>
+      <ol>
+          <li><a href="/blog/tdd-for-the-lazy-patient-and-messy.html">TDD for the Lazy, Patient, and Messy</a> <span>Aug 26</span></li>
+          <li><a href="/blog/throwing-errs-js.html">Throwing Good Errors With JavaScript</a> <span>Aug 20</span></li>
+          <li><a href="/blog/everything-tmux.html">Everything I Learned About TMUX In 3 Days</a> <span>Aug 15</span></li>
+          <li><a href="/blog/context-switching-ember-rails.html">Eliminating The Ember-Rails Context Switch</a> <span>Aug  8</span></li>
+          <li><a href="/blog/test-yr-test-suite.html">Meta Test Driven Development</a> <span>Aug  3</span></li>
+      </ol>
+
+      <h2>CALENDAR</h2>
+      <ol>
+        <h4><li><a href="/blog/blog/2015.html">2015: 14 BLAGS</a></h4>
+          <ol>
+              <h5><li><a href="/blog/blog/2015/08.html">August 2015: 6 blogotronz</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/07.html">July 2015: 4 bloggies</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/06.html">June 2015: 3 blaahhhges</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/05.html">May 2015: 1 bloggies</a></li></h5>
+          </ol>
+        </li>
+      </ol>
+
+      <h2>TAGZ</h2>
+      <ol>
+          <li><a href="/blog/blog/tags/unix.html">unix (8)</a></li>
+          <li><a href="/blog/blog/tags/node.html">node (7)</a></li>
+          <li><a href="/blog/blog/tags/ruby.html">ruby (4)</a></li>
+          <li><a href="/blog/blog/tags/clojure.html">clojure (2)</a></li>
+          <li><a href="/blog/blog/tags/npm.html">npm (2)</a></li>
+          <li><a href="/blog/blog/tags/tdd.html">tdd (2)</a></li>
+          <li><a href="/blog/blog/tags/bash.html">bash (2)</a></li>
+          <li><a href="/blog/blog/tags/generators.html">generators (2)</a></li>
+          <li><a href="/blog/blog/tags/ember.html">ember (2)</a></li>
+          <li><a href="/blog/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
+          <li><a href="/blog/blog/tags/magic.html">magic (1)</a></li>
+          <li><a href="/blog/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
+          <li><a href="/blog/blog/tags/loading-routes.html">loading routes (1)</a></li>
+          <li><a href="/blog/blog/tags/spinner-gif.html">spinner gif (1)</a></li>
+          <li><a href="/blog/blog/tags/tom-dale.html">tom dale (1)</a></li>
+          <li><a href="/blog/blog/tags/cron-job.html">cron job (1)</a></li>
+          <li><a href="/blog/blog/tags/digital-ocean.html">digital ocean (1)</a></li>
+          <li><a href="/blog/blog/tags/twitter-bots.html">twitter bots (1)</a></li>
+          <li><a href="/blog/blog/tags/path.html">path (1)</a></li>
+          <li><a href="/blog/blog/tags/ubuntu.html">ubuntu (1)</a></li>
+          <li><a href="/blog/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
+          <li><a href="/blog/blog/tags/paste-events.html">paste events (1)</a></li>
+          <li><a href="/blog/blog/tags/exec.html">exec (1)</a></li>
+          <li><a href="/blog/blog/tags/kexec.html">kexec (1)</a></li>
+          <li><a href="/blog/blog/tags/john-gruber.html">john gruber (1)</a></li>
+          <li><a href="/blog/blog/tags/markdown.html">markdown (1)</a></li>
+          <li><a href="/blog/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/blog/tags/cli-tool.html">cli tool (1)</a></li>
+          <li><a href="/blog/blog/tags/pipe.html">pipe (1)</a></li>
+          <li><a href="/blog/blog/tags/yargs.html">yargs (1)</a></li>
+          <li><a href="/blog/blog/tags/cors.html">cors (1)</a></li>
+          <li><a href="/blog/blog/tags/api.html">api (1)</a></li>
+          <li><a href="/blog/blog/tags/http.html">http (1)</a></li>
+          <li><a href="/blog/blog/tags/the-rocky-mountain-brew.html">the rocky mountain brew (1)</a></li>
+          <li><a href="/blog/blog/tags/overtone.html">overtone (1)</a></li>
+          <li><a href="/blog/blog/tags/meta-blog.html">meta-blog (1)</a></li>
+          <li><a href="/blog/blog/tags/noise.html">noise (1)</a></li>
+          <li><a href="/blog/blog/tags/pitch.html">pitch (1)</a></li>
+          <li><a href="/blog/blog/tags/samples.html">samples (1)</a></li>
+          <li><a href="/blog/blog/tags/music.html">music (1)</a></li>
+          <li><a href="/blog/blog/tags/poetry.html">poetry (1)</a></li>
+          <li><a href="/blog/blog/tags/literature.html">literature (1)</a></li>
+          <li><a href="/blog/blog/tags/testing.html">testing (1)</a></li>
+          <li><a href="/blog/blog/tags/code.html">code (1)</a></li>
+          <li><a href="/blog/blog/tags/glue.html">glue (1)</a></li>
+          <li><a href="/blog/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
+          <li><a href="/blog/blog/tags/rails.html">rails (1)</a></li>
+          <li><a href="/blog/blog/tags/tmux.html">tmux (1)</a></li>
+          <li><a href="/blog/blog/tags/ssh.html">ssh (1)</a></li>
+          <li><a href="/blog/blog/tags/emacs.html">emacs (1)</a></li>
+          <li><a href="/blog/blog/tags/multiplexing.html">multiplexing (1)</a></li>
+          <li><a href="/blog/blog/tags/javascript.html">javascript (1)</a></li>
+          <li><a href="/blog/blog/tags/error-handling.html">error handling (1)</a></li>
+          <li><a href="/blog/blog/tags/errors.html">errors (1)</a></li>
+          <li><a href="/blog/blog/tags/problems.html">problems (1)</a></li>
+          <li><a href="/blog/blog/tags/throwing.html">throwing (1)</a></li>
+          <li><a href="/blog/blog/tags/catching.html">catching (1)</a></li>
+          <li><a href="/blog/blog/tags/human-brain-response-times.html">human brain response times (1)</a></li>
+          <li><a href="/blog/blog/tags/magic-square.html">magic square (1)</a></li>
+      </ol>
+    </aside>
+    <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(["_setAccount", "UA-26036675-1"]);
+  _gaq.push(["_trackPageview"]);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </body>
+</html>
