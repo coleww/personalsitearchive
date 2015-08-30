@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shelling Out to the System</title>
+    <title>Cole Codes Cool Code</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/blog/stylesheets/main-fe057c01.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Writing code that makes art and vice versa." />
@@ -19,50 +19,13 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Shelling Out</h1>
+      <h1>Articles tagged 'midi'</h1>
 
-<h2>I would gladly shell out 5$ for you to pipe a burrito to me, streaming, over the course of the next 7 minutes.</h2>
 
-<p>Traditionally in UNIX land one would connect the output of various programs to the inputs of others with pipes (<code>|</code>) directly on the command line, or within the depths of a shell script, like so:</p>
+<ul>
+    <li><a href="/blog/triggering-midi-with-clojure.html">Controlling electronic Instruments With MIDI and Clojure</a> <span>Aug 30</span></li>
+</ul>
 
-<p><code>cat recipe.txt | grep potatoes &gt;&gt; potato_ideas.txt</code></p>
-
-<p>This is a great way to compose complex actions out of many small utilities.</p>
-
-<p><img alt="pipe" src="/blog/images/pipe-d875ef91.png" /></p>
-
-<p>Piping works fine for non-interactive programs that are all text-in/text-out, and you can certainly write bash scripts that <code>touch</code> and <code>mkdir</code> your way to many victories, but what about integrating more complicated CLI tools like npm, bower, ember, rails, or git? These programs do things like prompt the user to make decisions, hit the network, or generate a metric ton of files, and it might get unwieldy to try to control such chaos directly from the command line. Instead, you can write a script that shells out to them!</p>
-
-<p><img alt="shelling" src="/blog/images/shelling-019c5ed6.png" /></p>
-
-<p>In Ruby, the easiest way to shell out a command is to put it backticks, like so:</p>
-<pre class="highlight ruby"><code><span class="c1"># this would print the current directory</span>
-<span class="nb">puts</span> <span class="sb">`ls`</span>
-</code></pre>
-
-<p>The same shelling, but with Node.js:</p>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">exec</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'child_process'</span><span class="p">).</span><span class="nx">exec</span>
-<span class="nx">exec</span><span class="p">(</span><span class="s1">'ls'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// this would print the current directory</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stdout</span><span class="p">)</span>
-
-  <span class="c1">// probably some callback hell here</span>
-<span class="p">});</span>
-</code></pre>
-
-<p>With these, you can easily run shell commands and respond to their output as part of your script. But what if instead of just running a command you want to turn over control to a different program? Maybe that program has user prompts that need answering or it shows some pretty sweet terminal graphics.</p>
-
-<p>In Ruby you can use <code>exec</code>, which replaces the current process with the given command:</p>
-<pre class="highlight ruby"><code><span class="nb">exec</span> <span class="s2">"rails new monolith"</span>
-<span class="nb">puts</span> <span class="s2">"never gets here cuz rails takes over"</span>
-</code></pre>
-
-<p>In Node.js there is the <a href="https://www.npmjs.com/package/kexec">kexec</a> module, which does the exact same thing:</p>
-<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">kexec</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kexec'</span><span class="p">)</span>
-<span class="nx">kexec</span><span class="p">(</span><span class="s1">'ember new behemoth'</span><span class="p">)</span>
-</code></pre>
-
-<p>I used some of these magical spells to build <a href="https://github.com/coleww/mkproj">mkproj</a>, which generates a bunch of files and does some NPM stuff in order to scaffold lil browserify projects. Being able to run code on the command line from a Ruby or Node script opens up tons of possibilities for destroying your computer in a for loop! Reader beware!</p>
 
       <br/>
       <br/>
@@ -98,9 +61,9 @@
         <h4><li><a href="/blog/blog/2015.html">2015: 15 BLAGS</a></h4>
           <ol>
               <h5><li><a href="/blog/blog/2015/08.html">August 2015: 7 bloogss</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/07.html">July 2015: 4 bags</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/06.html">June 2015: 3 blags</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/05.html">May 2015: 1 bloggies</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/07.html">July 2015: 4 bloggies</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/06.html">June 2015: 3 blaahhhges</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/05.html">May 2015: 1 blogotronz</a></li></h5>
           </ol>
         </li>
       </ol>

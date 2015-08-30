@@ -5,16 +5,70 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-08-26T07:37:00-07:00</updated>
+  <updated>2015-08-30T06:58:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>Controlling electronic Instruments With MIDI and Clojure</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/triggering-midi-with-clojure.html"/>
+    <id>http://colewillsea.com/blog/triggering-midi-with-clojure.html</id>
+    <published>2015-08-30T06:58:00-07:00</published>
+    <updated>2015-08-30T12:49:26-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Controlling Electronic Instruments With MIDI and Clojure&lt;/h1&gt;
+
+&lt;h2&gt;Let Rich Hickey Be Your DJ&lt;/h2&gt;
+
+&lt;p&gt;Most of the time when people are trying to use MIDI in Overtone and Clojure, they just want to play an artisanal hand-coded soft-synth with a standard MIDI keyboard. And there are plenty of helper methods and &lt;a href="https://github.com/overtone/overtone/wiki/midi"&gt;some documentation&lt;/a&gt; to make this easy, but what if you want to use Clojure as a MIDI sequencer for hardware samplers and synthesizers? The same functional-programming and LISP-y principles that make Clojure effective for audio synthesis can be just as powerful when used for audio sequencing. &lt;/p&gt;
+
+&lt;p&gt;Recently I have been working on a &lt;a href="https://github.com/coleww/overtone-live-coding/blob/master/src/my_symphony/sequencer.clj"&gt;probability-based audio sequencer&lt;/a&gt;, which allows you to write music as deeply nested arrays of numbers that are then &amp;ldquo;performed&amp;rdquo; by the computer, resulting in different compositions each time. It is absolutely thrilling to create music by typing integers into emacs, I swear.&lt;/p&gt;
+
+&lt;p&gt;I could of course just have this sequencer control some of the synths that are built into Overtone, but I feel much more comfortable manipulating sounds on actual drum machines and FX pedals. Overtone has very little documentation in regards to sending MIDI signals out to control other devices, but luckily the &lt;a href="https://github.com/overtone/overtone/blob/master/src/overtone/studio/midi.clj"&gt;source code&lt;/a&gt; to the high-level Overtone MIDI module is clearly written and of a reasonable length. &lt;em&gt;Though of course had this blog post existed yesterday I would have just read this and not bothered reading the code at all&amp;hellip; ah, c&amp;#39;est la open source.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3&gt;LETS ROLL&lt;/h3&gt;
+
+&lt;p&gt;This is what we are trying to achieve: write some sweet sequencing code that sends MIDI data to our hardware instruments, that way we can live code changes to the sequencer and manipulate FX on the instruments directly.&lt;/p&gt;
+
+&lt;blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="4" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"&gt;&lt;div style="padding:8px;"&gt; &lt;div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"&gt; &lt;div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"&gt;&lt;/div&gt;&lt;/div&gt; &lt;p style=" margin:8px 0 0 0; padding:0 4px;"&gt; &lt;a href="https://instagram.com/p/6_KhLZSaV_/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_top"&gt;Controlling drum machine and keyboard with Clojure over MIDI.&lt;/a&gt;&lt;/p&gt; &lt;p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"&gt;A video posted by coles 2 metal (@cole_dubs) on &lt;time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2015-08-30T00:11:57+00:00"&gt;Aug 29, 2015 at 5:11pm PDT&lt;/time&gt;&lt;/p&gt;&lt;/div&gt;&lt;/blockquote&gt;
+
+&lt;script async defer src="//platform.instagram.com/en_US/embeds.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;First things first: open up a new .clj file and add a namespace declaration:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;  (ns midi-seq.core
+    (:require [overtone.live :refer :all]
+              [overtone.studio.midi :refer :all]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will pull in overtone and the midi functions we need. Next connect your computer to your hardware audio device with some sort of a USB-to-MIDI cable. Make sure you do this before launching Overtone, as it will only register MIDI devices that are found on boot up.&lt;/p&gt;
+
+&lt;p&gt;Next, use &lt;code&gt;cider-jack-in&lt;/code&gt; to connect to a REPL. I use &lt;a href="https://github.com/overtone/emacs-live"&gt;emacs live&lt;/a&gt; for all my Clojure hacking, and it integrates very well with Overtone. Evaluate the namespace to load all the requires, and then if you run &lt;code&gt;(midi-connected-receivers)&lt;/code&gt; you should see your MIDI output device listed. If this function returns nothing then something went horribly wrong and I cannot help you, sorry! &lt;/p&gt;
+
+&lt;p&gt;The way you send out a midi-note is to use the function called, um, &lt;code&gt;midi-note&lt;/code&gt;, and it takes the following arguments: &lt;code&gt;receiver midi-note velocity(0-127) duration(s) channel&lt;/code&gt;, with channel being optional. You might notice that &lt;code&gt;(first (midi-connected-receivers))&lt;/code&gt; contains a key called &lt;code&gt;:receiver&lt;/code&gt; that points to some kind of MIDI output object and so you might also guess that the &lt;code&gt;midi-note&lt;/code&gt; function is expecting that as it&amp;rsquo;s receiver argument, and you would be incorrect, much like I was. It just wants that whole entire receiver object for some reason. That&amp;rsquo;s cool. &lt;/p&gt;
+
+&lt;p&gt;If we are hooked up to a synthesizer, we can play a C4 note (a.k.a. MIDI note 60) at full velocity for 1 second like so:&lt;/p&gt;
+&lt;pre class="highlight clojure"&gt;&lt;code&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;midi-note&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;first&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;midi-connected-receivers&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;60&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;127&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Hopefully you only have the one MIDI receiver connected, but if there are multiple outputs listed then you will have to figure out which one is correct through trial and error or a lucky guess. I assume that if you have multiple MIDI outputs you know what you are doing here. Cheers. &lt;/p&gt;
+
+&lt;h4&gt;A pro-tip for creative technologists:&lt;/h4&gt;
+
+&lt;p&gt;Programmers like to zero-index EVERYTHING because that is the computer science way of doing things. However, consumer audio equipment tends to number things 1-10. For example, my Boss SP-303 sampler says that it will respond to events on channel 10, but for Overtone that is actually channel 9 i.e, &lt;code&gt;(midi-note (first (midi-connected-receivers)) 96 127 1 9)&lt;/code&gt;. If you are ever trying to hook things together through some sort of integer/index/channel and nothing is working, consider the possibility that the two sides hold differing opinions on how to count to ten. &lt;/p&gt;
+
+&lt;h4&gt;WHAT ELSE CAN MY COMPUTER CONTROL?&lt;/h4&gt;
+
+&lt;p&gt;MIDI can initiate program changes, modulate effects, start, stop, and change sequences, and much more. But you will probably need to read a lot of MIDI implementation specs and the Overtone MIDI source code in order to figure out what data to send to do those things. I was trying to do something as simple as changing the selected pad bank on my Boss SP-505 and gave up after scouring the &lt;a href="http://sp-forums.com/viewtopic.php?f=7&amp;amp;t=10941&amp;amp;start=0"&gt;many&lt;/a&gt;, &lt;a href="http://forums.rolandclan.com/viewtopic.php?f=16&amp;amp;t=34352"&gt;many&lt;/a&gt;, &lt;a href="http://www.vsplanet.com/ubbthreads/ubbthreads.php?ubb=showflat&amp;amp;Number=210137"&gt;many&lt;/a&gt;, &lt;a href="https://www.gearslutz.com/board/electronic-music-instruments-electronic-music-production/783954-boss-sp-505-question.html"&gt;many&lt;/a&gt;, &lt;a href="http://www.vdrums.com/forum/advanced/technical/11801-triggering-samples-with-a-boss-sp-505-sampler"&gt;many&lt;/a&gt; unanswered threads about this subject.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>TDD for the Lazy, Patient, and Messy</title>
     <link rel="alternate" href="http://colewillsea.com/blog/tdd-for-the-lazy-patient-and-messy.html"/>
     <id>http://colewillsea.com/blog/tdd-for-the-lazy-patient-and-messy.html</id>
     <published>2015-08-26T07:37:00-07:00</published>
-    <updated>2015-08-26T09:49:07-07:00</updated>
+    <updated>2015-08-30T12:47:21-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -42,7 +96,7 @@
 
 &lt;p&gt;A lot of people talk a lot of things about TDD. There are those that talk about TDD as their jobs. There are even meta-TDD consultants who talk to management about talking to their employees about TDD. But while it is easy to spew empty platitudes at developers, it is much harder to figure out how to use this knowledge in your day to day software engineering. Some skills can only be gained through practice, experience, and pain. However there are those rare techniques and stategies that can be effectively utilized on every project.&lt;/p&gt;
 
-&lt;p&gt;Recently I discovered one such technique while working on a &lt;a href="https://github.com/gigasquid/wonderland-clojure-katas"&gt;code kata in clojure&lt;/a&gt;. The challenge was to compute a magic square: given a bunch of floating point numbers, you must arrange them in a 2-dimensional array such that ever row, column, and diagonal of the matrix/square a sum up to the same &amp;ldquo;magic number&amp;rdquo;. &lt;/p&gt;
+&lt;p&gt;Recently I discovered one such technique while working on a &lt;a href="https://github.com/gigasquid/wonderland-clojure-katas"&gt;code kata in clojure&lt;/a&gt;. The challenge was to compute a magic square: given a bunch of floating point numbers, you must arrange them in a 2-dimensional array such that every row, column, and diagonal of the matrix/square a sum up to the same &amp;ldquo;magic number&amp;rdquo;. &lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="magic square" src="/blog/images/magic-d40ea8db.png" /&gt;&lt;/p&gt;
 
@@ -485,62 +539,6 @@ rails g controller dubsteps
 &lt;h3&gt;WOWWWW&lt;/h3&gt;
 
 &lt;p&gt;&lt;/center&gt;&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Node.js Poetic Modules</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/node-poetry-modules.html"/>
-    <id>http://colewillsea.com/blog/node-poetry-modules.html</id>
-    <published>2015-08-01T15:53:00-07:00</published>
-    <updated>2015-08-26T07:46:51-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Node.js Poetic Modules&lt;/h1&gt;
-
-&lt;h2&gt;Presenting A Voice Unto The Computer&lt;/h2&gt;
-
-&lt;p&gt;&lt;center&gt;&lt;img alt="deep dreamed surrealism" src="/blog/images/surreal-773fbf3d.png" /&gt;&lt;/center&gt;&lt;/p&gt;
-
-&lt;p&gt;Node.js and npm provide a wonderfully vibrant and delightfully rich ecosystem for making browser-or-terminal-based works of art. Generally I start a project by searching around for existing modules that do what I need, or if there are none then I write the module that does what I need and publish it to npm (&lt;em&gt;nice&lt;/em&gt;). With browserify I can use the same code for a CLI tool as I do for a website. &lt;/p&gt;
-
-&lt;p&gt;This makes it really easy to explore the full spectrum of possibilities for a given artistic concept or linguistic algorithm. For example, some modules work well in the browser where you can edit inputs and change paramaters on the fly, while others might be better utilised as part of a command line script. I have heard this style of development and deployment referred to as &amp;ldquo;isomorphic JavaScript&amp;rdquo;, but call it what you will I just think it&amp;rsquo;s darn nifty that this code will run on anything from a refrigerator to a jumbotron. &lt;/p&gt;
-
-&lt;p&gt;While there are many Node.js modules available for interfacing with every IO stream that you could possibly connect to your computer, I would like to discuss some Node.js modules that I have published recently which operate purely on, by, for, and around text:&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/eat-wrapper"&gt;eat-wrapper&lt;/a&gt; is a set of helper functions for the Edinburgh Associative Thesauraus, which is kind of like a 70s British pseudo-word-net. One might iterate over a sentence and use it to get random words that are related to that sentence, and then find other sentences that include those related words, and so on.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/word-vomit"&gt;word-vomit&lt;/a&gt; accepts a string and randomly replaces certain words in that string with other words that are of the same part of speech. Nice for subtly changing the meaning of a passage through random juxtaposition.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/n-plus-7"&gt;n-plus-7&lt;/a&gt; employs a technique of the &lt;a href="https://en.wikipedia.org/wiki/Oulipo"&gt;Oulipo&lt;/a&gt; whereby each noun in a string is replaced with the seventh noun after that noun in the dictionary. You can replace &amp;ldquo;noun&amp;rdquo; with any list or category of words, and you can also change the offset from seven to any positive or negative integer.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/poetic-vomit"&gt;poetic-vomit&lt;/a&gt; is similar to word-vomit, but instead replaces words with a random rhyming word. This is quite useful for generating song lyrics or rhythmic poetry.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/is-snowball"&gt;is-snowball&lt;/a&gt; detects whether or not a given string is a &amp;ldquo;snowball&amp;rdquo;, that is, if each word in the string is 1 character longer than the previous one, i.e, &amp;ldquo;o my wow this snowy ballll&amp;rdquo;. The reverse case of descending length can also be detected. This might might be good to throw in the path of a web scraper or tweet stream or the entirety of Project Gutenberg.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/new-slang"&gt;new-slang&lt;/a&gt; accepts a map of string sequences to string replacements, and transforms strings of text by replacing those string sequences with the, err, uh, replacements. For example, given a map of &lt;code&gt;{ou: &amp;#39;ooo&amp;#39;}&lt;/code&gt; and a string like &lt;code&gt;&amp;#39;you dawg&amp;#39;&lt;/code&gt;, this module would return &lt;code&gt;&amp;#39;yooo dawg&amp;#39;&lt;/code&gt;. If the function was called over and over with a map like &lt;code&gt;{ou: ooui}&lt;/code&gt; and the output of the previous transformation it might produce something similar to &lt;a href="https://github.com/aparrish/linear-lsystem-poetry"&gt;Allison Parrish&lt;/a&gt;&amp;rsquo;s l-system poem generator.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/lipogram"&gt;lipogram&lt;/a&gt; demonstrates another constraint of the Oulipo whereby a given text does not contain a letter or set of letters, for example &lt;a href="https://en.wikipedia.org/wiki/A_Void"&gt;A Void by Georges Perec&lt;/a&gt; which does not contain the letter e. One could, perhaps, draw deep meaning from a poem composed out of sentences from Ruby on Rails blog posts that do not contain the letters &lt;code&gt;[&amp;quot;C&amp;quot;, &amp;quot;O&amp;quot;, &amp;quot;M&amp;quot;, &amp;quot;P&amp;quot;, &amp;quot;U&amp;quot;, &amp;quot;T&amp;quot;, &amp;quot;E&amp;quot;, &amp;quot;R&amp;quot;]&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/each-cons"&gt;each-cons&lt;/a&gt; does not do anything on it&amp;rsquo;s own&amp;hellip;it is just a helper function that exists in Ruby which I wanted to have available in Node.js without requiring all of underscore/lodash/whatever. This function returns consecutive sequences of an array, so given &lt;code&gt;[1, 2, 3, 4, 5]&lt;/code&gt; and a sequence length of &lt;code&gt;3&lt;/code&gt;, it would return &lt;code&gt;[[1, 2, 3], [2, 3, 4], [3, 4, 5]]&lt;/code&gt;. This is particularly handy for constructing &lt;a href="https://www.khanacademy.org/computing/computer-science/informationtheory/moderninfotheory/v/markov_chains"&gt;Markov chains&lt;/a&gt;, and, I am certain, other things.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/diacriticize"&gt;diacriticize&lt;/a&gt; basically performs a light &lt;a href="http://www.eeemo.net/"&gt;zalgo&lt;/a&gt; maneuver on the text. It seems to be horridly broken on a lot of platforms, so user beware.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/coleww/to-unicode"&gt;to-unicode&lt;/a&gt; transforms some text into unicode equivalents, so you can add circles around all yr letters or switch to a mono-spaced font. Like diacriticize, there are some issues sometimes.  &lt;code&gt;¯\_(ツ)_/¯ unicode  ¯\_(ツ)_/¯&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;These modules don&amp;rsquo;t serve any &amp;ldquo;real&amp;rdquo; purpose, but they are fun to make and usually produce amusing output. Furthermore, in my day to day job I am usually almost always fixing minor bugs or building incremental features on user interfaces to RESTful CRUD APIs in a SAAS fashion, so it is nice to have an excuse to design, implement, benchmark, and optimize a real live algorithm. Art is a wonderful excuse to try out something new, whether it be an algorithm, framework, database, or language. I for one first became truly familiar with and enamored by mongoDB only through writing a video game inside of it.&lt;/p&gt;
-
-&lt;p&gt;Moreover, all of these modules follow what I consider to be best practices for Node.js projects: uses the &lt;a href="https://github.com/feross/standard"&gt;standard&lt;/a&gt; JavaScript style/linter, has tests, has CI setup to run those tests, has documentation that includes a breakdown of the API for the module and some examples, has a small demo app built that demonstrates what the thing does, and, if it makes sense to, it includes a CLI script version of the module. &lt;/p&gt;
-
-&lt;p&gt;Other reasons to use JavaScript to destroy language:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/dariusk/NaNoGenMo"&gt;NaNoGenMo&lt;/a&gt;: which, put simply, is an annual event wherein you &amp;ldquo;Spend the month of November writing code that generates a novel of 50k+ words.&amp;rdquo;.&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://tinysubversions.com/2013/09/how-to-make-a-twitter-bot/"&gt;twitter bots&lt;/a&gt;: make a robot spew nonsense for the world to see! (many of the modules mentioned are being used to power the brain of &lt;a href="https://twitter.com/pataphysyllabus"&gt;Hank&lt;/a&gt; (also a lot of taylor swift))&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://blog.somewhatabstract.com/2015/03/02/writing-a-simple-slack-bot-with-Node.js-slack-client/"&gt;slack bots&lt;/a&gt;: make a robot spew nonsense for your co-workers to see! &lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.tcf.ua.edu/Classes/Jbutler/T340/SurManifesto/ManifestoOfSurrealism.htm"&gt;Poetry&lt;/a&gt;: it is important.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;make a module&lt;/h3&gt;
-
-&lt;p&gt;I have many friends and co-workers who agonize over finding a side project to hack on. They don&amp;rsquo;t want to build something that requires costly infrastructure or depends on network effects, but they also don&amp;rsquo;t want to build another TODO app or blogging client. By expanding your conception of the word &amp;ldquo;product&amp;rdquo; to include works of art and poetry, you&amp;rsquo;ll soon discover an endless supply of things to work on. &lt;/p&gt;
 </content>
   </entry>
 </feed>
