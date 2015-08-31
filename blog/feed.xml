@@ -10,11 +10,11 @@
     <name>Cole Willsea</name>
   </author>
   <entry>
-    <title>Controlling electronic Instruments With MIDI and Clojure</title>
+    <title>Controlling Electronic Instruments With MIDI and Clojure</title>
     <link rel="alternate" href="http://colewillsea.com/blog/triggering-midi-with-clojure.html"/>
     <id>http://colewillsea.com/blog/triggering-midi-with-clojure.html</id>
     <published>2015-08-30T06:58:00-07:00</published>
-    <updated>2015-08-30T12:49:26-07:00</updated>
+    <updated>2015-08-31T07:20:25-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
