@@ -58,10 +58,10 @@ Here, Origin refers to the URL making the request. If you put &ldquo;*&rdquo; an
 STRAIGHT FROM THE SPEC: &ldquo;The Access-Control-Request-Method header indicates which method will be used in the actual request as part of the preflight request.&rdquo; TBQH, I have no idea what this means. The star is probably fine. I don&rsquo;t see how this is much different than the next entry:</p>
 
 <p><code>res.setHeader(&#39;Access-Control-Allow-Methods&#39;, &#39;OPTIONS, GET&#39;)</code>
-Here you list which HTTP request verbs are allowed. More on the OPTIONS request later. You could obviously add PUT or POST or PATCH or DELETE or actually I think that is it that is all that you can add to this comma separate list. The spec adds a note that &ldquo;The <code>Allow</code> header is not relevant for the purposes of the CORS protocol&rdquo;, so take that as you will.</p>
+Here you list which HTTP request verbs are allowed. More on the OPTIONS request later. You could obviously add PUT or POST or PATCH or DELETE or, &hellip; actually I think that is it, that is all that you can add to this comma separated list. The spec adds a note that &ldquo;The <code>Allow</code> header is not relevant for the purposes of the CORS protocol&rdquo;, so take that as you will.</p>
 
 <p><code>res.setHeader(&#39;Access-Control-Allow-Headers&#39;, &#39;*&#39;)</code>
-Much like the All-Methods reqsponse header, here you specify which request header fields to allow. If yr API is super wicked and secret then maybe you should put some controls on it.</p>
+Much like the All-Methods response header, here you specify which request header fields to allow. If yr API is super wicked and secret then maybe you should put some controls on it.</p>
 
 <ul>
 <li>The Pre-Flight Request</li>
@@ -134,17 +134,17 @@ Much like the All-Methods reqsponse header, here you specify which request heade
       <ol>
         <h4><li><a href="/blog/blog/2015.html">2015: 15 BLAGS</a></h4>
           <ol>
-              <h5><li><a href="/blog/blog/2015/08.html">August 2015: 7 blags</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/07.html">July 2015: 4 bloggies</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/06.html">June 2015: 3 bloogss</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/05.html">May 2015: 1 blogotronz</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/08.html">August 2015: 7 blogotronz</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/07.html">July 2015: 4 bags</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/06.html">June 2015: 3 bloggies</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/05.html">May 2015: 1 blogs</a></li></h5>
           </ol>
         </li>
         <h4><li><a href="/blog/blog/2014.html">2014: 6 BLAGS</a></h4>
           <ol>
               <h5><li><a href="/blog/blog/2014/10.html">October 2014: 1 bloggies</a></li></h5>
-              <h5><li><a href="/blog/blog/2014/09.html">September 2014: 2 blogs</a></li></h5>
-              <h5><li><a href="/blog/blog/2014/08.html">August 2014: 3 blags</a></li></h5>
+              <h5><li><a href="/blog/blog/2014/09.html">September 2014: 2 bloggies</a></li></h5>
+              <h5><li><a href="/blog/blog/2014/08.html">August 2014: 3 blaahhhges</a></li></h5>
           </ol>
         </li>
       </ol>
