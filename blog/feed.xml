@@ -5,10 +5,46 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-08-30T06:58:00-07:00</updated>
+  <updated>2015-09-08T15:10:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>Logging URLS from IRC to Delicious with Node</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/node-irc-url-logger.html"/>
+    <id>http://colewillsea.com/blog/node-irc-url-logger.html</id>
+    <published>2015-09-08T15:10:00-07:00</published>
+    <updated>2015-09-08T15:27:08-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Logging URLS from IRC to Delicious with Node&lt;/h1&gt;
+
+&lt;h2&gt;Oh you know just plugging some APIs together&lt;/h2&gt;
+
+&lt;p&gt;Like most people, I participate in secret societies through hidden IRC channels. The conversations that take place in these circles are bound by blood, however as the US government has proven it is not actually &amp;ldquo;spying&amp;rdquo; if all you do is collect &amp;ldquo;metadata&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;In this instance, the &amp;ldquo;metadata&amp;rdquo; I am after is any and all URLs that get posted in one of these esoteric chatrooms. Even if I can&amp;rsquo;t keep up on the day to day message logs, I can still peruse the links that others have shared. After all, that is why we are on the internet of course. To hyperlink.&lt;/p&gt;
+
+&lt;p&gt;To that end I wrote a simple node.js bot that sits in some IRC channels, scans any messages it sees for URLs, and posts any that it finds to a Delicious account. &lt;/p&gt;
+
+&lt;p&gt;The source code is as follows:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/coleww/a9f82ba7f37504bae368.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;You could, for example, have it join every IRC channel about Ember and make a page that is all about what is going on in Ember. That might be cool.&lt;/p&gt;
+
+&lt;p&gt;I picked Delicious because it was the first link I recognized when I searched for &amp;ldquo;bookmark site API&amp;rdquo;, you could in theory have this script post links anywhere you want. It must be noted that I am using &lt;code&gt;childProcess.exec&lt;/code&gt; here to call a CLI tool out of sheer laziness: I am sure there is a &lt;code&gt;require&lt;/code&gt;-able Delicious API wrapper module out there somewhere.&lt;/p&gt;
+
+&lt;p&gt;While making this I was thinking about certain programming language channels where people will often ask for help with bugs. For example:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;&amp;gt; coledubs: what is up with this error "ILLEGAL: FOO"
+&amp;gt; derbyshire: wow that sounded awful 
+&amp;gt; elephant: coledubs - do a nom bom, that should fix it
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With a sufficient amount of regex&amp;#39;ing, one could parse the logs of these channels and create automatic Q&amp;amp;A pages. In the example above, it wouldn&amp;rsquo;t be difficult to detect that elephant is answering coledubs&amp;rsquo;s question, and by saving it somehwere this might help someone else down the line who sees an &lt;code&gt;ILLEGAL: FOO&lt;/code&gt; error.  &lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Controlling Electronic Instruments With MIDI and Clojure</title>
     <link rel="alternate" href="http://colewillsea.com/blog/triggering-midi-with-clojure.html"/>
@@ -469,76 +505,6 @@ rails g controller dubsteps
 &lt;p&gt;and &lt;code&gt;g&lt;/code&gt; will be made available on yr &lt;code&gt;path&lt;/code&gt;!&lt;/p&gt;
 
 &lt;p&gt;BUT NEVER BOTH, DO NOT INSTALL BOTH AT THE SAME TIME, BAD THINGS WILL HAPPEN, MIT LICENSE YO!!!!!!!!!!!!!! &amp;ldquo;IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.&amp;rdquo;!!!!&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Meta Test Driven Development</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/test-yr-test-suite.html"/>
-    <id>http://colewillsea.com/blog/test-yr-test-suite.html</id>
-    <published>2015-08-03T08:02:00-07:00</published>
-    <updated>2015-08-26T07:49:47-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Meta Test Driven Development&lt;/h1&gt;
-
-&lt;h2&gt;Making your test suite run another test suite&lt;/h2&gt;
-
-&lt;p&gt;As a programmer, I find myself in a weird position of being both lazy and all about dat UNIX philosophy. My laziness makes me want to do as little work as possible, but my enthusiasm for UNIX makes me want to create as many small modules as possible. And what could be more boring than setting up boiler plate code for a new small module?&lt;/p&gt;
-
-&lt;p&gt;The solution, of course, is to write a scaffolding generator(s)! That way the computer can create all the appropriately named folders and files that I will need for a project, and also do things like fill in sensible defaults for config files or even insert some dummy smokescreen code. &lt;/p&gt;
-
-&lt;p&gt;The generator code will of course have a test suite: we create a new dummy app and then check that the files are all there and that they contain what we expect and then we rimraf it. But what about the dummy app? It too might have a smokescreen test suite, which we can use to demonstrate that everything is running correctly (or at least correctly enough to print &amp;ldquo;hello world&amp;rdquo;). &lt;/p&gt;
-
-&lt;p&gt;&lt;img alt="glitchy test recursion" src="/blog/images/testrecurse-839ed3c0.png" /&gt;&lt;/p&gt;
-
-&lt;h3&gt;RUBY&lt;/h3&gt;
-
-&lt;p&gt;The first time I did this trick was in Ruby with Minitest. Here, it turned out to be easy as loading the test file:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;load &amp;#39;./such_test_bot/test/such_test_bot_test.rb&amp;#39;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Thats about all there is to see, but if you really want more sauce code here are the tests for my &lt;a href="https://github.com/coleww/twitter_bot_generator/tree/master/test"&gt;twitter bot generator&lt;/a&gt;. The rakefile simply loads all these files, which runs the tests for the generator as well as each different type of generated bot. &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;WOW THAT WAS SO EASY THAT I AM ALREADY BORED&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You are correct, Ruby is like that. &lt;/p&gt;
-
-&lt;h3&gt;NODE.JS&lt;/h3&gt;
-
-&lt;p&gt;I recently tried to do this trick again in Node and wound up facing some strange issues. I thought I could take the easy route and just &lt;code&gt;require&lt;/code&gt; my test files, and after that failed I even put in some extra effort to test out something like &lt;code&gt;cd newDir &amp;amp;&amp;amp; npm test&lt;/code&gt;, but I instantly hit a wall that seemed to be surrounding a little bundle of hell that we all know as &lt;code&gt;/node_modules&lt;/code&gt;. &lt;/p&gt;
-
-&lt;p&gt;Don&amp;rsquo;t get me wrong, npm is A M A Z I N G, but when it comes to &amp;ldquo;how my JavaScript dependencies get from the internet to a compiled state in my project folder&amp;rdquo; I know absolutely nothing and prefer to keep it that way. The error I was facing seemed to be that when my project&amp;rsquo;s copies of tap/tape ran the test suite for the generated project, there was some sort of unfathomable versioning error that caused the function/constant &lt;code&gt;defined&lt;/code&gt; to be &lt;code&gt;undefined&lt;/code&gt;. O_o wow.&lt;/p&gt;
-
-&lt;p&gt;To verify that this was in fact the culprit I made it so that the generated app did an &lt;code&gt;npm install&lt;/code&gt; before running the tests, and everything worked! But making my test suite hit the network and download packages would be a horrible, just awful thing. (fact: at my first job our test suite did this)&lt;/p&gt;
-
-&lt;p&gt;Instead I took the middle-road-hack: I generated a new dummy app, &lt;code&gt;cd&lt;/code&gt;&amp;rsquo;d into the directory, and then manually &lt;code&gt;npm install --save-dev&lt;/code&gt;&amp;rsquo;d the bare minimum packages that it would take for it&amp;rsquo;s test suite to run/pass. I then took the &lt;code&gt;node_modules&lt;/code&gt; folder that was created and copied it over to my generator project as &lt;code&gt;test_modules&lt;/code&gt;. Now when I wanted to run a generated test suite I just had to copy that &lt;code&gt;test_modules&lt;/code&gt; folder over to the generated project as it&amp;rsquo;s &lt;code&gt;node_modules&lt;/code&gt; before running the tests:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;exec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'child_process'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;exec&lt;/span&gt;
-
-&lt;span class="nx"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'does all the stuff'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="c1"&gt;// generate a generatedAppThing i guess?&lt;/span&gt;
-
-  &lt;span class="nx"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'cp -r test_modules generatedAppThing/node_modules &amp;amp;&amp;amp; cd generatedAppThing &amp;amp;&amp;amp; node test.js'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ok&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'generated module also works'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;})&lt;/span&gt;
-&lt;span class="p"&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After that runs I just call a test assertion from the meta-test callback, and if that fails I know I broke something in the generated code. See more in &lt;a href="https://github.com/coleww/mkproj/blob/master/test.js"&gt;mkproj/test.js&lt;/a&gt; &lt;/p&gt;
-
-&lt;p&gt;It is indeed unfortunate that I now have this &lt;code&gt;test_modules&lt;/code&gt; thing checked into my project, and even worse that those modules will be harder to update now, but I think this awkwardness is worth the assurance that my code is really really working.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;To take this one step further, for a particularly complicated generator app one might use a meta-TDD style. The test suite for the generator would simply create a new app and call it&amp;rsquo;s test suite. You would start out by writing the bare minimum of code to generate an app that has a failing test, then make that generated test pass, and continue in this fashion, forever and ever. For a larger project like Yeoman which abstracts project generation across multiple domains, one might even write a generator-generator which could be meta-meta-test-driven. Turtles, all the way.&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt;&lt;img alt="turtles" src="/blog/images/turts-1a4ec479.jpg" /&gt;&lt;/p&gt;
-
-&lt;h3&gt;WOWWWW&lt;/h3&gt;
-
-&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>
