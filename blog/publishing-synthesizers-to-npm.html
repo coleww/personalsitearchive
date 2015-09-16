@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cole Codes Cool Code</title>
+    <title>Publishing Web Audio Instruments to npm</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/blog/stylesheets/main-2ef393ac.css" rel="stylesheet" type="text/css" />
     <meta name="description" content="Writing code that makes art and vice versa." />
@@ -19,13 +19,82 @@
 </a>    </center>
 
     <div id="main" role="main">
-      <h1>Articles tagged 'browser hijacking'</h1>
+        <article>
+    <h1>Publishing Web Audio Instruments to npm</h1>
 
+<h2>npm install dubstep</h2>
+
+<p>The state of web audio in the browser is pretty chill these days, but using it is still very close to that audio metal. Web audio provides excellent core objects like oscillators and filters, but it is up to the user to wire them together. For complex synthesizers and effects this might involve dozens of audioNodes and many lines of code just to get that skrillex monster bass wobbles bumping out your webpage.</p>
+
+<p>We need a way to publish pre-assembled audio graphs with a consistent API so that our projects don&rsquo;t get taken over by copy pasted audioNode boilerplate. </p>
+
+<p>This pre-built synth can be thought of just like any other audioNode. It will have <code>start</code> and <code>stop</code> functions, a <code>connect</code> function to send it to the speakers or other nodes. But instead of having audioParams, it will have a <code>keys</code> function that returns the names of all the audioNodes that make up the synth. </p>
+
+<p>I have been using the following interface to achieve this dream:</p>
+<pre class="highlight plaintext"><code>synth: {
+  keys(),
+
+  connect(destination),
+  input(),
+
+  start(time),
+  stop(time),
+
+  export(),
+  import(data),
+
+  audioNodes ...,
+  fns? ...
+}
+</code></pre>
 
 <ul>
-    <li><a href="/blog/eating-glue-and-paste.html">Eating Glue</a> <span>Jun  3</span></li>
+<li><p><code>keys()</code> =&gt; Returns an array of string keys to audioNodes, for example: <code>[&quot;osc1&quot;, &quot;filter&quot;, &quot;distortion&quot;, &quot;gain&quot;]</code>. One could then do <code>synth[&quot;osc1&quot;].frequency.value = 10000</code> or whatever you so desire. The naming of these keys is arbitrary but hopefully somehow indicates which type of audioNode they are.</p></li>
+<li><p><code>connect(destination)</code> =&gt; Connects the output nodes of the synth to a destination or other node.</p></li>
+<li><p><code>input()</code> =&gt; For an effect or audio processor, this function returns the input node, for example <code>guitar.connect(dubstep.input())</code>. Of course, you can connect the output of any audioNode to an audioParam on another audioNode like <code>guitar.connect(wobbler.lfo.frequency)</code>.</p></li>
+<li><p><code>start(time)</code> =&gt; Calls start(time) on all the source nodes. </p></li>
+<li><p><code>stop(time)</code> =&gt; Calls stop(time) on all the source nodes. Shhhhhh.</p></li>
+<li><p><code>export()</code> =&gt; Returns JSON respresentation of the instrument. For easily saving settings between browser sessions.</p></li>
+<li><p><code>import(data)</code> =&gt; Loads JSON data, or use default values if no data is passed.</p></li>
+<li><p><code>audioNodes ...</code> =&gt; Each node in the synth will be present as a property on the object, allowing for direct manipulation. Their keys can be found with <code>keys()</code>. For example, drone-e-o-synth contains the keys <code>[&#39;source&#39;, &#39;filter&#39;, &#39;lowFilter&#39;, &#39;distortion&#39;, &#39;volume&#39;]</code></p></li>
+<li><p><code>fns? ...</code> =&gt; Other arbitrarily named functions might or might not also be present on the object, such as for performing complex control changes that would be unwieldy to do directly, like setting oscillators to play chords, or turning on that dubstep wobble. Presumably the module author would tell you about this magic if it exists.</p></li>
 </ul>
 
+<hr>
+
+<p>Thus far I have made 3 modules in this fashion, each of which includes some sort of strange demo app as well:</p>
+
+<ul>
+<li><a href="https://www.npmjs.com/package/drone-e-o-synth">drone-e-o-synth</a> - a drone synth with a bunch of resonance filters and a demo that lets you control them by moving your laptop or phone around.</li>
+<li><a href="https://www.npmjs.com/package/tri-tri">tri-tri</a> - a weird triangly synth with a fun and noisy video game about color to demonstrate what it sounds like</li>
+<li><a href="https://www.npmjs.com/package/wobbler">wobbler</a> - a simple dubstep wobble effect with a demo that lets you tap/click to change the wub wubs.</li>
+</ul>
+
+<p>My hope is that after making a handful or two of these synth modules, it will be possible to quickly <code>npm install</code>, <code>require()</code>, and <code>connect</code> together some reallllllllllly out-there browser synths with <a href="https://www.npmjs.com/package/web-audio-ui">web-audio-ui</a>, <a href="https://github.com/substack/browserify-handbook">Browserify</a>, and a few lines of code. </p>
+
+<hr>
+
+<p><a href="openmusic">https://github.com/openmusic</a> also provides a collection of very useful audioNodes and web components. Most of my synths include at least one openmusic module, and I find the sample player and oscillator to be indispensable for doing audio work on the web. </p>
+
+  </article>
+  <br />
+  <hr />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  See something wrong?<br />
+  or just want to say hello?<br />
+  <a href="https://github.com/coleww/cole-codes-cool-code/tree/master/source">this blogotronz</a> is open-source!<br />
+  file an issue or make a pull-request or whatever i'm not about to tell you what to do there is no authority but yourself.<br />
 
       <br/>
       <br/>
@@ -60,18 +129,18 @@
       <ol>
         <h4><li><a href="/blog/blog/2015.html">2015: 17 BLAGS</a></h4>
           <ol>
-              <h5><li><a href="/blog/blog/2015/09.html">September 2015: 2 blags</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/08.html">August 2015: 7 bags</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/09.html">September 2015: 2 blaahhhges</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/08.html">August 2015: 7 bloggies</a></li></h5>
               <h5><li><a href="/blog/blog/2015/07.html">July 2015: 4 bags</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/06.html">June 2015: 3 blogotronz</a></li></h5>
-              <h5><li><a href="/blog/blog/2015/05.html">May 2015: 1 blags</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/06.html">June 2015: 3 bloogss</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/05.html">May 2015: 1 blogs</a></li></h5>
           </ol>
         </li>
         <h4><li><a href="/blog/blog/2014.html">2014: 6 BLAGS</a></h4>
           <ol>
-              <h5><li><a href="/blog/blog/2014/10.html">October 2014: 1 bloggies</a></li></h5>
-              <h5><li><a href="/blog/blog/2014/09.html">September 2014: 2 bloggies</a></li></h5>
-              <h5><li><a href="/blog/blog/2014/08.html">August 2014: 3 blogotronz</a></li></h5>
+              <h5><li><a href="/blog/blog/2014/10.html">October 2014: 1 blogotronz</a></li></h5>
+              <h5><li><a href="/blog/blog/2014/09.html">September 2014: 2 blaahhhges</a></li></h5>
+              <h5><li><a href="/blog/blog/2014/08.html">August 2014: 3 blags</a></li></h5>
           </ol>
         </li>
       </ol>
