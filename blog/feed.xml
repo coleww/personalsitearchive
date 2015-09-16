@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/publishing-synthesizers-to-npm.html"/>
     <id>http://colewillsea.com/blog/publishing-synthesizers-to-npm.html</id>
     <published>2015-09-16T08:18:00-07:00</published>
-    <updated>2015-09-16T08:21:51-07:00</updated>
+    <updated>2015-09-16T08:31:37-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -24,9 +24,9 @@
 
 &lt;p&gt;The state of web audio in the browser is pretty chill these days, but using it is still very close to that audio metal. Web audio provides excellent core objects like oscillators and filters, but it is up to the user to wire them together. For complex synthesizers and effects this might involve dozens of audioNodes and many lines of code just to get that skrillex monster bass wobbles bumping out your webpage.&lt;/p&gt;
 
-&lt;p&gt;We need a way to publish pre-assembled audio graphs with a consistent API so that our projects don&amp;rsquo;t get taken over by copy pasted audioNode boilerplate. &lt;/p&gt;
+&lt;p&gt;We need a way to publish pre-assembled audio graphs with a consistent API so that our projects don&amp;rsquo;t get taken over by copy pasted audioNode boilerplate.&lt;/p&gt;
 
-&lt;p&gt;This pre-built synth can be thought of just like any other audioNode. It will have &lt;code&gt;start&lt;/code&gt; and &lt;code&gt;stop&lt;/code&gt; functions, a &lt;code&gt;connect&lt;/code&gt; function to send it to the speakers or other nodes. But instead of having audioParams, it will have a &lt;code&gt;keys&lt;/code&gt; function that returns the names of all the audioNodes that make up the synth. &lt;/p&gt;
+&lt;p&gt;This pre-built synth can be thought of just like any other audioNode. It will have &lt;code&gt;start&lt;/code&gt; and &lt;code&gt;stop&lt;/code&gt; functions, a &lt;code&gt;connect&lt;/code&gt; function to send it to the speakers or other nodes. But instead of having audioParams, it will have a &lt;code&gt;keys&lt;/code&gt; function that returns the names of all the audioNodes that make up the synth. You create such a synth by &lt;code&gt;require&lt;/code&gt;&amp;lsquo;ing the module and calling it, passing the audioContext as an argument.&lt;/p&gt;
 
 &lt;p&gt;I have been using the following interface to achieve this dream:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;synth: {
@@ -57,6 +57,18 @@
 &lt;li&gt;&lt;p&gt;&lt;code&gt;audioNodes ...&lt;/code&gt; =&amp;gt; Each node in the synth will be present as a property on the object, allowing for direct manipulation. Their keys can be found with &lt;code&gt;keys()&lt;/code&gt;. For example, drone-e-o-synth contains the keys &lt;code&gt;[&amp;#39;source&amp;#39;, &amp;#39;filter&amp;#39;, &amp;#39;lowFilter&amp;#39;, &amp;#39;distortion&amp;#39;, &amp;#39;volume&amp;#39;]&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;fns? ...&lt;/code&gt; =&amp;gt; Other arbitrarily named functions might or might not also be present on the object, such as for performing complex control changes that would be unwieldy to do directly, like setting oscillators to play chords, or turning on that dubstep wobble. Presumably the module author would tell you about this magic if it exists.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;To use one of these modules you would first &lt;code&gt;npm install&lt;/code&gt; it, probably with a &lt;code&gt;--save-dev&lt;/code&gt; as this is presumably a browserify project and because you want your dependencies to be well documented and to welcome collaboration. In your codes, you might do something like:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;  var makeSynth = require('the-name-of-a-synth-module')
+  var context = new (window.AudioContext || window.webkitAudioContext)()
+  var synth = makeSynth(context)
+  synth.connect(context.destination)
+  synth.start()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At which point a horrible noise would be wailing out of your speakers! A W E S O M E!!!&lt;/p&gt;
 
 &lt;hr&gt;
 
