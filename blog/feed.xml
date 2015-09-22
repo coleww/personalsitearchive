@@ -5,10 +5,33 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-09-16T08:18:00-07:00</updated>
+  <updated>2015-09-22T07:30:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>Making an Image Bot on Twitter</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/making-an-twitter-image-bot.html"/>
+    <id>http://colewillsea.com/blog/making-an-twitter-image-bot.html</id>
+    <published>2015-09-22T07:30:00-07:00</published>
+    <updated>2015-09-22T07:35:35-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Making an Image Bot on Twitter&lt;/h1&gt;
+
+&lt;h2&gt;Because putting random text on dumb images has been working for the New Yorker for a preeeettty looong time&lt;/h2&gt;
+
+&lt;p&gt;Recently I recorded a screencast in which I created an image bot on Twitter. The bot picks a random noun, searches for images matching &lt;code&gt;&amp;quot;green&amp;quot; + noun&lt;/code&gt;, picks one at random, and tweets it with the text &amp;ldquo;WE GET IT, YOU SMOKE WEED.&amp;rdquo;. Super simple, but often absurdly funny.&lt;/p&gt;
+
+&lt;p&gt;&lt;iframe src="https://player.vimeo.com/video/139794441" width="500" height="313" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt; &lt;p&gt;&lt;a href="https://vimeo.com/139794441"&gt;building a twitter bot about weed&lt;/a&gt; from &lt;a href="https://vimeo.com/colewillsea"&gt;Cole Willsea&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;The source code is up &lt;a href="https://github.com/coleww/we-get-it-you-smoke-weed"&gt;on GitHub&lt;/a&gt; and there has been a bit of improvement to the code that is not in the video. The bot is running live at &lt;a href="https://twitter.com/_WE_GET_IT_BRO_"&gt;@&lt;em&gt;WE&lt;/em&gt;GET&lt;em&gt;IT&lt;/em&gt;BRO_&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a class="twitter-timeline" href="https://twitter.com/_WE_GET_IT_BRO_" data-widget-id="646331147127951360"&gt;Tweets by @&lt;em&gt;WE&lt;/em&gt;GET&lt;em&gt;IT&lt;/em&gt;BRO_&lt;/a&gt;
+&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?&amp;#39;http&amp;#39;:&amp;#39;https&amp;#39;;if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+&amp;quot;://platform.twitter.com/widgets.js&amp;quot;;fjs.parentNode.insertBefore(js,fjs);}}(document,&amp;quot;script&amp;quot;,&amp;quot;twitter-wjs&amp;quot;);&lt;/script&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Publishing Web Audio Instruments to npm</title>
     <link rel="alternate" href="http://colewillsea.com/blog/publishing-synthesizers-to-npm.html"/>
@@ -354,165 +377,6 @@
 &lt;h2&gt;BE KIND TO THE USER, THROW GOOD ERRORS!&lt;/h2&gt;
 
 &lt;p&gt;&lt;center&gt;&lt;img alt="tron: fight for the users" src="/blog/images/tron-e382280c.jpg" /&gt;&lt;/center&gt;&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Everything I Learned About TMUX In 3 Days</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/everything-tmux.html"/>
-    <id>http://colewillsea.com/blog/everything-tmux.html</id>
-    <published>2015-08-15T07:50:00-07:00</published>
-    <updated>2015-08-15T08:12:32-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Everything I Learned About TMUX In Like 3 Days&lt;/h1&gt;
-
-&lt;h2&gt;Seven Weird Tricks To Multiplex Your Terminals, Remotely!&lt;/h2&gt;
-
-&lt;p&gt;Recently I started doing my work-&amp;ldquo;work&amp;rdquo; in a dev-box in the cloud. This meant getting adjusted to a whole new set of tooling because I couldn&amp;rsquo;t use my normal tricks like running six panes in one iTerm2 window. I wanted to treat the SSH connected box as though it was just another drive on machine, and &lt;em&gt;what I learned will shock you&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;You&amp;rsquo;ll first need to create a &lt;code&gt;.tmux.conf&lt;/code&gt; file on your server if one has not already been provided for you. You can copy and paste &lt;a href="https://github.com/coleww/dotfiles/blob/master/.tmux.conf"&gt;my settings&lt;/a&gt; if you like, or read through and select only the parts you want. When you start TMUX, it will automagically look for and load this file.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;A BRIEF INTRODUCTION TO TMUX NOTATION&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;C-a r&lt;/code&gt; =&amp;gt; &lt;code&gt;ctrl + a - r&lt;/code&gt; =&amp;gt; press ctrl and a together, then release, then press r&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;.tmux.conf&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;THE MOST IMPORTANT THING: &lt;code&gt;ctrl + b&lt;/code&gt; is a nightmare to press with human meat hands. Remap it to something more sensible like &lt;code&gt;ctrl + a&lt;/code&gt;. Or, you know, whatever you want. &lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -g prefix C-a
-unbind C-b
-bind C-a send-prefix
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This lowers the escape time for entering TMUX commands, as the default speed seems to assume that you are going to pause for dramatic effect in the middle of typing. &lt;code&gt;xterm-keys&lt;/code&gt; makes it so TMUX doesn&amp;rsquo;t, like, totally freak out when it gets certain commands from iTerm.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -s escape-time 0
-set -g xterm-keys on
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;THE MOUSE: you can still use it. This makes it so you can select windows and resize panes and probably do other cool things with your mouse, because why would you ever want to resize a window through keyboard shortcuts? &lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -g mode-mouse on
-set -g mouse-resize-pane on
-set -g mouse-select-pane on
-set -g mouse-select-window on
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;You might be changing yr config file a lot while you try to get things juuuuuuuuuust right. A simple &lt;code&gt;ctrl + a - r&lt;/code&gt; will reload your configuration file on the spot. &lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;unbind r
-bind r source-file ~/.tmux.conf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Makes TMUX use GNU/EMACS commands for scrolling and other things. So one catch to doing work over SSH is that you inevitably must pick a side in the always riveting emacs vs. vim debate. If you are of the vim persuasion just don&amp;rsquo;t include this line because that is the default.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set-window-option -g mode-keys emacs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Move the status bar to the top. I guess if you prefer it at the bottom you can delete this. I will allow it. You might need to upgrade TMUX to at least 1.7 to get this working because apparently that is a VERY ADVANCED feature.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set-option -g status-position top
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Set the terminal to use 256 colorsa, and make the status bar and panes have prettier colors =^.^= customize to your joy! I guess that there are multiple acceptable colour formats? And that I copy-pasta&amp;rsquo;d these settings from different sources? &lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -g default-terminal "screen-256color"
-set -g status-bg '#666666'
-set -g status-fg '#aaaaaa'
-set -g pane-border-fg colour245
-set -g pane-active-border-fg colour46
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Remove a bunch of junk text from the status bar. I suppose that instead of the empty strings you could add something like &amp;ldquo;PIZZA TIME 4pm!!!&amp;rdquo; or what have you. Or maybe write a script that uses this space to give you updates on things like how all your tests failed or you got another email from jira.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;set -g status-left ''
-set -g status-right ''
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This lets you quickly jump around panes by entering &lt;code&gt;C-a the-number-of-the-pane&lt;/code&gt;. It also takes care to rebind C-l for reasons I don&amp;rsquo;t totally understand. I should see what happens when I delete that. Also renumbers the panes to be 1-9 instead of 0-9, because on yr keyboard the number keys probably go from 1-9, so it would be quite a stretch to hit the 0 key to go to the first pane, and then hit the 1 to go to the second. Array indexing doesn&amp;rsquo;t make sense for everything.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;unbind ^A
-bind ^A select-pane -t :.+
-bind C-l send-keys 'C-l'
-set -g base-index 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This one is, I think, pretty explanatory.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;bind C-k clear-history
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;I tend to never split panes/windows in tmux, and instead just create new windows and tab between them with &lt;code&gt;C-a {1-9}&lt;/code&gt;. But when I do, I can never remember the command for it. So to make things easier this remaps those actions to use &lt;code&gt;|&lt;/code&gt; for a horizontal split and &lt;code&gt;-&lt;/code&gt; for vertical, which I must say is a cute little visual memnonic.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;unbind %
-bind | split-window -h
-bind - split-window -v 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;TMUX Commands&lt;/h3&gt;
-
-&lt;p&gt;some of these are built in, some depend on using the above mentioned settings..&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;C-a c&lt;/code&gt;    open a window&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;C-a &amp;amp;&lt;/code&gt;    close a window&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;C-a d&lt;/code&gt;    detach from tmux&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;C-a k&lt;/code&gt;    clear history&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;C-a number&lt;/code&gt;    jump to that number window. &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;C-a |&lt;/code&gt;    split window horizontally&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;C-a -&lt;/code&gt;    split window vertically&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;COPY PASTA&lt;/h3&gt;
-
-&lt;p&gt;You might notice that TMUX is not happy about you trying to select and copy it&amp;rsquo;s output. Mouse-mode makes it so we can click the text, but in order to select text from TMUX and copy and paste elsewhere, &lt;strong&gt;just hold down the option key while you are selecting the text&lt;/strong&gt;. You&amp;rsquo;ll know it&amp;rsquo;s working because the selection will be a different color than the usual TMUX selection color. However if you are running split panes you will find that the selection does not obey their boundaries.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;start a tmux session&lt;/h3&gt;
-
-&lt;p&gt;First, SSH into your server.&lt;/p&gt;
-
-&lt;p&gt;Then, run &lt;code&gt;tmux&lt;/code&gt;. &lt;/p&gt;
-
-&lt;p&gt;Hopefully it is installed already. &lt;/p&gt;
-
-&lt;p&gt;I bet it might be.&lt;/p&gt;
-
-&lt;p&gt;Now that you have this TMUX &amp;ldquo;session&amp;rdquo; running, you can &amp;ldquo;detach&amp;rdquo; from it and go do other things, then later come back and &amp;ldquo;re-attach&amp;rdquo; to it, and everything will still be as you left it! Processes will be processing, servers will be serving, text editors will be waiting for you to edit things.&lt;/p&gt;
-
-&lt;p&gt;One neat trick I learned is to add a function like this to yr &lt;code&gt;.bash_profile&lt;/code&gt;for what have you:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;sshin () {
-  ssh $1 -t tmux a
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now you can do &lt;code&gt;sshin YRNAME@yr.host.server.com&lt;/code&gt; and you will automagically ssh in and attach to yr running TMUX session. When you are finished, you can enter &lt;code&gt;C-a d&lt;/code&gt; to detach and it will also disconnect you from the SSH connection. Note that you must already have a TMUX session running on the server for this command to work.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;WOW! JUST LOOK AT THAT TERMINAL! WATCH HOW IT MULTIPLEXES!&lt;/h3&gt;
-
-&lt;p&gt;&lt;img alt="tmuxing around" src="/blog/images/tmux-ea5f88b4.gif" /&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>
