@@ -5,10 +5,38 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-09-22T07:30:00-07:00</updated>
+  <updated>2015-09-23T05:44:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>after-a-lot-of-thought-i-have-decided-to-shutdown-my-bong</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/after-a-lot-of-thought-i-have-decided-to-shutdown-my-bong.html"/>
+    <id>http://colewillsea.com/blog/after-a-lot-of-thought-i-have-decided-to-shutdown-my-bong.html</id>
+    <published>2015-09-23T05:44:00-07:00</published>
+    <updated>2015-09-23T05:47:18-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;After A Lot Of Thought, I Have Decided To Shut Down My Bong&lt;/h1&gt;
+
+&lt;h2&gt;From VC Funded to Seeds and Stems in Under a Year&lt;/h2&gt;
+
+&lt;p&gt;After a lot of thought and consultation with our board, I’ve decided to shut down my bong.&lt;/p&gt;
+
+&lt;p&gt;This has been the hardest decision of my life and one that saddens me deeply. Unfortunately, my bong does not represent the vision I had when starting the company, so I believe it’s the right decision for myself, our investors and our team.&lt;/p&gt;
+
+&lt;p&gt;I’m extremely proud of our team, which has built a bong that was used by over 15 million people and pushed the boundaries of traditional water pipes. I believe in honest, open communication and creative expression, and marijuana is a great device to achieve it. But it’s also the ultimate double-edged sword, which must be wielded with great respect and care. I look forward to seeing what others in this space do over time.&lt;/p&gt;
+
+&lt;p&gt;I will spend the next couple of weeks doing what I believe is right to wind down my bong gracefully. While a majority of the team has already moved on to other exciting opportunities, I will dedicate most of my time to helping the core team find their next roles. We curated one of the most amazingly talented teams I’ve ever had the privilege of working with and I am certain each of them will go on to do great work at the very lucky companies that are able to hire them.&lt;/p&gt;
+
+&lt;p&gt;My bong, Inc. still has a significant amount of invested capital, but our investors funded the team and the product, and I believe the right thing to do is to return the money rather than attempt to pivot. Innovation requires failure, and I believe in failing fast in order to go on and make only new and different mistakes.&lt;/p&gt;
+
+&lt;p&gt;Over time, I plan to publish postmortems so that others can learn from the unique mistakes and challenges we faced and the wisdom gained from such an incredible 16 months.&lt;/p&gt;
+
+&lt;p&gt;Thank you to everyone who supported us over the past year. What an incredible journey.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Making an Image Bot on Twitter</title>
     <link rel="alternate" href="http://colewillsea.com/blog/making-an-twitter-image-bot.html"/>
@@ -311,72 +339,6 @@
 &lt;/blockquote&gt;
 
 &lt;p&gt;&lt;em&gt;:clap-emoji:&lt;/em&gt;&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Throwing Good Errors With JavaScript</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/throwing-errs-js.html"/>
-    <id>http://colewillsea.com/blog/throwing-errs-js.html</id>
-    <published>2015-08-20T15:09:00-07:00</published>
-    <updated>2015-08-26T07:46:12-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Throwing Good Errors With JavaScript&lt;/h1&gt;
-
-&lt;h2&gt;Putting the &amp;ldquo;roar&amp;rdquo; in &amp;ldquo;erroars&amp;rdquo;&lt;/h2&gt;
-
-&lt;p&gt;As you may already know, error handling is very important in an asynchronous language such as JavaScript. You probably have callbacks nested inside of each other so intricately that it is impossible to know what is calling what, let alone where errors might emerge from, and the only way to get a handle on this mess is to make sure that all of your callbacks accept &lt;code&gt;err&lt;/code&gt; as their first argument. That way you are both reminded and forced to handle errors when they happen, rather than allowing them to bubble up towards the user in unexpected ways.&lt;/p&gt;
-
-&lt;p&gt;Maybe you already have a handle on handling errors: you &lt;code&gt;console.log&lt;/code&gt; the unimportant ones, and halt the entire program on the really bad ones. But what do you do when you are writing code that needs to throw a special sort of error itself? JavaScript has some &lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#Error_types"&gt;built-in error types&lt;/a&gt;, but like everything in JavaScript they are a little wonky. And maybe you need something a little bit more specialized, or want to include additional debugging information.&lt;/p&gt;
-
-&lt;p&gt;For this task, we can wire up a simple custom error by hand! Lets see some stinking code:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;&lt;span class="c1"&gt;// First we define a function. &lt;/span&gt;
-&lt;span class="c1"&gt;// By convention, it should be capitalized-camel-case &lt;/span&gt;
-&lt;span class="c1"&gt;// and end with the word "Error". &lt;/span&gt;
-&lt;span class="c1"&gt;// This function can take arguments, &lt;/span&gt;
-&lt;span class="c1"&gt;// or not, &lt;/span&gt;
-&lt;span class="c1"&gt;// whatever you want, &lt;/span&gt;
-&lt;span class="c1"&gt;// it's JavaScript after all!&lt;/span&gt;
-&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;TheNameOfYourErrorGoesHereError&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;msg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-
-  &lt;span class="c1"&gt;// Give your error a name!&lt;/span&gt;
-  &lt;span class="c1"&gt;// This should probably be the same as the name of the function,&lt;/span&gt;
-  &lt;span class="c1"&gt;// It is what will show up when the error gets thrown.&lt;/span&gt;
-  &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'TheNameOfYourErrorGoesHereError'&lt;/span&gt;
-
-  &lt;span class="c1"&gt;// A helpful message about what went wrong!&lt;/span&gt;
-  &lt;span class="c1"&gt;// You might want to include data from the arguments,&lt;/span&gt;
-  &lt;span class="c1"&gt;// or explain how to fix things.&lt;/span&gt;
-  &lt;span class="c1"&gt;// A link to a blog post/issue tracker/docs might also be nice!&lt;/span&gt;
-  &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;message&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'My friend:\n  There seems to have been an issue with:\n  '&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;msg&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s1"&gt;'\n  Please amend it at your earliest convenience.\nThank You.'&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="c1"&gt;// Next, we use prototypal inheritance to make our error function&lt;/span&gt;
-&lt;span class="c1"&gt;// inherit from the plain ole vanilla Error object.&lt;/span&gt;
-&lt;span class="c1"&gt;// This will give it all the properties of an Error,&lt;/span&gt;
-&lt;span class="c1"&gt;// making it throwable and probably some other things.&lt;/span&gt;
-&lt;span class="nx"&gt;TheNameOfYourErrorGoesHereError&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;prototype&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nb"&gt;Error&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-
-&lt;span class="c1"&gt;// Lastly, we set the constructor &lt;/span&gt;
-&lt;span class="c1"&gt;// of the prototype &lt;/span&gt;
-&lt;span class="c1"&gt;// of our custom error function &lt;/span&gt;
-&lt;span class="c1"&gt;// (which is now a basic Error) &lt;/span&gt;
-&lt;span class="c1"&gt;// to be our custom error function itself. &lt;/span&gt;
-&lt;span class="nx"&gt;TheNameOfYourErrorGoesHereError&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;prototype&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;constructor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;TheNameOfYourErrorGoesHereError&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;By setting the constructor of the prototype to be the custom error function, we make it so that calls to &lt;code&gt;new TheNameOfYourErrorGoesHereError(&amp;#39;problems!&amp;#39;)&lt;/code&gt; will call it to create the new &lt;code&gt;Error&lt;/code&gt; object, which is really just yr average object with name and message attributes and some other special functions, so our function satisfies the &lt;code&gt;Error&lt;/code&gt; interface because it has a name and a message and descends from &lt;code&gt;Error&lt;/code&gt;, which is of course itself an &lt;code&gt;Error&lt;/code&gt;!&lt;/p&gt;
-
-&lt;p&gt;This makes JavaScript happy, so now when a problem comes up in our code we can deal with it like so:&lt;/p&gt;
-&lt;pre class="highlight javascript"&gt;&lt;code&gt;  &lt;span class="k"&gt;throw&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;ACatastrophicProblemHasArisenError&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And everything will work magically because &lt;code&gt;throw&lt;/code&gt; expects to be passed an &lt;code&gt;Error&lt;/code&gt;, and our function satisfies these demands due to it&amp;rsquo;s prototypal ancestry. A W E S O M E !&lt;/p&gt;
-
-&lt;h2&gt;BE KIND TO THE USER, THROW GOOD ERRORS!&lt;/h2&gt;
-
-&lt;p&gt;&lt;center&gt;&lt;img alt="tron: fight for the users" src="/blog/images/tron-e382280c.jpg" /&gt;&lt;/center&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>
