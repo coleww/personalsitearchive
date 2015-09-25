@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Drawing Art To The Canvas With Node</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/blog/stylesheets/main-4b9ba2a1.css" rel="stylesheet" type="text/css" />
+    <meta name="description" content="Writing code that makes art and vice versa." />
+<meta name="keywords" content="ruby, javascript, code, poetry, clojure, npm, algorithm, art" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Writing code that makes art and vice versa." />
+<meta property="og:description" content="Writing code that makes art and vice versa." />
+  </head>
+  <body>
+    <center class="THEMAIN">
+<a href="/blog">        <img class="header" src="/blog/images/cool-7b689408.png" />
+</a>    </center>
+
+    <div id="main" role="main">
+        <article>
+    <h1>Drawing Art To The Canvas With Node</h1>
+
+<h2>Build Your Own Photoshop! Cuz That&rsquo;s Something You Want To Do I Bet!</h2>
+
+<p><img alt="may 1968, paris" src="/blog/images/68-8ce01bd0.jpg" /></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Situationist_International">The Situationists</a> were a group of French radicals who almost overthrew their government through non-violent means in 1968. Pretty cool. </p>
+
+<p>One tactic they emphasized is called <a href="https://en.wikipedia.org/wiki/D%C3%A9tournement">Détournement</a> which essentially entails &ldquo;turning expressions of the capitalist system and its media culture against itself&rdquo;.</p>
+
+<p>The Situationists would <a href="http://physicalimpossibility.com/2011/05/22/movie-rip-offs-a-users-guide-detournement-and-dub-parodies/">re-dub old movies</a> with their own theories in place of the dialogue, or put <a href="http://bopsecrets.org/comics/dagwood.htm">revolutionary slogans</a> over the text in comic books.</p>
+
+<p>If you are interested in the history and nuances of this technique, may I recommend <a href="http://www.bopsecrets.org/SI/detourn.htm">A User’s Guide to Détournement</a>?</p>
+
+<p>While the Situationists had to <a href="https://en.wikipedia.org/wiki/Cut-up_technique">manually cut up their texts</a> and <a href="https://en.wikipedia.org/wiki/The_Clock_(2010_film)">tediouslyedit their films</a> we can abstract away a lot of this work with a few lines of JavaScript. With a handful of node modules we can write scripts that will recombine images into new forms, perhaps adding some procedurally generated text along the way as well, and then post the result to twitter or tumblr or whatever is popular these days. Because all algorithms are political, we can guide our work to try to make a potent statement or perhaps just a funny joke about something (though always be sure to punch up and not down).</p>
+
+<p>Some fantastic Twitter innovations in this area include <a href="https://twitter.com/AU_Prompts">Alt Universe Prompts</a> and <a href="Men Doing Things">https://twitter.com/MenDoing</a> by <a href="https://twitter.com/tinysubversions">Darius Kazemi</a>, <a href="https://twitter.com/think_i_do">Think I Do</a> and <a href="https://twitter.com/desires_exe">UnconventionalDesire</a> by <a href="https://twitter.com/ckolderup">Casey Kolderup</a>, <a href="https://twitter.com/penguinandhouse">Penguin and House</a> and <a href="Eventually Bot">https://twitter.com/eventuallybot</a> by <a href="https://twitter.com/aparrish">Allison Parrish</a>, as well as <a href="https://twitter.com/_WE_GET_IT_BRO_">smoke weed</a> and <a href="https://twitter.com/SmashDabberBros">Super Smash Dabbers</a> by myself. </p>
+
+<p><img alt="my mind has been replaced by moving images" src="/blog/images/mind-676ae231.gif" /></p>
+
+<p>In order to draw images to the canvas we will using the <a href="https://www.npmjs.com/package/canvas">node canvas module</a>. This module depends on <a href="https://github.com/Automattic/node-canvas/wiki/_pages">cairo</a> for which the installation might vary depending on your system. </p>
+
+<p>The question of how and where to get your source images from is a pretty good question. I&rsquo;d give it 7/10 points, definitely could be better but it shows improvement from last time. <a href="https://www.flickr.com/services/api/">The Flickr API</a> has I think been historically the place to go to get random appropriately-licensed images. I recorded <a href="https://vimeo.com/139794441">a screencast</a> in which I made a bot that recklessly used a <a href="https://www.npmjs.com/package/fetch-image">google image search node module</a> and <a href="https://github.com/dariusk/corpora">corpora data</a>  to grab random interesting images. Apparently <a href="https://api.imgur.com/">imgur</a> and <a href="https://api.giphy.com/">giphy</a> both have APIs but I do not have opinions about either one.</p>
+
+<h3>WHATEVER STOP TALKING ABOUT FRENCH PHILOSOPHY AND TWITTER BOTS JUST SHOW ME THE CODE</h3>
+
+<h5>fine&hellip;</h5>
+
+<p>What follows is basically the code that powers <a href="https://twitter.com/the_______bird_">The Bird</a>, which is a pseudo-bot that auto-magically layers my middle finger on top of images of corporate headquarters. I made this because I wanted to try to flip off every startup in San Francisco, but they kept getting acquired or shutting down before I could get to their offices, so I needed a faster way to express my distaste for capitalism.</p>
+<pre class="highlight plaintext"><code>// pronounced fuss
+var fs = require('fs')
+// hope u `npm install --save canvas` already!
+var Canvas = require('canvas')
+var Image = Canvas.Image
+
+// A simple helper function to load image data from the file system. i'm not gonna annotate this function because it's boring. 
+// Suffice to say that it turns data into pixels and other than that just accept it ok, gosh.
+function loadFile(path, cb){
+  fs.readFile(path, function(err, data){
+    if (err) throw err
+    img = new Image
+    img.onload = function() {
+      cb(img)
+    }
+    img.src = data
+  })
+}
+
+// use our helper function to load the middle finger image, yeah.
+loadFile('./the_bird.png', function(img){
+  // get the size of the image. i suppose i could hardcode this, it'll never change. oh well. lazy.
+  var width = img.width
+  var height = img.height
+
+  // make a new canvas that is the same size as the middle finger image, because we wouldn't want to let that get distorted or lose any fidelity
+  canvas = new Canvas(width, height)
+
+  // get that context
+  ctx = canvas.getContext('2d')
+
+  // load a corporation image
+  loadFile('./a_corporation.png', function(toFlip){
+
+    // draw the corporation to the context, scaling it to the size of the canvas. 
+    // The other 4 arguments are the x,y coordinates for the top-left and bottom-right corners of the image.
+    ctx.drawImage(toFlip, 0, 0, width, height)
+
+    // draw the middle finger on top of the corporation. 
+    // If, for example, you wanted to draw it only on the right half of the canvas you would instead pass `(img, width/2, height/2, width, height)`
+    ctx.drawImage(img, 0, 0, width, height)
+
+    // write the image to the file system
+    fs.writeFileSync('current.png', canvas.toBuffer())
+  })
+})
+</code></pre>
+
+<p>Interacting with the node canvas is exactly the same as the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">HTML5 Canvas</a>, so any tutorials for that will basically work the same here. The only differences are in loading and saving images because in the browser you use AJAX and in node you use <code>fs</code>. </p>
+
+<p>Now that you know how to edit images in node, go forth and build a bot that critiques capitalism through clever pop cultural tropes! </p>
+
+  </article>
+  <br />
+  <hr />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  See something wrong?<br />
+  or just want to say hello?<br />
+  <a href="https://github.com/coleww/cole-codes-cool-code/tree/master/source">this blogotronz</a> is open-source!<br />
+  file an issue or make a pull-request or whatever i'm not about to tell you what to do there is no authority but yourself.<br />
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    </div>
+
+    <aside>
+      <p><div id="contact">
+        <a href="http://colewillsea.com/">Cole Willsea</a>
+        (<a href="https://github.com/coleww">github</a>)
+        (<a href="https://twitter.com/colewillsea">twitter</a>)
+      </div></p>
+      <h2>RECENT BLAGZ</h2>
+      <ol>
+          <li><a href="/blog/drawing-art-to-the-canvas-in-node.html">Drawing Art To The Canvas With Node</a> <span>Sep 25</span></li>
+          <li><a href="/blog/after-a-lot-of-thought-i-have-decided-to-shutdown-my-bong.html">After A Lot Of Thought, I Have Decided To Shut Down My VC Backed Bong</a> <span>Sep 23</span></li>
+          <li><a href="/blog/making-an-twitter-image-bot.html">Making an Image Bot on Twitter</a> <span>Sep 22</span></li>
+          <li><a href="/blog/publishing-synthesizers-to-npm.html">Publishing Web Audio Instruments to npm</a> <span>Sep 16</span></li>
+          <li><a href="/blog/node-irc-url-logger.html">Logging URLS from IRC to Delicious with Node</a> <span>Sep  8</span></li>
+      </ol>
+
+      <h2>CALENDAR</h2>
+      <ol>
+        <h4><li><a href="/blog/blog/2015.html">2015: 20 BLAGS</a></h4>
+          <ol>
+              <h5><li><a href="/blog/blog/2015/09.html">September 2015: 5 blaahhhges</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/08.html">August 2015: 7 bloogss</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/07.html">July 2015: 4 blogs</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/06.html">June 2015: 3 blogs</a></li></h5>
+              <h5><li><a href="/blog/blog/2015/05.html">May 2015: 1 blogotronz</a></li></h5>
+          </ol>
+        </li>
+        <h4><li><a href="/blog/blog/2014.html">2014: 6 BLAGS</a></h4>
+          <ol>
+              <h5><li><a href="/blog/blog/2014/10.html">October 2014: 1 bloogss</a></li></h5>
+              <h5><li><a href="/blog/blog/2014/09.html">September 2014: 2 blags</a></li></h5>
+              <h5><li><a href="/blog/blog/2014/08.html">August 2014: 3 blogotronz</a></li></h5>
+          </ol>
+        </li>
+      </ol>
+
+      <h2>TAGZ</h2>
+      <ol>
+          <li><a href="/blog/blog/tags/node.html">node (9)</a></li>
+          <li><a href="/blog/blog/tags/unix.html">unix (9)</a></li>
+          <li><a href="/blog/blog/tags/ruby.html">ruby (7)</a></li>
+          <li><a href="/blog/blog/tags/javascript.html">javascript (4)</a></li>
+          <li><a href="/blog/blog/tags/emacs.html">emacs (3)</a></li>
+          <li><a href="/blog/blog/tags/clojure.html">clojure (3)</a></li>
+          <li><a href="/blog/blog/tags/npm.html">npm (3)</a></li>
+          <li><a href="/blog/blog/tags/command-line.html">command line (2)</a></li>
+          <li><a href="/blog/blog/tags/noise.html">noise (2)</a></li>
+          <li><a href="/blog/blog/tags/overtone.html">overtone (2)</a></li>
+          <li><a href="/blog/blog/tags/bash.html">bash (2)</a></li>
+          <li><a href="/blog/blog/tags/music.html">music (2)</a></li>
+          <li><a href="/blog/blog/tags/tdd.html">tdd (2)</a></li>
+          <li><a href="/blog/blog/tags/ember.html">ember (2)</a></li>
+          <li><a href="/blog/blog/tags/bots.html">bots (2)</a></li>
+          <li><a href="/blog/blog/tags/generators.html">generators (2)</a></li>
+          <li><a href="/blog/blog/tags/rails.html">rails (2)</a></li>
+          <li><a href="/blog/blog/tags/art.html">art (2)</a></li>
+          <li><a href="/blog/blog/tags/situationism.html">situationism (2)</a></li>
+          <li><a href="/blog/blog/tags/ssh.html">ssh (1)</a></li>
+          <li><a href="/blog/blog/tags/the-occupy-movement.html">the occupy movement (1)</a></li>
+          <li><a href="/blog/blog/tags/burn-out.html">burn out (1)</a></li>
+          <li><a href="/blog/blog/tags/tech-culture.html">tech culture (1)</a></li>
+          <li><a href="/blog/blog/tags/magneto.html">magneto (1)</a></li>
+          <li><a href="/blog/blog/tags/gems.html">gems (1)</a></li>
+          <li><a href="/blog/blog/tags/jquery.html">jquery (1)</a></li>
+          <li><a href="/blog/blog/tags/conceptual-art.html">conceptual art (1)</a></li>
+          <li><a href="/blog/blog/tags/twitter.html">twitter (1)</a></li>
+          <li><a href="/blog/blog/tags/async.html">async (1)</a></li>
+          <li><a href="/blog/blog/tags/blink182.html">blink182 (1)</a></li>
+          <li><a href="/blog/blog/tags/middleman.html">middleman (1)</a></li>
+          <li><a href="/blog/blog/tags/syntax-highlighting.html">syntax highlighting (1)</a></li>
+          <li><a href="/blog/blog/tags/code.html">code (1)</a></li>
+          <li><a href="/blog/blog/tags/meta-blog.html">meta-blog (1)</a></li>
+          <li><a href="/blog/blog/tags/markdown.html">markdown (1)</a></li>
+          <li><a href="/blog/blog/tags/john-gruber.html">john gruber (1)</a></li>
+          <li><a href="/blog/blog/tags/paste-events.html">paste events (1)</a></li>
+          <li><a href="/blog/blog/tags/browser-hijacking.html">browser hijacking (1)</a></li>
+          <li><a href="/blog/blog/tags/magic.html">magic (1)</a></li>
+          <li><a href="/blog/blog/tags/glue.html">glue (1)</a></li>
+          <li><a href="/blog/blog/tags/asm.html">asm (1)</a></li>
+          <li><a href="/blog/blog/tags/loading-routes.html">loading routes (1)</a></li>
+          <li><a href="/blog/blog/tags/spinner-gif.html">spinner gif (1)</a></li>
+          <li><a href="/blog/blog/tags/tom-dale.html">tom dale (1)</a></li>
+          <li><a href="/blog/blog/tags/cron-job.html">cron job (1)</a></li>
+          <li><a href="/blog/blog/tags/digital-ocean.html">digital ocean (1)</a></li>
+          <li><a href="/blog/blog/tags/twitter-bots.html">twitter bots (1)</a></li>
+          <li><a href="/blog/blog/tags/path.html">path (1)</a></li>
+          <li><a href="/blog/blog/tags/ubuntu.html">ubuntu (1)</a></li>
+          <li><a href="/blog/blog/tags/shell-scripts.html">shell scripts (1)</a></li>
+          <li><a href="/blog/blog/tags/pasta-recipes.html">pasta recipes (1)</a></li>
+          <li><a href="/blog/blog/tags/exec.html">exec (1)</a></li>
+          <li><a href="/blog/blog/tags/kexec.html">kexec (1)</a></li>
+          <li><a href="/blog/blog/tags/open-sauce.html">open sauce (1)</a></li>
+          <li><a href="/blog/blog/tags/c.html">c (1)</a></li>
+          <li><a href="/blog/blog/tags/linkedin.html">linkedin (1)</a></li>
+          <li><a href="/blog/blog/tags/cli-tool.html">cli tool (1)</a></li>
+          <li><a href="/blog/blog/tags/pipe.html">pipe (1)</a></li>
+          <li><a href="/blog/blog/tags/yargs.html">yargs (1)</a></li>
+          <li><a href="/blog/blog/tags/cors.html">cors (1)</a></li>
+          <li><a href="/blog/blog/tags/api.html">api (1)</a></li>
+          <li><a href="/blog/blog/tags/http.html">http (1)</a></li>
+          <li><a href="/blog/blog/tags/the-rocky-mountain-brew.html">the rocky mountain brew (1)</a></li>
+          <li><a href="/blog/blog/tags/vim.html">vim (1)</a></li>
+          <li><a href="/blog/blog/tags/text-editors.html">text editors (1)</a></li>
+          <li><a href="/blog/blog/tags/life-goals.html">life goals (1)</a></li>
+          <li><a href="/blog/blog/tags/pitch.html">pitch (1)</a></li>
+          <li><a href="/blog/blog/tags/samples.html">samples (1)</a></li>
+          <li><a href="/blog/blog/tags/career-advice.html">career advice (1)</a></li>
+          <li><a href="/blog/blog/tags/poetry.html">poetry (1)</a></li>
+          <li><a href="/blog/blog/tags/literature.html">literature (1)</a></li>
+          <li><a href="/blog/blog/tags/testing.html">testing (1)</a></li>
+          <li><a href="/blog/blog/tags/close-to-the-metal.html">close to the metal (1)</a></li>
+          <li><a href="/blog/blog/tags/meta-tdd.html">meta-tdd (1)</a></li>
+          <li><a href="/blog/blog/tags/the-metal.html">the metal (1)</a></li>
+          <li><a href="/blog/blog/tags/tmux.html">tmux (1)</a></li>
+          <li><a href="/blog/blog/tags/the-future.html">the future (1)</a></li>
+          <li><a href="/blog/blog/tags/multiplexing.html">multiplexing (1)</a></li>
+          <li><a href="/blog/blog/tags/error-handling.html">error handling (1)</a></li>
+          <li><a href="/blog/blog/tags/errors.html">errors (1)</a></li>
+          <li><a href="/blog/blog/tags/problems.html">problems (1)</a></li>
+          <li><a href="/blog/blog/tags/throwing.html">throwing (1)</a></li>
+          <li><a href="/blog/blog/tags/catching.html">catching (1)</a></li>
+          <li><a href="/blog/blog/tags/human-brain-response-times.html">human brain response times (1)</a></li>
+          <li><a href="/blog/blog/tags/magic-square.html">magic square (1)</a></li>
+          <li><a href="/blog/blog/tags/midi.html">midi (1)</a></li>
+          <li><a href="/blog/blog/tags/boss-sp.html">boss sp (1)</a></li>
+          <li><a href="/blog/blog/tags/irc.html">irc (1)</a></li>
+          <li><a href="/blog/blog/tags/url.html">url (1)</a></li>
+          <li><a href="/blog/blog/tags/bot.html">bot (1)</a></li>
+          <li><a href="/blog/blog/tags/logging.html">logging (1)</a></li>
+          <li><a href="/blog/blog/tags/delicious.html">delicious (1)</a></li>
+          <li><a href="/blog/blog/tags/sound.html">sound (1)</a></li>
+          <li><a href="/blog/blog/tags/web-audio.html">web audio (1)</a></li>
+          <li><a href="/blog/blog/tags/twitter-bot.html">twitter bot (1)</a></li>
+          <li><a href="/blog/blog/tags/image-bot.html">image bot (1)</a></li>
+          <li><a href="/blog/blog/tags/weed.html">weed (1)</a></li>
+          <li><a href="/blog/blog/tags/bong.html">bong (1)</a></li>
+          <li><a href="/blog/blog/tags/satire.html">satire (1)</a></li>
+          <li><a href="/blog/blog/tags/venture-capital.html">venture capital (1)</a></li>
+          <li><a href="/blog/blog/tags/my-bong.html">my bong (1)</a></li>
+          <li><a href="/blog/blog/tags/canvas.html">canvas (1)</a></li>
+          <li><a href="/blog/blog/tags/detournement.html">detournement (1)</a></li>
+      </ol>
+    </aside>
+    <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(["_setAccount", "UA-26036675-1"]);
+  _gaq.push(["_trackPageview"]);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </body>
+</html>
