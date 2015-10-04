@@ -5,10 +5,44 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-09-25T07:09:00-07:00</updated>
+  <updated>2015-10-04T09:53:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>npm install regex</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/npm-install-regex.html"/>
+    <id>http://colewillsea.com/blog/npm-install-regex.html</id>
+    <published>2015-10-04T09:53:00-07:00</published>
+    <updated>2015-10-04T10:06:24-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;npm install regex&lt;/h1&gt;
+
+&lt;h2&gt;Never Write Another Dang Regex Again!&lt;/h2&gt;
+
+&lt;p&gt;Hello reader! At some point in your illustrious and storied programming career you probably read the following quote, and I bet you laughed about it, but also thought back to a time when it was really true for you:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Some people, when confronted with a problem, think &amp;quot;I know, I&amp;#39;ll use regular expressions.&amp;quot; Now they have two problems.&lt;/code&gt; - Jamie Zawinski&lt;/p&gt;
+
+&lt;p&gt;Never have this problem again.&lt;/p&gt;
+
+&lt;p&gt;As you might already know, I&amp;rsquo;m a pretty big fan of npm. They are literally the only tech company and/or technology that I will ever evangelize to anyone for any reason. &lt;/p&gt;
+
+&lt;p&gt;npm has like, hella packages. I would look up the number, but humans are bad at understanding scale and magnititude, so suffice it to say that it is a hella lot of packages. &lt;/p&gt;
+
+&lt;p&gt;It has recently occurred to me that buried somehwere in the npm registry is a regex for any problem that you might ever have (or, at the very least, some source code or a helper library to get you started). &lt;/p&gt;
+
+&lt;h3&gt;THIS MEANS YOU NEVER HAVE TO WRITE A REGEX AGAIN!&lt;/h3&gt;
+
+&lt;h5&gt;PARTY TIME!&lt;/h5&gt;
+
+&lt;p&gt;You can browse the full list of regex and regex-related packages on this lovely &lt;a href="https://www.npmjs.com/search?q=regex"&gt;npm search&lt;/a&gt; which as of this writing has 2190 results. It includes lovely regexes for such things as &lt;a href="https://www.npmjs.com/package/regex-email"&gt;emails&lt;/a&gt;, &lt;a href="https://www.npmjs.com/package/regex-url"&gt;urls&lt;/a&gt;, &lt;a href="https://www.npmjs.com/package/phone-regex"&gt;phone numbers&lt;/a&gt;, &lt;a href="https://www.npmjs.com/package/copyright-regex"&gt;copyright notices&lt;/a&gt;, &lt;a href="https://www.npmjs.com/package/mac-regex"&gt;MAC addresses&lt;/a&gt;, &lt;a href="https://www.npmjs.com/package/script-regex"&gt;script tags&lt;/a&gt;, &lt;a href="https://www.npmjs.com/package/emoji-regex"&gt;emoji&lt;/a&gt;, &lt;a href="https://www.npmjs.com/package/rgb-regex"&gt;RGB color codes&lt;/a&gt;, &lt;a href="https://www.npmjs.com/package/regex-classname"&gt;CSS classnames&lt;/a&gt;, and  &lt;a href="https://www.npmjs.com/package/regex-regex"&gt;regexes themselves&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Perhaps the next time you are confronted with a problem, you will think to yourself &amp;ldquo;I know, I&amp;rsquo;ll search npm!&amp;rdquo;.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Drawing Art To The Canvas With Node</title>
     <link rel="alternate" href="http://colewillsea.com/blog/drawing-art-to-the-canvas-in-node.html"/>
@@ -255,60 +289,6 @@ loadFile('./the_bird.png', function(img){
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;With a sufficient amount of regex&amp;#39;ing, one could parse the logs of these channels and create automatic Q&amp;amp;A pages. In the example above, it wouldn&amp;rsquo;t be difficult to detect that elephant is answering coledubs&amp;rsquo;s question, and by saving it somehwere this might help someone else down the line who sees an &lt;code&gt;ILLEGAL: FOO&lt;/code&gt; error.  &lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Controlling Electronic Instruments With MIDI and Clojure</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/triggering-midi-with-clojure.html"/>
-    <id>http://colewillsea.com/blog/triggering-midi-with-clojure.html</id>
-    <published>2015-08-30T06:58:00-07:00</published>
-    <updated>2015-08-31T07:20:25-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Controlling Electronic Instruments With MIDI and Clojure&lt;/h1&gt;
-
-&lt;h2&gt;Let Rich Hickey Be Your DJ&lt;/h2&gt;
-
-&lt;p&gt;Most of the time when people are trying to use MIDI in Overtone and Clojure, they just want to play an artisanal hand-coded soft-synth with a standard MIDI keyboard. And there are plenty of helper methods and &lt;a href="https://github.com/overtone/overtone/wiki/midi"&gt;some documentation&lt;/a&gt; to make this easy, but what if you want to use Clojure as a MIDI sequencer for hardware samplers and synthesizers? The same functional-programming and LISP-y principles that make Clojure effective for audio synthesis can be just as powerful when used for audio sequencing. &lt;/p&gt;
-
-&lt;p&gt;Recently I have been working on a &lt;a href="https://github.com/coleww/overtone-live-coding/blob/master/src/my_symphony/sequencer.clj"&gt;probability-based audio sequencer&lt;/a&gt;, which allows you to write music as deeply nested arrays of numbers that are then &amp;ldquo;performed&amp;rdquo; by the computer, resulting in different compositions each time. It is absolutely thrilling to create music by typing integers into emacs, I swear.&lt;/p&gt;
-
-&lt;p&gt;I could of course just have this sequencer control some of the synths that are built into Overtone, but I feel much more comfortable manipulating sounds on actual drum machines and FX pedals. Overtone has very little documentation in regards to sending MIDI signals out to control other devices, but luckily the &lt;a href="https://github.com/overtone/overtone/blob/master/src/overtone/studio/midi.clj"&gt;source code&lt;/a&gt; to the high-level Overtone MIDI module is clearly written and of a reasonable length. &lt;em&gt;Though of course had this blog post existed yesterday I would have just read this and not bothered reading the code at all&amp;hellip; ah, c&amp;#39;est la open source.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h3&gt;LETS ROLL&lt;/h3&gt;
-
-&lt;p&gt;This is what we are trying to achieve: write some sweet sequencing code that sends MIDI data to our hardware instruments, that way we can live code changes to the sequencer and manipulate FX on the instruments directly.&lt;/p&gt;
-
-&lt;blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="4" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"&gt;&lt;div style="padding:8px;"&gt; &lt;div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"&gt; &lt;div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"&gt;&lt;/div&gt;&lt;/div&gt; &lt;p style=" margin:8px 0 0 0; padding:0 4px;"&gt; &lt;a href="https://instagram.com/p/6_KhLZSaV_/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_top"&gt;Controlling drum machine and keyboard with Clojure over MIDI.&lt;/a&gt;&lt;/p&gt; &lt;p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"&gt;A video posted by coles 2 metal (@cole_dubs) on &lt;time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2015-08-30T00:11:57+00:00"&gt;Aug 29, 2015 at 5:11pm PDT&lt;/time&gt;&lt;/p&gt;&lt;/div&gt;&lt;/blockquote&gt;
-
-&lt;script async defer src="//platform.instagram.com/en_US/embeds.js"&gt;&lt;/script&gt;
-
-&lt;p&gt;First things first: open up a new .clj file and add a namespace declaration:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;  (ns midi-seq.core
-    (:require [overtone.live :refer :all]
-              [overtone.studio.midi :refer :all]))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will pull in overtone and the midi functions we need. Next connect your computer to your hardware audio device with some sort of a USB-to-MIDI cable. Make sure you do this before launching Overtone, as it will only register MIDI devices that are found on boot up.&lt;/p&gt;
-
-&lt;p&gt;Next, use &lt;code&gt;cider-jack-in&lt;/code&gt; to connect to a REPL. I use &lt;a href="https://github.com/overtone/emacs-live"&gt;emacs live&lt;/a&gt; for all my Clojure hacking, and it integrates very well with Overtone. Evaluate the namespace to load all the requires, and then if you run &lt;code&gt;(midi-connected-receivers)&lt;/code&gt; you should see your MIDI output device listed. If this function returns nothing then something went horribly wrong and I cannot help you, sorry! &lt;/p&gt;
-
-&lt;p&gt;The way you send out a midi-note is to use the function called, um, &lt;code&gt;midi-note&lt;/code&gt;, and it takes the following arguments: &lt;code&gt;receiver midi-note velocity(0-127) duration(s) channel&lt;/code&gt;, with channel being optional. You might notice that &lt;code&gt;(first (midi-connected-receivers))&lt;/code&gt; contains a key called &lt;code&gt;:receiver&lt;/code&gt; that points to some kind of MIDI output object and so you might also guess that the &lt;code&gt;midi-note&lt;/code&gt; function is expecting that as it&amp;rsquo;s receiver argument, and you would be incorrect, much like I was. It just wants that whole entire receiver object for some reason. That&amp;rsquo;s cool. &lt;/p&gt;
-
-&lt;p&gt;If we are hooked up to a synthesizer, we can play a C4 note (a.k.a. MIDI note 60) at full velocity for 1 second like so:&lt;/p&gt;
-&lt;pre class="highlight clojure"&gt;&lt;code&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;midi-note&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;first&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;midi-connected-receivers&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;60&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;127&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Hopefully you only have the one MIDI receiver connected, but if there are multiple outputs listed then you will have to figure out which one is correct through trial and error or a lucky guess. I assume that if you have multiple MIDI outputs you know what you are doing here. Cheers. &lt;/p&gt;
-
-&lt;h4&gt;A pro-tip for creative technologists:&lt;/h4&gt;
-
-&lt;p&gt;Programmers like to zero-index EVERYTHING because that is the computer science way of doing things. However, consumer audio equipment tends to number things 1-10. For example, my Boss SP-303 sampler says that it will respond to events on channel 10, but for Overtone that is actually channel 9 i.e, &lt;code&gt;(midi-note (first (midi-connected-receivers)) 96 127 1 9)&lt;/code&gt;. If you are ever trying to hook things together through some sort of integer/index/channel and nothing is working, consider the possibility that the two sides hold differing opinions on how to count to ten. &lt;/p&gt;
-
-&lt;h4&gt;WHAT ELSE CAN MY COMPUTER CONTROL?&lt;/h4&gt;
-
-&lt;p&gt;MIDI can initiate program changes, modulate effects, start, stop, and change sequences, and much more. But you will probably need to read a lot of MIDI implementation specs and the Overtone MIDI source code in order to figure out what data to send to do those things. I was trying to do something as simple as changing the selected pad bank on my Boss SP-505 and gave up after scouring the &lt;a href="http://sp-forums.com/viewtopic.php?f=7&amp;amp;t=10941&amp;amp;start=0"&gt;many&lt;/a&gt;, &lt;a href="http://forums.rolandclan.com/viewtopic.php?f=16&amp;amp;t=34352"&gt;many&lt;/a&gt;, &lt;a href="http://www.vsplanet.com/ubbthreads/ubbthreads.php?ubb=showflat&amp;amp;Number=210137"&gt;many&lt;/a&gt;, &lt;a href="https://www.gearslutz.com/board/electronic-music-instruments-electronic-music-production/783954-boss-sp-505-question.html"&gt;many&lt;/a&gt;, &lt;a href="http://www.vdrums.com/forum/advanced/technical/11801-triggering-samples-with-a-boss-sp-505-sampler"&gt;many&lt;/a&gt; unanswered threads about this subject.&lt;/p&gt;
 </content>
   </entry>
 </feed>
