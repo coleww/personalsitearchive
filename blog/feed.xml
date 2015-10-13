@@ -5,10 +5,137 @@
   <id>http://colewillsea.com/</id>
   <link href="http://colewillsea.com/"/>
   <link href="http://colewillsea.com/feed.xml" rel="self"/>
-  <updated>2015-10-04T09:53:00-07:00</updated>
+  <updated>2015-10-13T07:08:00-07:00</updated>
   <author>
     <name>Cole Willsea</name>
   </author>
+  <entry>
+    <title>what-i-made-after-xoxo</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/what-i-made-after-xoxo.html"/>
+    <id>http://colewillsea.com/blog/what-i-made-after-xoxo.html</id>
+    <published>2015-10-13T07:08:00-07:00</published>
+    <updated>2015-10-13T08:51:25-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;What I Made In The Month After XOXO&lt;/h1&gt;
+
+&lt;h3&gt;Anil Dash said we shouldn&amp;rsquo;t just tweet &amp;ldquo;I made this&amp;rdquo; when we make something, so I collected all my &amp;ldquo;I made this&amp;rdquo; tweets and made this blog post that you are reading which embeds them in the order of creation and then I tweeted &amp;ldquo;I made this&amp;rdquo; with a link to this blog post itself and edited it in too.&lt;/h3&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://t.co/l2a73RtOYC"&gt;https://t.co/l2a73RtOYC&lt;/a&gt; just published a lil web component for picking a tonic/scale. a fork of &lt;a href="https://twitter.com/supersole"&gt;@supersole&lt;/a&gt; &amp;rsquo;s transport component 🎼:D&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/643799424007860224"&gt;September 15, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;made a node module that checks if a string ends with . or ? or ! and adds a ender to it if it doesn&amp;rsquo;t &lt;a href="https://t.co/I7DNnIoe3E"&gt;https://t.co/I7DNnIoe3E&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/botALLY?src=hash"&gt;#botALLY&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/644148846738702337"&gt;September 16, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;a blogotron about pushing web audio synthesizers to npm &lt;a href="http://t.co/Q1jhqGLE45"&gt;http://t.co/Q1jhqGLE45&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/644217448707657728"&gt;September 16, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;made a new bot &lt;a href="https://twitter.com/_WE_GET_IT_BRO_"&gt;@_WE_GET_IT_BRO_&lt;/a&gt; and recorded my screen while i was doing it &lt;a href="https://t.co/pLAGpA6zCP"&gt;https://t.co/pLAGpA6zCP&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/645275064699478016"&gt;September 19, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;kinda surprised no one had this twitter handle yet &lt;a href="https://twitter.com/horse_js"&gt;@horse_js&lt;/a&gt; &lt;a href="https://twitter.com/horse_js_ebooks"&gt;@horse_js_ebooks&lt;/a&gt; &lt;a href="https://t.co/ZrJrm4grom"&gt;https://t.co/ZrJrm4grom&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/645283166500974592"&gt;September 19, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;published some node modules based on &lt;a href="https://twitter.com/leonardr"&gt;@leonardr&lt;/a&gt; s Queneau Assembly &lt;a href="http://t.co/VReI25vnSn"&gt;http://t.co/VReI25vnSn&lt;/a&gt; &lt;a href="https://t.co/2DYoj0Grhc"&gt;https://t.co/2DYoj0Grhc&lt;/a&gt; &lt;a href="https://t.co/ZQQbL8nvBZ"&gt;https://t.co/ZQQbL8nvBZ&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/645637416171077632"&gt;September 20, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;made this homage to Suzanne Duchamp a long time ago and forgot to tell anyone &lt;a href="http://t.co/S6kL8G544K"&gt;http://t.co/S6kL8G544K&lt;/a&gt; its buggy, but thats dada!&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/646318817480540162"&gt;September 22, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;made a GH org for my web audio stuff: &lt;a href="http://t.co/2AE6dbF8XV"&gt;http://t.co/2AE6dbF8XV&lt;/a&gt; &amp;#10;&amp;#10;Wham.js: Web syntH Audio Modules &lt;a href="http://t.co/AcOeGwpZ2M"&gt;pic.twitter.com/AcOeGwpZ2M&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/646369883060486144"&gt;September 22, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://t.co/whOIkFwzxO"&gt;https://t.co/whOIkFwzxO&lt;/a&gt; `npm install ebooks` for that sweet 1 line _ebooks bot experience &lt;a href="https://twitter.com/hashtag/botALLY?src=hash"&gt;#botALLY&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/646677378031329280"&gt;September 23, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;made a JavaScript soundboard for yr next mixtape &lt;a href="http://t.co/kOmQOc7fDp"&gt;http://t.co/kOmQOc7fDp&lt;/a&gt; thx for the codez &lt;a href="https://twitter.com/jm3"&gt;@jm3&lt;/a&gt; &lt;a href="http://t.co/ivwPolpq19"&gt;pic.twitter.com/ivwPolpq19&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/646702088223879168"&gt;September 23, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i made a bot that allows me to programmatically give the bird to things. &lt;a href="https://t.co/RNtYOQrKF4"&gt;https://t.co/RNtYOQrKF4&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/647048550723923968"&gt;September 24, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;wrote some words before and after a code snippet that shows how to draw images to a canvas in node &lt;a href="http://t.co/lVYn2gAJgZ"&gt;http://t.co/lVYn2gAJgZ&lt;/a&gt; cc &lt;a href="https://twitter.com/deathmtn"&gt;@deathmtn&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/647433040365424640"&gt;September 25, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;dolphinpunk &lt;a href="http://t.co/G9uIAYFGLR"&gt;http://t.co/G9uIAYFGLR&lt;/a&gt; &lt;a href="http://t.co/OzNuqsauBq"&gt;pic.twitter.com/OzNuqsauBq&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648178731375271936"&gt;September 27, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;# everyAchewood on freenode&amp;#10;&amp;#10;gonna read through each strip, 1/day&amp;#10;&amp;#10;it&amp;rsquo;s gonna be a party&amp;#10;&amp;#10;task complete: ~2020 &lt;a href="http://t.co/WxLPQq309w"&gt;pic.twitter.com/WxLPQq309w&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648492977082372096"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;thought about a bot that would narcissistically post my stuff, but then I realized that&amp;rsquo;s my main account already &lt;a href="https://t.co/8FTQEp0Prs"&gt;https://t.co/8FTQEp0Prs&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648529060289646592"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Olivia Pope bot makes statements in support of her client during the day, and says hi to Fitz at night. &lt;a href="https://twitter.com/liv_bot"&gt;@liv_bot&lt;/a&gt; &lt;a href="http://t.co/y7ELRyEWHs"&gt;pic.twitter.com/y7ELRyEWHs&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648538165196685312"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Fitzgerald Grant bot spews empty platitudes about America during the day, and says hi to Olivia at night. &lt;a href="https://twitter.com/fitz_bot"&gt;@fitz_bot&lt;/a&gt; &lt;a href="http://t.co/uoGcfDOUkx"&gt;pic.twitter.com/uoGcfDOUkx&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648538673147834368"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/hashtag/wowwwnetwork?src=hash"&gt;#wowwwnetwork&lt;/a&gt; if u follow &lt;a href="https://twitter.com/wowwwIDK"&gt;@wowwwIDK&lt;/a&gt; it might respond to a tweet containing a &amp;ldquo;?&amp;rdquo; with &amp;lsquo;wow, idk&amp;rsquo; &lt;a href="http://t.co/hjrg7IjVVH"&gt;pic.twitter.com/hjrg7IjVVH&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648539194415906817"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/hashtag/wowwwnetwork?src=hash"&gt;#wowwwnetwork&lt;/a&gt; if u follow &lt;a href="https://twitter.com/wowwwCoolStory"&gt;@wowwwCoolStory&lt;/a&gt; it might reply to yr tweet that contains a lot of &amp;ldquo;I Me My&amp;rdquo; words with &amp;ldquo;wow, cool story&amp;rdquo;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648539687234088960"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/hashtag/wowwwnetwork?src=hash"&gt;#wowwwnetwork&lt;/a&gt; if u follow &lt;a href="https://twitter.com/wowwwgosh"&gt;@wowwwgosh&lt;/a&gt; it will run yr tweets through sentiment analysis and reply &amp;#39;wow, gosh&amp;rsquo; to ones that are super positive&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648540192547012608"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/hashtag/wowwwnetwork?src=hash"&gt;#wowwwnetwork&lt;/a&gt; if u follow &lt;a href="https://twitter.com/wowwwFriends"&gt;@wowwwFriends&lt;/a&gt; it will run yr tweets through a bayes filter and sometimes tell you which &amp;ldquo;Friend&amp;rdquo; it thinks you are&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648540705116127232"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;and last but not least, &lt;a href="https://twitter.com/coledubs_ebooks"&gt;@coledubs_ebooks&lt;/a&gt; is live and will sometimes respond if you tweet at it. &amp;#10;&amp;lt;3 bots &amp;lt;3&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648541186886492160"&gt;September 28, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;my new robot friend &lt;a href="https://twitter.com/SFemojiBLAST"&gt;@SFemojiBLAST&lt;/a&gt; listens to tweets from the bay area, extracts emojis, and tweets them in batches &lt;a href="https://t.co/OGuhnmItR9"&gt;https://t.co/OGuhnmItR9&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/648878814055890944"&gt;September 29, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;wrote a sweet script to transfer all my bot follow-ships over to &lt;a href="https://twitter.com/ColeLovesBots"&gt;@ColeLovesBots&lt;/a&gt; so that i can focus on engaging with brands and meat robots&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/649206831747874816"&gt;September 30, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;apparently i was following 251 twitter bots O_O hope my main TL is more deal-with-able now &lt;a href="https://twitter.com/ColeLovesBots"&gt;@ColeLovesBots&lt;/a&gt; &lt;a href="http://t.co/1UGArHXlVD"&gt;pic.twitter.com/1UGArHXlVD&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/649217267562074114"&gt;September 30, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;. &lt;a href="https://twitter.com/wowwwAwesome"&gt;@wowwwAwesome&lt;/a&gt; replies with encouragement if it thinks yr tweeting about the release of a project or eating burritos &lt;a href="http://t.co/s3tC9iysp1"&gt;pic.twitter.com/s3tC9iysp1&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/649608482438541312"&gt;October 1, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;my 60th (!) bot is my first &amp;ldquo;seasonal bot&amp;rdquo;: &lt;a href="https://twitter.com/SpooooooookyBot"&gt;@SpooooooookyBot&lt;/a&gt; will update it&amp;rsquo;s avatar/DN throughout the month with something scary!&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/649953877563826176"&gt;October 2, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;follow &lt;a href="https://twitter.com/wowwwAwesome"&gt;@wowwwAwesome&lt;/a&gt; &amp;amp; it will reply to yr project announcement tweets with lots of encouragement! &lt;a href="https://t.co/THyzwZjool"&gt;https://t.co/THyzwZjool&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/650026136898932737"&gt;October 2, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i made a bot that tries to do a &amp;ldquo;Jay-Z&amp;rsquo;s verse from Monster&amp;rdquo; for other topics. &lt;a href="https://t.co/uXeVOXR9Me"&gt;https://t.co/uXeVOXR9Me&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/650293561171116032"&gt;October 3, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;uh so when i went to get the API keys for this someone had already made an app called &amp;ldquo;spooky alvin lucier&amp;rdquo; O_O 👻 &lt;a href="https://t.co/GonvjRQtSy"&gt;https://t.co/GonvjRQtSy&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/650335695530147841"&gt;October 3, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i was alarmed to find that spooky every word didn&amp;rsquo;t exist, so i took a few minutes to make it, and now i feel better &lt;a href="https://t.co/kCpxSsQWJZ"&gt;https://t.co/kCpxSsQWJZ&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/650785173240328192"&gt;October 4, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" data-conversation="none" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i also made a template for node everyword&amp;rsquo;s &lt;a href="https://t.co/KEvr0I6Pbw"&gt;https://t.co/KEvr0I6Pbw&lt;/a&gt; now everyone knows my crude &amp;ldquo;save the last used index to a file&amp;rdquo; hack&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/650786068355117056"&gt;October 4, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;2 new SUPER spooky bots: &amp;#10;&lt;a href="https://twitter.com/facciaBook"&gt;@facciaBook&lt;/a&gt; makes social media notifications and &amp;#10;&lt;a href="https://twitter.com/goggleEmployee"&gt;@goggleEmployee&lt;/a&gt; is just really excited about stuff at goggle.&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/651037208095232000"&gt;October 5, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i made &lt;a href="https://twitter.com/TVCBCommentBot"&gt;@TVCBCommentBot&lt;/a&gt; which occasionally comments on things that &lt;a href="https://twitter.com/TVCommentBot"&gt;@TVCommentBot&lt;/a&gt; comments on📺🔭&amp;#10;all 👏 to &lt;a href="https://twitter.com/DavidLublin"&gt;@DavidLublin&lt;/a&gt; &lt;a href="https://t.co/97PuWXkkWK"&gt;https://t.co/97PuWXkkWK&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/651776837996122113"&gt;October 7, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="in" dir="ltr"&gt;Karaoke selfie &lt;a href="https://twitter.com/hashtag/wafflejs?src=hash"&gt;#wafflejs&lt;/a&gt; &lt;a href="http://t.co/QJUJkGukYR"&gt;pic.twitter.com/QJUJkGukYR&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/651950186495762432"&gt;October 8, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i made &lt;a href="https://twitter.com/bot_2_boy"&gt;@bot_2_boy&lt;/a&gt; and a npm for doing x2y bots in 1 line: &lt;a href="https://t.co/aCG5tVNdK7"&gt;https://t.co/aCG5tVNdK7&lt;/a&gt; &amp;#10;&amp;#10;s/o 2 &lt;a href="https://twitter.com/rainshapes"&gt;@rainshapes&lt;/a&gt; cc: &lt;a href="https://twitter.com/boy2bot"&gt;@boy2bot&lt;/a&gt; &lt;a href="http://t.co/LMit4uljgP"&gt;pic.twitter.com/LMit4uljgP&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652152868527411200"&gt;October 8, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;hi &lt;a href="https://twitter.com/hashtag/wafflejs?src=hash"&gt;#wafflejs&lt;/a&gt; &amp;#10;if u liked waffle_ebooks: &amp;#10;&amp;#10;app: &lt;a href="http://t.co/1fewzIOJyf"&gt;http://t.co/1fewzIOJyf&lt;/a&gt;&amp;#10; &amp;#10;slides: &lt;a href="http://t.co/vvnCJJZger"&gt;http://t.co/vvnCJJZger&lt;/a&gt; &amp;#10;&amp;#10;source: &lt;a href="https://t.co/06fPoWBaMG"&gt;https://t.co/06fPoWBaMG&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652164821283028992"&gt;October 8, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i made a chrome extension that replaces adjectives with &amp;ldquo;spooky&amp;rdquo; &lt;a href="https://t.co/kz5gNYdLb6"&gt;https://t.co/kz5gNYdLb6&lt;/a&gt; &lt;a href="http://t.co/WLfwVRDWHj"&gt;pic.twitter.com/WLfwVRDWHj&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652508520592478209"&gt;October 9, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i made another silly joke making thing &lt;a href="https://twitter.com/everyAndChill"&gt;@everyAndChill&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652537977638260740"&gt;October 9, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i open sauced watchful-protector, my module for making quick &lt;a href="https://twitter.com/hashtag/wowwwnetwork?src=hash"&gt;#wowwwnetwork&lt;/a&gt; style bots &lt;a href="http://t.co/wtT2OLf3Es"&gt;http://t.co/wtT2OLf3Es&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652849493390442496"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;oh and some more modules for manipulating tweet objects in various and sundry ways &lt;a href="https://t.co/ZPTbMxzFiG"&gt;https://t.co/ZPTbMxzFiG&lt;/a&gt; &lt;a href="https://t.co/W7q2Vah3u3"&gt;https://t.co/W7q2Vah3u3&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652850187543560192"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;apparently i never made a tweet that said &amp;ldquo;I made &lt;a href="https://twitter.com/verbersGonaVerb"&gt;@verbersGonaVerb&lt;/a&gt; because &amp;#39;Shake It Off&amp;rsquo; is a perfect composition&amp;rdquo; &lt;a href="https://t.co/PXfMQT9UvK"&gt;https://t.co/PXfMQT9UvK&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652851429472768000"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;text-to-gitfiti config. for commit graph vandalists.&amp;#10;npm: &lt;a href="https://t.co/KcWv61rEA2"&gt;https://t.co/KcWv61rEA2&lt;/a&gt; &amp;#10;web app: &lt;a href="http://t.co/dpkvxUzmwE"&gt;http://t.co/dpkvxUzmwE&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652851863667146753"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Some queneau-assembly bots that I made a while ago and apparently never tooted off about: &lt;a href="https://twitter.com/BBCRADIO1MIX420"&gt;@BBCRADIO1MIX420&lt;/a&gt; &lt;a href="https://twitter.com/jrSommelierBot"&gt;@jrSommelierBot&lt;/a&gt; &lt;a href="https://twitter.com/HottestNewWeeds"&gt;@HottestNewWeeds&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652854555990888448"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;ho-ho-holy crap realized i&amp;rsquo;d been using iscool incorrectly, which explained some things about my bots, so i made &lt;a href="https://t.co/sxkG3NTKn0"&gt;https://t.co/sxkG3NTKn0&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652874079926550528"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;um so i made `every &amp;ldquo;every {adjective} word&amp;rdquo;` which is technically a bot that generates new bot ideas cc: &lt;a href="https://twitter.com/potch"&gt;@potch&lt;/a&gt; &lt;a href="https://t.co/70QmisxT3p"&gt;https://t.co/70QmisxT3p&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652881737240805376"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/steveklabnik"&gt;@steveklabnik&lt;/a&gt; i liked this tweet so much i turned it into a twitter bot &lt;a href="https://twitter.com/GgleEvryThng"&gt;@GgleEvryThng&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652897158849363968"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;2:30 on a saturday seems like a good time to announce my &amp;ldquo;weirdly-specific-corpora&amp;rdquo; fork. &amp;#10;any &amp;amp; all lists accepted&amp;#10;&lt;a href="https://t.co/8ZxsaMshDF"&gt;https://t.co/8ZxsaMshDF&lt;/a&gt;&lt;/p&gt;&amp;mdash; IMPERATOR SPOOKYOSA (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/652961275341705216"&gt;October 10, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;continuing in this weeks theme of juvenile everyword clones, i present unto the world &lt;a href="https://twitter.com/everyVapeJuice"&gt;@everyVapeJuice&lt;/a&gt; &lt;a href="https://t.co/KOrEVhqq5D"&gt;https://t.co/KOrEVhqq5D&lt;/a&gt;&lt;/p&gt;&amp;mdash; SPOOKYCOLEDUBS (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/653202323838210048"&gt;October 11, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;i made another totally juvenile twitter bot that will tweet once an hour for the next 10 years or so 🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳 &lt;a href="https://t.co/AE8xXBBey7"&gt;https://t.co/AE8xXBBey7&lt;/a&gt;&lt;/p&gt;&amp;mdash; SpookySmoothFt.RobTh (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/653581732461961216"&gt;October 12, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;this bot is both an everyWord clone and a &lt;a href="https://twitter.com/hashtag/wowwwnetwork?src=hash"&gt;#wowwwnetwork&lt;/a&gt; &amp;#10;&amp;#10; &lt;a href="https://t.co/unhgcpzgOw"&gt;https://t.co/unhgcpzgOw&lt;/a&gt;&lt;/p&gt;&amp;mdash; SpookySmoothFt.RobTh (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/653598299342008320"&gt;October 12, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;I painted my favorite neko atsume cat. &amp;#10;I named them Cheeky P. &amp;#10;=^.^= &lt;a href="http://t.co/9AJvBtUYIP"&gt;pic.twitter.com/9AJvBtUYIP&lt;/a&gt;&lt;/p&gt;&amp;mdash; SpookySmoothFt.RobTh (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/653961144973983744"&gt;October 13, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;/center&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>npm install regex</title>
     <link rel="alternate" href="http://colewillsea.com/blog/npm-install-regex.html"/>
@@ -253,42 +380,6 @@ loadFile('./the_bird.png', function(img){
 &lt;hr&gt;
 
 &lt;p&gt;&lt;a href="openmusic"&gt;https://github.com/openmusic&lt;/a&gt; also provides a collection of very useful audioNodes and web components. Most of my synths include at least one openmusic module, and I find the sample player and oscillator to be indispensable for doing audio work on the web. &lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Logging URLS from IRC to Delicious with Node</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/node-irc-url-logger.html"/>
-    <id>http://colewillsea.com/blog/node-irc-url-logger.html</id>
-    <published>2015-09-08T15:10:00-07:00</published>
-    <updated>2015-09-08T15:27:08-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Logging URLS from IRC to Delicious with Node&lt;/h1&gt;
-
-&lt;h2&gt;Oh you know just plugging some APIs together&lt;/h2&gt;
-
-&lt;p&gt;Like most people, I participate in secret societies through hidden IRC channels. The conversations that take place in these circles are bound by blood, however as the US government has proven it is not actually &amp;ldquo;spying&amp;rdquo; if all you do is collect &amp;ldquo;metadata&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;In this instance, the &amp;ldquo;metadata&amp;rdquo; I am after is any and all URLs that get posted in one of these esoteric chatrooms. Even if I can&amp;rsquo;t keep up on the day to day message logs, I can still peruse the links that others have shared. After all, that is why we are on the internet of course. To hyperlink.&lt;/p&gt;
-
-&lt;p&gt;To that end I wrote a simple node.js bot that sits in some IRC channels, scans any messages it sees for URLs, and posts any that it finds to a Delicious account. &lt;/p&gt;
-
-&lt;p&gt;The source code is as follows:&lt;/p&gt;
-
-&lt;script src="https://gist.github.com/coleww/a9f82ba7f37504bae368.js"&gt;&lt;/script&gt;
-
-&lt;p&gt;You could, for example, have it join every IRC channel about Ember and make a page that is all about what is going on in Ember. That might be cool.&lt;/p&gt;
-
-&lt;p&gt;I picked Delicious because it was the first link I recognized when I searched for &amp;ldquo;bookmark site API&amp;rdquo;, you could in theory have this script post links anywhere you want. It must be noted that I am using &lt;code&gt;childProcess.exec&lt;/code&gt; here to call a CLI tool out of sheer laziness: I am sure there is a &lt;code&gt;require&lt;/code&gt;-able Delicious API wrapper module out there somewhere.&lt;/p&gt;
-
-&lt;p&gt;While making this I was thinking about certain programming language channels where people will often ask for help with bugs. For example:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;&amp;gt; coledubs: what is up with this error "ILLEGAL: FOO"
-&amp;gt; derbyshire: wow that sounded awful 
-&amp;gt; elephant: coledubs - do a nom bom, that should fix it
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With a sufficient amount of regex&amp;#39;ing, one could parse the logs of these channels and create automatic Q&amp;amp;A pages. In the example above, it wouldn&amp;rsquo;t be difficult to detect that elephant is answering coledubs&amp;rsquo;s question, and by saving it somehwere this might help someone else down the line who sees an &lt;code&gt;ILLEGAL: FOO&lt;/code&gt; error.  &lt;/p&gt;
 </content>
   </entry>
 </feed>
