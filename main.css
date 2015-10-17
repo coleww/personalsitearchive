@@ -1,6 +1,21 @@
-li {
-     margin-bottom: 2px;
+a {
+     font-size: 25px;
 }
+li {
+     margin-bottom: 5px;
+     font-size: 20px;
+}
+
+li a {
+     font-size: 30px;
+}
+
+
+
+
+
+
+
 .rcube {
    background-color: rgba (0, 0, 0, 0.75);
   margin: 20px;
