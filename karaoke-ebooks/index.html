@@ -8,11 +8,10 @@
   </head>
   <body>
 
-    <iframe id="frame" width="100%" height="100%" class="super-center" src="" frameborder="0" allowfullscreen></iframe>
+    <img id="frame" class="super-center" src=""></img>
     <script>
-      var i = ~~(Math.random() * 15)
-      var x = "https://www.youtube.com/embed/videoseries?list=PLHmnoNuQkYYMkD2IXVymi8e_1Y2tIVuSo&autoplay=1&index=" + i
-      document.getElementById("frame").src = x
+      var i = ~~(Math.random() * 4)
+      document.getElementById("frame").src = i + '.gif'
     </script>
 
     <div id="main" class="super-simple layover" >
