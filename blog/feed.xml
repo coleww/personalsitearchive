@@ -10,17 +10,21 @@
     <name>Cole Willsea</name>
   </author>
   <entry>
-    <title>What I Made In The Month After XOXO</title>
+    <title>what-i-made-after-xoxo</title>
     <link rel="alternate" href="http://colewillsea.com/blog/what-i-made-after-xoxo.html"/>
     <id>http://colewillsea.com/blog/what-i-made-after-xoxo.html</id>
     <published>2015-10-13T07:08:00-07:00</published>
-    <updated>2015-10-13T09:01:00-07:00</updated>
+    <updated>2016-08-31T12:34:23-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
     <content type="html">&lt;h1&gt;What I Made In The Month After XOXO&lt;/h1&gt;
 
-&lt;h3&gt;Anil Dash said we shouldn&amp;rsquo;t just tweet &amp;ldquo;I made this&amp;rdquo; when we make something, so I collected all my &amp;ldquo;I made this&amp;rdquo; tweets and made this blog post that you are reading which embeds them in the order of creation and then I tweeted &amp;ldquo;I made this&amp;rdquo; with a link to this blog post itself and edited it in too.&lt;/h3&gt;
+&lt;h2&gt;Anil Dash said we shouldn&amp;rsquo;t just tweet &amp;ldquo;I made this&amp;rdquo; so I collected all my &amp;ldquo;I made this tweets&amp;rdquo; and made a blog post that embeds them in order and then I tweeted &amp;ldquo;I wrote this&amp;rdquo; with a link to this blog post.&lt;/h2&gt;
+
+&lt;!-- 49 --&gt;
+
+&lt;!-- 1.6333333333333333 a day--&gt;
 
 &lt;p&gt;&lt;center&gt;&lt;/p&gt;
 
@@ -126,9 +130,9 @@
 
 &lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;this bot is both an everyWord clone and a &lt;a href="https://twitter.com/hashtag/wowwwnetwork?src=hash"&gt;#wowwwnetwork&lt;/a&gt; &amp;#10;&amp;#10; &lt;a href="https://t.co/unhgcpzgOw"&gt;https://t.co/unhgcpzgOw&lt;/a&gt;&lt;/p&gt;&amp;mdash; SpookySmoothFt.RobTh (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/653598299342008320"&gt;October 12, 2015&lt;/a&gt;&lt;/blockquote&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;I painted my favorite neko atsume cat. &amp;#10;I named them Cheeky P. &amp;#10;=^.^= &lt;a href="http://t.co/9AJvBtUYIP"&gt;pic.twitter.com/9AJvBtUYIP&lt;/a&gt;&lt;/p&gt;&amp;mdash; SpookySmoothFt.RobTh (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/653961144973983744"&gt;October 13, 2015&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;at xoxo &lt;a href="https://twitter.com/anildash"&gt;@anildash&lt;/a&gt; said we should do more than tweet &amp;ldquo;i made this&amp;rdquo;, so here are 30 days of my &amp;ldquo;i made this&amp;rdquo; tweets &lt;a href="http://t.co/8Oy137Zsi4"&gt;http://t.co/8Oy137Zsi4&lt;/a&gt;&lt;/p&gt;&amp;mdash; SpookySmoothFt.RobTh (@colewillsea) &lt;a href="https://twitter.com/colewillsea/status/653963526587879424"&gt;October 13, 2015&lt;/a&gt;&lt;/blockquote&gt;
+&lt;!-- THIS BLOG POST --&gt;
 
 &lt;p&gt;&lt;/center&gt;
 &lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;/p&gt;
@@ -139,7 +143,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/npm-install-regex.html"/>
     <id>http://colewillsea.com/blog/npm-install-regex.html</id>
     <published>2015-10-04T09:53:00-07:00</published>
-    <updated>2015-10-04T10:09:30-07:00</updated>
+    <updated>2016-08-31T12:34:23-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -173,7 +177,7 @@
     <link rel="alternate" href="http://colewillsea.com/blog/drawing-art-to-the-canvas-in-node.html"/>
     <id>http://colewillsea.com/blog/drawing-art-to-the-canvas-in-node.html</id>
     <published>2015-09-25T07:09:00-07:00</published>
-    <updated>2015-09-25T08:31:33-07:00</updated>
+    <updated>2016-08-31T12:34:23-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -252,39 +256,11 @@ loadFile('./the_bird.png', function(img){
 </content>
   </entry>
   <entry>
-    <title>After A Lot Of Thought, I Have Decided To Shut Down My VC Backed Bong</title>
-    <link rel="alternate" href="http://colewillsea.com/blog/after-a-lot-of-thought-i-have-decided-to-shutdown-my-bong.html"/>
-    <id>http://colewillsea.com/blog/after-a-lot-of-thought-i-have-decided-to-shutdown-my-bong.html</id>
-    <published>2015-09-23T05:44:00-07:00</published>
-    <updated>2015-09-23T05:55:18-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;After A Lot Of Thought, I Have Decided To Shut Down My VC Backed Bong&lt;/h1&gt;
-
-&lt;h2&gt;From Seed Round to Seeds and Stems&lt;/h2&gt;
-
-&lt;p&gt;After a lot of thought and consultation with our board, I’ve decided to shut down my bong.&lt;/p&gt;
-
-&lt;p&gt;This has been the hardest decision of my life and one that saddens me deeply. Unfortunately, my bong does not represent the vision I had when starting the company, so I believe it’s the right decision for myself, our investors and our team.&lt;/p&gt;
-
-&lt;p&gt;I’m extremely proud of our team, which has built a bong that was used by over 15 million people and pushed the boundaries of traditional water pipes. I believe in honest, open communication and creative expression, and marijuana is a great device to achieve it. But it’s also the ultimate double-edged sword, which must be wielded with great respect and care. I look forward to seeing what others in this space do over time.&lt;/p&gt;
-
-&lt;p&gt;I will spend the next couple of weeks doing what I believe is right to wind down my bong gracefully. While a majority of the team has already moved on to other exciting opportunities, I will dedicate most of my time to helping the core team find their next roles. We curated one of the most amazingly talented teams I’ve ever had the privilege of working with and I am certain each of them will go on to do great work at the very lucky companies that are able to hire them.&lt;/p&gt;
-
-&lt;p&gt;My bong, Inc. still has a significant amount of invested capital, but our investors funded the team and the product, and I believe the right thing to do is to return the money rather than attempt to pivot. Innovation requires failure, and I believe in failing fast in order to go on and make only new and different mistakes.&lt;/p&gt;
-
-&lt;p&gt;Over time, I plan to publish postmortems so that others can learn from the unique mistakes and challenges we faced and the wisdom gained from such an incredible 16 months.&lt;/p&gt;
-
-&lt;p&gt;Thank you to everyone who supported us over the past year. What an incredible journey.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
     <title>Making an Image Bot on Twitter</title>
     <link rel="alternate" href="http://colewillsea.com/blog/making-an-twitter-image-bot.html"/>
     <id>http://colewillsea.com/blog/making-an-twitter-image-bot.html</id>
     <published>2015-09-22T07:30:00-07:00</published>
-    <updated>2015-09-22T07:35:35-07:00</updated>
+    <updated>2016-08-31T12:34:23-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -307,7 +283,7 @@ loadFile('./the_bird.png', function(img){
     <link rel="alternate" href="http://colewillsea.com/blog/publishing-synthesizers-to-npm.html"/>
     <id>http://colewillsea.com/blog/publishing-synthesizers-to-npm.html</id>
     <published>2015-09-16T08:18:00-07:00</published>
-    <updated>2015-09-16T08:31:37-07:00</updated>
+    <updated>2016-08-31T12:34:23-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -378,6 +354,42 @@ loadFile('./the_bird.png', function(img){
 &lt;hr&gt;
 
 &lt;p&gt;&lt;a href="openmusic"&gt;https://github.com/openmusic&lt;/a&gt; also provides a collection of very useful audioNodes and web components. Most of my synths include at least one openmusic module, and I find the sample player and oscillator to be indispensable for doing audio work on the web. &lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Logging URLS from IRC to Delicious with Node</title>
+    <link rel="alternate" href="http://colewillsea.com/blog/node-irc-url-logger.html"/>
+    <id>http://colewillsea.com/blog/node-irc-url-logger.html</id>
+    <published>2015-09-08T15:10:00-07:00</published>
+    <updated>2016-08-31T12:34:23-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Logging URLS from IRC to Delicious with Node&lt;/h1&gt;
+
+&lt;h2&gt;Oh you know just plugging some APIs together&lt;/h2&gt;
+
+&lt;p&gt;Like most people, I participate in secret societies through hidden IRC channels. The conversations that take place in these circles are bound by blood, however as the US government has proven it is not actually &amp;ldquo;spying&amp;rdquo; if all you do is collect &amp;ldquo;metadata&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;In this instance, the &amp;ldquo;metadata&amp;rdquo; I am after is any and all URLs that get posted in one of these esoteric chatrooms. Even if I can&amp;rsquo;t keep up on the day to day message logs, I can still peruse the links that others have shared. After all, that is why we are on the internet of course. To hyperlink.&lt;/p&gt;
+
+&lt;p&gt;To that end I wrote a simple node.js bot that sits in some IRC channels, scans any messages it sees for URLs, and posts any that it finds to a Delicious account. &lt;/p&gt;
+
+&lt;p&gt;The source code is as follows:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/coleww/a9f82ba7f37504bae368.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;You could, for example, have it join every IRC channel about Ember and make a page that is all about what is going on in Ember. That might be cool.&lt;/p&gt;
+
+&lt;p&gt;I picked Delicious because it was the first link I recognized when I searched for &amp;ldquo;bookmark site API&amp;rdquo;, you could in theory have this script post links anywhere you want. It must be noted that I am using &lt;code&gt;childProcess.exec&lt;/code&gt; here to call a CLI tool out of sheer laziness: I am sure there is a &lt;code&gt;require&lt;/code&gt;-able Delicious API wrapper module out there somewhere.&lt;/p&gt;
+
+&lt;p&gt;While making this I was thinking about certain programming language channels where people will often ask for help with bugs. For example:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;&amp;gt; coledubs: what is up with this error "ILLEGAL: FOO"
+&amp;gt; derbyshire: wow that sounded awful 
+&amp;gt; elephant: coledubs - do a nom bom, that should fix it
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With a sufficient amount of regex&amp;#39;ing, one could parse the logs of these channels and create automatic Q&amp;amp;A pages. In the example above, it wouldn&amp;rsquo;t be difficult to detect that elephant is answering coledubs&amp;rsquo;s question, and by saving it somehwere this might help someone else down the line who sees an &lt;code&gt;ILLEGAL: FOO&lt;/code&gt; error.  &lt;/p&gt;
 </content>
   </entry>
 </feed>
